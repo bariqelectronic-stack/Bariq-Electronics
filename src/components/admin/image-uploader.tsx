@@ -21,8 +21,25 @@ export function ImageUploader({ initialImages = [], name = "images" }: ImageUplo
     const fd = new FormData();
     fd.append("file", file);
     const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
-    const data = await res.json() as { url?: string; error?: string };
-    if (!res.ok || !data.url) throw new Error(data.error ?? "Upload failed");
+
+    // Guard: parse JSON only if the server actually sent JSON.
+    // An empty body (empty 500 from an unhandled server exception) would otherwise
+    // throw "Unexpected end of JSON input" and hide the real error.
+    const contentType = res.headers.get("content-type") ?? "";
+    if (!contentType.includes("application/json")) {
+      throw new Error(`Upload failed (HTTP ${res.status})`);
+    }
+
+    let data: { success?: boolean; url?: string; error?: string };
+    try {
+      data = await res.json() as typeof data;
+    } catch {
+      throw new Error(`Upload failed (HTTP ${res.status})`);
+    }
+
+    if (!res.ok || !data.url) {
+      throw new Error(data.error ?? `Upload failed (HTTP ${res.status})`);
+    }
     return data.url;
   }
 
