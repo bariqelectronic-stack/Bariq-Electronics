@@ -2,7 +2,6 @@ import { Hero } from "@/components/home/hero";
 import { TrustBar } from "@/components/home/trust-bar";
 import { CategoryGrid } from "@/components/home/category-grid";
 import { FeaturedProducts } from "@/components/home/featured-products";
-import { MicroscopeSection } from "@/components/home/microscope-section";
 import { SolutionsSection } from "@/components/home/solutions-section";
 import { WhyBariq } from "@/components/home/why-bariq";
 import { WholesaleCta } from "@/components/home/wholesale-cta";
@@ -15,8 +14,7 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <CategoryGrid />
-      <FeaturedProducts />
-      <MicroscopeSection />
+            <FeaturedProducts />
       <SolutionsSection />
       <WhyBariq />
       <WholesaleCta />

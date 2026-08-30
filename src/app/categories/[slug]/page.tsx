@@ -6,6 +6,8 @@ import { ProductCard } from "@/components/shop/product-card";
 import { Badge } from "@/components/ui/badge";
 import { getProductsByCategory } from "@/lib/demo-products";
 import { db } from "@/db";
+import { CategoryFeatureSection } from "@/components/category/category-feature-section";
+import { CATEGORY_CONTENT } from "@/lib/category-content";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
@@ -57,6 +59,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
       </div>
+
+      {CATEGORY_CONTENT[slug] && (
+        <CategoryFeatureSection content={CATEGORY_CONTENT[slug]} slug={slug} />
+      )}
 
       <div className="container-site py-8">
         <div className="flex items-center justify-between mb-6">
