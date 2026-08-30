@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ── Storage configuration ─────────────────────────────────────────────────
-    const supabaseUrl = (process.env.SUPABASE_URL ?? "").replace(/\/$/, ""); // strip trailing slash
+    const supabaseUrl = (process.env.SUPABASE_URL ?? "").replace(/\/$/, "");
     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!supabaseUrl || !serviceRoleKey) {
       console.error("[upload] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
@@ -34,14 +34,14 @@ export async function POST(request: NextRequest) {
     try {
       const parsed = new URL(supabaseUrl);
       if (parsed.protocol !== "https:") {
-        console.error("[upload] SUPABASE_URL has wrong protocol:", parsed.protocol);
+        console.error("[upload] SUPABASE_URL wrong protocol:", parsed.protocol);
         return NextResponse.json(
           { success: false, error: `Storage configuration error: SUPABASE_URL must start with https:// (got ${parsed.protocol}//)` },
           { status: 500 }
         );
       }
     } catch {
-      console.error("[upload] SUPABASE_URL is not a valid URL:", supabaseUrl);
+      console.error("[upload] SUPABASE_URL is not a valid URL");
       return NextResponse.json(
         { success: false, error: "Storage configuration error: SUPABASE_URL is not a valid URL — it must be https://<project>.supabase.co" },
         { status: 500 }
@@ -61,7 +61,6 @@ export async function POST(request: NextRequest) {
     if (!file) {
       return NextResponse.json({ success: false, error: "No file provided" }, { status: 400 });
     }
-
     if (!file.type.startsWith("image/")) {
       return NextResponse.json({ success: false, error: "Only image files are allowed" }, { status: 400 });
     }
@@ -83,35 +82,9 @@ export async function POST(request: NextRequest) {
     const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
     const storagePath = `products/${filename}`;
 
-    // ── Ensure bucket exists (create if missing) ──────────────────────────────
-    try {
-      const bucketCheck = await fetch(`${supabaseUrl}/storage/v1/bucket/product-images`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${serviceRoleKey}` },
-      });
-      if (bucketCheck.status === 400 || bucketCheck.status === 404) {
-        // Bucket missing — create it as public
-        const createRes = await fetch(`${supabaseUrl}/storage/v1/bucket`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${serviceRoleKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: "product-images", name: "product-images", public: true }),
-        });
-        if (!createRes.ok) {
-          const createErr = await createRes.text().catch(() => "");
-          console.error("[upload] bucket create failed:", createRes.status, createErr);
-          return NextResponse.json({ success: false, error: "Storage bucket could not be created" }, { status: 500 });
-        }
-        console.log("[upload] Created product-images bucket");
-      }
-    } catch (bucketErr) {
-      // Non-fatal: bucket check failed, proceed anyway and let upload fail if needed
-      console.error("[upload] bucket check error:", bucketErr);
-    }
-
-    // ── Upload to Supabase Storage ────────────────────────────────────────────
+    // ── Upload directly to the existing product-images bucket ─────────────────
+    // The bucket must already exist in Supabase Storage and be set to Public.
+    // We do NOT create or modify the bucket here.
     let uploadRes: Response;
     try {
       uploadRes = await fetch(
@@ -127,11 +100,8 @@ export async function POST(request: NextRequest) {
         }
       );
     } catch (fetchErr) {
-      // Network error, DNS failure, connection refused, or Supabase project paused
       const msg = fetchErr instanceof Error ? fetchErr.message : String(fetchErr);
       console.error("[upload] Supabase fetch threw:", fetchErr);
-
-      // Distinguish between invalid URL and network/connectivity issues
       if (msg.toLowerCase().includes("invalid url") || msg.toLowerCase().includes("failed to parse")) {
         return NextResponse.json(
           { success: false, error: "Storage configuration error: SUPABASE_URL is not a valid URL" },
@@ -139,16 +109,38 @@ export async function POST(request: NextRequest) {
         );
       }
       return NextResponse.json(
-        { success: false, error: `Storage unreachable (${msg}). If your Supabase project is on a free plan, check that it is not paused at supabase.com/dashboard.` },
+        { success: false, error: `Storage unreachable (${msg}). Check that your Supabase project is not paused.` },
         { status: 502 }
       );
     }
 
     if (!uploadRes.ok) {
-      const errText = await uploadRes.text().catch(() => String(uploadRes.status));
+      const errText = await uploadRes.text().catch(() => "");
       console.error("[upload] Supabase upload failed:", uploadRes.status, errText);
+
+      // Surface the real Supabase error so it can be diagnosed
+      let detail = `HTTP ${uploadRes.status}`;
+      try {
+        const errJson = JSON.parse(errText) as { message?: string; error?: string };
+        detail = errJson.message ?? errJson.error ?? detail;
+      } catch {
+        if (errText) detail = errText.slice(0, 120);
+      }
+
+      if (uploadRes.status === 401 || uploadRes.status === 403) {
+        return NextResponse.json(
+          { success: false, error: `Storage permission denied: ${detail}. Check SUPABASE_SERVICE_ROLE_KEY.` },
+          { status: 500 }
+        );
+      }
+      if (uploadRes.status === 404) {
+        return NextResponse.json(
+          { success: false, error: `Storage bucket not found: ensure a bucket named "product-images" exists in your Supabase project and is set to Public.` },
+          { status: 500 }
+        );
+      }
       return NextResponse.json(
-        { success: false, error: `Storage upload failed (${uploadRes.status})` },
+        { success: false, error: `Storage upload failed: ${detail}` },
         { status: 500 }
       );
     }
@@ -158,7 +150,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, url: publicUrl, path: storagePath });
 
   } catch (unexpected) {
-    // Safety net: if anything slips through, always return JSON
     console.error("[upload] Unexpected error:", unexpected);
     return NextResponse.json({ success: false, error: "An unexpected server error occurred" }, { status: 500 });
   }
