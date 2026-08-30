@@ -30,6 +30,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: "Storage not configured" }, { status: 500 });
     }
 
+    // Validate URL format — must be a valid https:// URL or fetch() will throw
+    try {
+      const parsed = new URL(supabaseUrl);
+      if (parsed.protocol !== "https:") {
+        console.error("[upload] SUPABASE_URL has wrong protocol:", parsed.protocol);
+        return NextResponse.json(
+          { success: false, error: `Storage configuration error: SUPABASE_URL must start with https:// (got ${parsed.protocol}//)` },
+          { status: 500 }
+        );
+      }
+    } catch {
+      console.error("[upload] SUPABASE_URL is not a valid URL:", supabaseUrl);
+      return NextResponse.json(
+        { success: false, error: "Storage configuration error: SUPABASE_URL is not a valid URL — it must be https://<project>.supabase.co" },
+        { status: 500 }
+      );
+    }
+
     // ── Parse multipart body ──────────────────────────────────────────────────
     let formData: FormData;
     try {
@@ -109,10 +127,19 @@ export async function POST(request: NextRequest) {
         }
       );
     } catch (fetchErr) {
-      // Network error, DNS failure, or Supabase unreachable
+      // Network error, DNS failure, connection refused, or Supabase project paused
+      const msg = fetchErr instanceof Error ? fetchErr.message : String(fetchErr);
       console.error("[upload] Supabase fetch threw:", fetchErr);
+
+      // Distinguish between invalid URL and network/connectivity issues
+      if (msg.toLowerCase().includes("invalid url") || msg.toLowerCase().includes("failed to parse")) {
+        return NextResponse.json(
+          { success: false, error: "Storage configuration error: SUPABASE_URL is not a valid URL" },
+          { status: 500 }
+        );
+      }
       return NextResponse.json(
-        { success: false, error: "Storage unreachable — check SUPABASE_URL" },
+        { success: false, error: `Storage unreachable (${msg}). If your Supabase project is on a free plan, check that it is not paused at supabase.com/dashboard.` },
         { status: 502 }
       );
     }
