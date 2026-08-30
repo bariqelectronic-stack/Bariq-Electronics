@@ -5,9 +5,9 @@
 export const siteConfig = {
   // ── Branding ───────────────────────────────────────────────────────────────
   name: "Bariq Electronics",
-  tagline: "Professional Repair Tools & Equipment",
+  tagline: "Professional LCD & LED Display Repair Parts",
   description:
-    "Pakistan's source for professional mobile phone repair, microsoldering, PCB inspection, and electronics workshop equipment.",
+    "Pakistan's source for professional LCD and LED display repair parts — COFS, LVDS, T-CON, ACF tape, COF cutters and display repair components.",
 
   // ── Contact ────────────────────────────────────────────────────────────────
   email: "bariqelectronic@gmail.com",

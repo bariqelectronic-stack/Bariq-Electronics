@@ -15,37 +15,37 @@ const solutions: Record<string, {
   keyFeatures: string[];
   categorySlugs: string[];
 }> = {
-  "mobile-phone-repair": {
-    title: "Mobile Phone Repair",
-    subtitle: "Complete toolkit for professional smartphone repair",
-    desc: "Mobile phone repair requires a combination of precision hand tools, magnification and diagnostic equipment. From screen replacement to board-level microsoldering — having the right tools for each task makes the difference.",
-    toolCategories: ["Precision Screwdrivers", "Microscopes", "Soldering Tools", "Cleaning Tools", "Opening Tools", "Repair Cables"],
-    keyFeatures: ["Screen replacement tools", "Logic board repair", "Component replacement", "Battery replacement", "Camera and sensor work"],
-    categorySlugs: ["screwdrivers", "microscopes"],
+  "lcd-panel-repair": {
+    title: "LCD PANEL REPAIR",
+    subtitle: "Essential parts and solutions for professional LCD panel repair",
+    desc: "LCD panel repair requires the right components, materials and tools. From display connection parts to panel repair materials — having the correct products for each stage of the repair process is essential for professional results.",
+    toolCategories: ["COFS", "LVDS Cables", "ACF Tape", "Head Assembly", "Panel Repair Materials", "Display Connection Parts"],
+    keyFeatures: ["LCD panel servicing", "Display connection repair", "Panel-level component work", "COF bonding and repair", "ACF application"],
+    categorySlugs: ["cofs", "lvds", "acf-tape"],
   },
-  "microsoldering": {
-    title: "Microsoldering",
-    subtitle: "Precision equipment for chip-level repair work",
-    desc: "Microsoldering involves soldering work at the chip and component level on mobile phone and electronics PCBs. The work is extremely fine — requiring proper magnification, temperature-controlled soldering and precision handling.",
-    toolCategories: ["Stereo Microscopes", "Soldering Stations", "Hot Air Stations", "Flux & Solder", "Fine Tweezers", "PCB Holders"],
-    keyFeatures: ["Chip replacement", "BGA rework", "Pad repair", "Component bridging", "Trace repair"],
-    categorySlugs: ["microscopes", "soldering-tools"],
+  "led-display-repair": {
+    title: "LED DISPLAY REPAIR",
+    subtitle: "Professional repair parts for LED displays and television panels",
+    desc: "LED display repair covers board replacement, panel troubleshooting and component-level servicing of LED television and display systems. The right parts and components make diagnosis and restoration faster and more reliable.",
+    toolCategories: ["LED & LCD Boards", "T-CON Boards", "LVDS Cables", "SCALLER", "QUARD", "Replacement Components"],
+    keyFeatures: ["LED panel diagnosis", "Display board replacement", "Panel signal troubleshooting", "Board-level repair", "Display restoration"],
+    categorySlugs: ["led-lcd-boards", "t-con", "lvds"],
   },
-  "pcb-repair": {
-    title: "PCB Repair",
-    subtitle: "Diagnostic and rework tools for circuit board repair",
-    desc: "PCB repair covers board-level diagnostics, component testing, trace repair and rework of circuit boards in mobile phones, laptops and other electronics.",
-    toolCategories: ["Microscopes", "Multimeters", "Hot Air Stations", "Soldering Equipment", "Cleaning Tools", "Repair Cables"],
-    keyFeatures: ["Component diagnostics", "Trace repair", "Pad cleaning", "Rework and reballing", "Contamination removal"],
-    categorySlugs: ["microscopes", "pcb-repair"],
+  "cof-acf-repair": {
+    title: "COF & ACF REPAIR",
+    subtitle: "Specialized products for COF and ACF bonding and panel repair",
+    desc: "COF and ACF repair involves precise bonding, removal and preparation work on LCD and LED display panels. Professional COF and ACF repair requires the correct materials, cutters and handling equipment for consistent results.",
+    toolCategories: ["COFS", "ACF Tape", "ACF Remover", "COF Cutters", "Head Assembly", "Foam"],
+    keyFeatures: ["COF bonding and repair", "ACF tape application", "ACF residue removal", "COF cutting and preparation", "Panel bonding work"],
+    categorySlugs: ["cofs", "acf-tape", "acf-remover", "cof-cutter"],
   },
-  "electronics-laboratory": {
-    title: "Electronics Laboratory",
-    subtitle: "Complete bench equipment for electronics work",
-    desc: "A professional electronics laboratory requires a complete range of test, measurement and repair equipment. From bench power supplies to oscilloscopes and diagnostic tools — build a complete workspace.",
-    toolCategories: ["Bench Power Supplies", "Multimeters", "Oscilloscopes", "Soldering Equipment", "Microscopes", "Component Storage"],
-    keyFeatures: ["Circuit development", "Component testing", "Fault diagnosis", "Prototype assembly", "Production testing"],
-    categorySlugs: ["lab-tools"],
+  "display-board-repair": {
+    title: "DISPLAY BOARD REPAIR",
+    subtitle: "Display boards and components for LED and LCD television repair",
+    desc: "Display board repair covers T-CON boards, LED and LCD boards, LVDS connections and T-CON programming for professional television and display servicing. Identify and replace faulty boards to restore display functionality.",
+    toolCategories: ["T-CON Boards", "LED & LCD Boards", "LVDS Solutions", "T-CON Programmers", "SCALLER", "QUARD"],
+    keyFeatures: ["T-CON board diagnosis and replacement", "LED/LCD board servicing", "LVDS signal troubleshooting", "T-CON programming", "Display board restoration"],
+    categorySlugs: ["t-con", "led-lcd-boards", "lvds", "t-con-programmer"],
   },
 };
 
@@ -124,7 +124,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
 
           <div className="space-y-4">
             <div className="bg-white border border-[#E5E5E5] rounded-[10px] p-5">
-              <h3 className="font-bold text-[#0A0A0A] text-sm mb-3">Tool Categories</h3>
+              <h3 className="font-bold text-[#0A0A0A] text-sm mb-3">Product Categories</h3>
               <ul className="space-y-2">
                 {sol.toolCategories.map((cat) => (
                   <li key={cat} className="text-sm text-[#6B6B6B] flex items-center gap-1.5">

@@ -25,7 +25,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-[#9E9E9E] text-sm leading-relaxed max-w-xs mb-6">
-              Professional electronics, mobile repair and microsoldering tools for technicians and repair workshops worldwide.
+              Professional LCD and LED display repair parts for technicians and repair workshops worldwide. COFS, LVDS, T-CON, ACF tape, COF cutters and more.
             </p>
             <div className="space-y-2.5">
               <a
@@ -59,13 +59,13 @@ export function Footer() {
             <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Shop</h4>
             <ul className="space-y-2.5">
               {[
-                { label: "All Products",    href: "/shop" },
-                { label: "Microscopes",     href: "/categories/microscopes" },
-                { label: "COFS",            href: "/categories/cofs" },
-                { label: "LVDS",            href: "/categories/lvds" },
-                { label: "LED & LCD BOARDS",href: "/categories/led-lcd-boards" },
-                { label: "T-CON",           href: "/categories/t-con" },
-                { label: "ACF TAPE",        href: "/categories/acf-tape" },
+                { label: "All Products",      href: "/shop" },
+                { label: "COFS",              href: "/categories/cofs" },
+                { label: "LVDS",              href: "/categories/lvds" },
+                { label: "LED & LCD BOARDS",  href: "/categories/led-lcd-boards" },
+                { label: "T-CON",             href: "/categories/t-con" },
+                { label: "ACF TAPE",          href: "/categories/acf-tape" },
+                { label: "COF CUTTER",        href: "/categories/cof-cutter" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-[#9E9E9E] hover:text-white transition-colors">

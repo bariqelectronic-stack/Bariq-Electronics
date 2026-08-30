@@ -4,14 +4,35 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Solutions — Repair & Workshop Equipment",
+  title: "Solutions — LCD & LED Display Repair",
+  description: "Professional LCD and LED display repair solutions for technicians — LCD panel repair, LED display repair, COF & ACF repair, and display board repair.",
 };
 
 const solutions = [
-  { slug: "mobile-phone-repair", title: "Mobile Phone Repair", desc: "Complete toolkit for professional smartphone repair — disassembly, screen work, and board-level repair.", emoji: "📱" },
-  { slug: "microsoldering", title: "Microsoldering", desc: "Precision equipment for chip-level microsoldering, BGA rework and component replacement.", emoji: "⚡" },
-  { slug: "pcb-repair", title: "PCB Repair", desc: "Diagnostic and rework tools for circuit board repair and component testing.", emoji: "🔧" },
-  { slug: "electronics-laboratory", title: "Electronics Laboratory", desc: "Complete bench equipment for professional electronics diagnostics and development.", emoji: "🧪" },
+  {
+    slug: "lcd-panel-repair",
+    title: "LCD PANEL REPAIR",
+    desc: "Essential parts and solutions for professional LCD panel repair, servicing and restoration.",
+    emoji: "🖥️",
+  },
+  {
+    slug: "led-display-repair",
+    title: "LED DISPLAY REPAIR",
+    desc: "Professional repair parts for LED displays and television panels, helping technicians diagnose and restore display systems.",
+    emoji: "📺",
+  },
+  {
+    slug: "cof-acf-repair",
+    title: "COF & ACF REPAIR",
+    desc: "Specialized products for COF and ACF bonding, removal, cutting and professional LCD/LED panel repair.",
+    emoji: "✂️",
+  },
+  {
+    slug: "display-board-repair",
+    title: "DISPLAY BOARD REPAIR",
+    desc: "Display boards and related components for professional LED and LCD television repair and troubleshooting.",
+    emoji: "🔲",
+  },
 ];
 
 export default function SolutionsPage() {
@@ -25,7 +46,7 @@ export default function SolutionsPage() {
             <span>Solutions</span>
           </nav>
           <h1 className="text-2xl font-black text-[#0A0A0A] tracking-tight mb-2">Solutions</h1>
-          <p className="text-sm text-[#6B6B6B]">Find tools for your specific repair application.</p>
+          <p className="text-sm text-[#6B6B6B]">Professional LCD and LED display repair parts for every application.</p>
         </div>
       </div>
       <div className="container-site py-10">

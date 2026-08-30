@@ -5,7 +5,7 @@ import { siteConfig, getWhatsAppLink } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "About Bariq Electronics",
-  description: "Bariq Electronics — professional electronics, mobile repair and microsoldering tools for technicians worldwide.",
+  description: "Bariq Electronics — professional LCD and LED display repair parts for technicians and repair workshops worldwide.",
 };
 
 export default function AboutPage() {
@@ -20,7 +20,7 @@ export default function AboutPage() {
           </nav>
           <h1 className="text-3xl font-black text-white tracking-tight mb-3">About Bariq Electronics</h1>
           <p className="text-[#9E9E9E] max-w-xl text-base leading-relaxed">
-            Professional electronics, mobile repair and microsoldering tools for technicians worldwide.
+            Professional LCD and LED display repair parts for technicians and repair workshops worldwide.
           </p>
         </div>
       </div>
@@ -32,13 +32,13 @@ export default function AboutPage() {
               <h2 className="text-xl font-black text-[#0A0A0A] mb-4">Who We Are</h2>
               <div className="prose">
                 <p>
-                  Bariq Electronics is a supplier of professional equipment for mobile phone repair technicians,
-                  microsoldering specialists, PCB repair professionals and electronics workshops.
+                  Bariq Electronics is a supplier of professional LCD and LED display repair parts for technicians,
+                  repair workshops and businesses working on television and display systems.
                 </p>
                 <p>
-                  We focus on tools that working repair technicians actually use — microscopes, soldering stations,
-                  precision screwdrivers, PCB repair equipment and workshop accessories. Every product in our catalog
-                  is selected with professional repair work in mind.
+                  We focus on the components and materials that display repair technicians actually need — COFS, LVDS,
+                  LED &amp; LCD boards, T-CON boards, ACF tape, ACF remover, COF cutters, T-CON programmers and related
+                  display repair products. Every product in our catalogue is selected with professional display repair work in mind.
                 </p>
                 <h3>Our Mission</h3>
                 <p>

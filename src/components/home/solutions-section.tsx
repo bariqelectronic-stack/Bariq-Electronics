@@ -1,35 +1,59 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Monitor, Tv, Scissors, CircuitBoard } from "lucide-react";
 
 const solutions = [
   {
-    slug: "mobile-phone-repair",
-    title: "Mobile Phone Repair",
-    desc: "Tools and equipment for complete smartphone repair — from screen replacement to board-level microsoldering.",
-    items: ["Screwdriver sets", "Opening tools", "Microscopes", "Soldering stations"],
-    icon: "📱",
+    slug: "lcd-panel-repair",
+    href: "/shop",
+    title: "LCD PANEL REPAIR",
+    desc: "Essential parts and solutions for professional LCD panel repair, servicing and restoration.",
+    items: [
+      "LCD Panel Parts",
+      "Panel Repair Materials",
+      "Display Connection Parts",
+      "Professional Repair Components",
+    ],
+    Icon: Monitor,
   },
   {
-    slug: "microsoldering",
-    title: "Microsoldering",
-    desc: "Precision soldering equipment for chip-level repairs, component replacement and BGA rework.",
-    items: ["Soldering stations", "Hot air stations", "Microscopes", "Flux and solder"],
-    icon: "⚡",
+    slug: "led-display-repair",
+    href: "/categories/led-lcd-boards",
+    title: "LED DISPLAY REPAIR",
+    desc: "Professional repair parts for LED displays and television panels, helping technicians diagnose and restore display systems.",
+    items: [
+      "LED Display Parts",
+      "LED Panel Components",
+      "Display Repair Materials",
+      "Replacement Components",
+    ],
+    Icon: Tv,
   },
   {
-    slug: "pcb-repair",
-    title: "PCB Repair",
-    desc: "Diagnostic and rework tools for printed circuit board repair, trace repair and component testing.",
-    items: ["Multimeters", "Microscopes", "Hot air tools", "Cleaning tools"],
-    icon: "🔧",
+    slug: "cof-acf-repair",
+    href: "/categories/cofs",
+    title: "COF & ACF REPAIR",
+    desc: "Specialized products for COF and ACF bonding, removal, cutting and professional LCD/LED panel repair.",
+    items: [
+      "COF Parts & Solutions",
+      "ACF Tape",
+      "ACF Remover",
+      "COF Cutters",
+    ],
+    Icon: Scissors,
   },
   {
-    slug: "electronics-laboratory",
-    title: "Electronics Laboratory",
-    desc: "Complete bench setup equipment for professional electronics diagnostics, testing and development.",
-    items: ["Power supplies", "Multimeters", "Oscilloscopes", "Component storage"],
-    icon: "🧪",
+    slug: "display-board-repair",
+    href: "/categories/t-con",
+    title: "DISPLAY BOARD REPAIR",
+    desc: "Display boards and related components for professional LED and LCD television repair and troubleshooting.",
+    items: [
+      "T-CON Boards",
+      "LED & LCD Boards",
+      "LVDS Solutions",
+      "T-CON Programmers",
+    ],
+    Icon: CircuitBoard,
   },
 ];
 
@@ -42,11 +66,11 @@ export function SolutionsSection() {
             By Application
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-[#0A0A0A] tracking-tight">
-            Solutions for Every Repair
+            Solutions for Every Display Repair
           </h2>
           <p className="text-sm text-[#6B6B6B] mt-2 max-w-lg mx-auto">
-            Whether you repair phones, work with microsoldering, or run a full electronics lab —
-            find the right tools for your workflow.
+            Professional LCD and LED repair parts for technicians working on panels, display boards,
+            COF, ACF, T-CON and related display-repair applications.
           </p>
         </div>
 
@@ -54,10 +78,12 @@ export function SolutionsSection() {
           {solutions.map((sol) => (
             <Link
               key={sol.slug}
-              href={`/solutions/${sol.slug}`}
+              href={sol.href}
               className="group bg-white border border-[#E5E5E5] rounded-[10px] p-6 hover:border-[#E65C00] hover:shadow-[0_4px_16px_0_rgba(230,92,0,0.1)] transition-all duration-200"
             >
-              <div className="text-3xl mb-4">{sol.icon}</div>
+              <div className="mb-4 w-8 h-8 text-[#E65C00]">
+                <sol.Icon className="w-8 h-8" />
+              </div>
               <h3 className="font-bold text-[#0A0A0A] mb-2 group-hover:text-[#E65C00] transition-colors">
                 {sol.title}
               </h3>

@@ -15,477 +15,405 @@ const articles: Record<string, {
   content: string;
   relatedSlugs: string[];
 }> = {
-  "how-to-choose-a-microscope-for-microsoldering": {
-    title: "How to Choose a Microscope for Microsoldering",
-    excerpt: "A practical guide to selecting the right magnification, working distance and optical system for microsoldering and mobile repair work.",
+  "how-to-choose-t-con-board": {
+    title: "How to Choose the Right T-CON Board for LCD & LED Repair",
+    excerpt: "A practical guide to selecting the correct T-CON board for your display repair — covering compatibility, connector configuration and panel specifications.",
     category: "Buying Guides",
     readTime: "6 min read",
-    emoji: "🔬",
-    relatedSlugs: ["microscopes"],
+    emoji: "🔲",
+    relatedSlugs: ["t-con"],
     content: `
-## Why a Microscope Matters for Microsoldering
+## Why T-CON Board Selection Matters
 
-Modern smartphones and electronics use increasingly small components. Microsoldering — replacing or reworking chips, capacitors, resistors and connectors on mobile phone PCBs — requires consistent, clear magnification to work accurately and safely.
-
-Attempting microsoldering without adequate magnification increases the risk of cold joints, bridge shorts, lifted pads and component damage. A suitable microscope is one of the most important investments a professional repair technician can make.
+The T-CON (Timing Controller) board manages signal communication between the main board and the LCD/LED panel. Selecting the wrong T-CON board can result in display failure, missing image, or signal errors even after installation.
 
 ## Key Factors to Consider
 
-### 1. Magnification Range
+### 1. Board Model Number
 
-For mobile phone repair and microsoldering, a zoom range of approximately 7x–45x covers most work:
+Every T-CON board has a specific model number printed on the board itself. This is the most reliable way to find a compatible replacement:
 
-- **Lower magnification (7x–15x):** Suitable for general inspection, finding components, and overview work.
-- **Mid range (15x–30x):** Good for detailed soldering, joint inspection, and component placement.
-- **High magnification (30x–45x):** For fine inspection, detecting micro-cracks, and very small component work.
+- Locate the model number directly on the original T-CON board
+- Search using the exact model number to find a match
+- Partial model numbers may return incorrect results — use the full string
 
-Consider the specific tasks you perform most often when choosing a magnification range.
+### 2. Panel Compatibility
 
-### 2. Working Distance
+T-CON boards are designed for specific panel types and sizes:
 
-Working distance is the space between the objective lens and your work surface. For microsoldering:
+- **Panel size:** Verify the board is rated for the correct screen size
+- **Resolution:** Confirm the board supports the panel resolution
+- **Panel model:** Where possible, match by panel model number
 
-- You need enough space to maneuver your soldering iron or tools under the lens.
-- A working distance of **100mm or more** is generally recommended for comfortable microsoldering.
-- Shorter working distances limit your movement and make soldering difficult.
+### 3. Connector Configuration
 
-### 3. Optical System
+Before ordering a replacement, check the connector layout on the original board:
 
-There are two main optical configurations:
+- Count and verify LVDS connector positions
+- Check ribbon connector pin counts
+- Confirm connector direction and spacing match
 
-- **Parallel optics:** Provides a flat, undistorted image. Generally preferred for inspection and precision work.
-- **Convergent optics:** A traditional stereo design. Can cause slight distortion at higher magnifications.
+### 4. Signal Requirements
 
-For professional repair use, parallel optics tend to offer better image quality and reduced eye strain during extended work sessions.
+Different panels use different signal specifications:
 
-### 4. Trinocular vs Binocular
+- **LVDS signals:** Single-channel vs dual-channel
+- **Signal voltage:** Verify compatible operating voltage
+- **Refresh rate support:** Confirm the board supports the required rate
 
-- **Binocular:** Two eyepieces. Standard for viewing work in real time.
-- **Trinocular:** Two eyepieces plus a third port for a camera. Essential if you want to record repairs, display a live feed on a monitor, or document work.
+### 5. Build Quality
 
-If you plan to add a digital camera or connect to a monitor, choose trinocular.
+For professional repair use:
 
-### 5. Stand Type
+- Look for boards from established manufacturers
+- Avoid boards with visible component damage or poor soldering
+- Test-before-ship where possible
 
-- **Pillar stand:** Basic, stable, limited range of motion. Suitable for fixed bench use.
-- **Boom arm stand:** Greater flexibility, can be positioned over larger work areas. Preferred for most repair setups.
-- **Table stand with clamp:** Versatile, can be repositioned. Good for multi-purpose workbenches.
+## Common T-CON Symptoms to Diagnose
 
-### 6. Lighting
+Before replacing a T-CON board, confirm the board is actually faulty:
 
-Good lighting is essential for repair work:
+- Vertical or horizontal lines on display
+- Half-screen image
+- No image with backlight on
+- Flickering or unstable image
 
-- **Ring LED light:** Provides even, shadow-free illumination directly around the lens. Most common for repair microscopes.
-- **External adjustable lights:** Can be positioned for specific angles.
-- **Variable brightness:** Important for adjusting to different surfaces (reflective boards, dark components).
+## Browse T-CON Products
 
-## Recommended Setup for Microsoldering
-
-For a professional microsoldering bench, consider:
-
-- **Zoom range:** 7x–45x
-- **Working distance:** 100mm+
-- **Head type:** Trinocular (for camera/monitor)
-- **Stand:** Boom arm for flexibility
-- **Lighting:** Adjustable ring LED
-
-## What Not to Prioritize
-
-- **Maximum magnification alone:** Higher magnification reduces working distance and field of view. Balance is more important.
-- **Brand name over specifications:** Focus on the technical specs that match your use case.
-
-## Browse Our Microscopes
-
-Visit our [microscopes category](/categories/microscopes) to see the current product range.
+Visit our [T-CON category](/categories/t-con) to view available boards, or see [T-CON Programmers](/categories/t-con-programmer) for programming tools.
     `,
   },
-  "professional-mobile-repair-bench-setup": {
-    title: "Professional Mobile Repair Bench Setup",
-    excerpt: "What every professional repair technician needs on their bench — from lighting and magnification to organization and ESD safety.",
+  "lcd-led-display-repair-bench-setup": {
+    title: "Professional LCD & LED Display Repair Bench Setup",
+    excerpt: "What every professional display repair technician needs on their bench — from panel handling and board diagnostics to COF repair equipment.",
     category: "Repair Guides",
     readTime: "8 min read",
-    emoji: "🔧",
-    relatedSlugs: [],
+    emoji: "🖥️",
+    relatedSlugs: ["led-lcd-boards", "t-con"],
     content: `
-## Setting Up a Professional Repair Bench
+## Setting Up a Professional Display Repair Bench
 
-A well-organized, properly equipped repair bench makes you more efficient, reduces mistakes, and protects both your tools and the devices you work on.
+A well-organised display repair bench helps you work efficiently, handle panels safely, and keep track of boards and components throughout the repair process.
 
-## Essential Equipment
+## Panel Handling
 
-### Magnification
+Handling large LCD and LED panels requires care to avoid damage:
 
-A stereo microscope is the single most impactful piece of equipment on a professional repair bench. For mobile phone repair:
+- Use a padded, clean surface for panel placement
+- ESD-safe mat to protect sensitive display electronics
+- Foam and cushioning materials for safe panel storage and transport
+- Panel stands or holders where needed for upright work
 
-- Choose a microscope with at least 7x–45x zoom range
-- Working distance of 100mm or more for comfortable tool access
-- Trinocular head if you want to add a monitor or camera
-- Good ring lighting included or added
+## Board Diagnostics
 
-For initial inspection without a microscope, a quality 10x loupe can also be useful.
+Display board repair requires basic diagnostic capability:
 
-### Soldering Equipment
+- **LVDS connections:** Check signal continuity and connection quality
+- **T-CON board inspection:** Inspect for visible component damage
+- **LED & LCD board testing:** Verify board power and signal output
+- **T-CON programmer:** For board flashing and diagnostics
 
-For board-level and microsoldering work:
+## COF and ACF Repair Equipment
 
-- **Temperature-controlled soldering station:** Precision temperature control is essential. Variable temperature, fast heat-up, and compatibility with fine tips.
-- **Hot air station:** Required for chip removal, rework, and component replacement.
-- **Fine tips:** Select tips appropriate for the work — knife, chisel, fine point.
-- **Flux:** Quality flux is essential for clean solder work. No-clean flux is practical for most repair work.
+For technicians performing COF and ACF repair work:
 
-### ESD Protection
+- **COF cutters:** For precise cutting during panel preparation
+- **ACF tape:** Selection of appropriate tape for the panel type
+- **ACF remover:** For clean residue removal
+- **Head assembly:** For bonding work
 
-Electrostatic discharge (ESD) can permanently damage sensitive electronic components:
+## Workspace Organisation
 
-- **ESD mat:** Cover your bench surface with a properly grounded anti-static mat
-- **ESD wrist strap:** Wear it and keep it grounded when handling PCBs
-- **ESD-safe tweezers:** Non-conductive or dissipative handles
-- **ESD-safe screwdrivers:** For disassembly work
-
-### Lighting
-
-Beyond microscope illumination:
-
-- **Overhead lamp:** Adjustable overhead lighting for the overall bench area
-- **Magnifying lamp:** Useful for general inspection without a microscope
-
-### Organization
-
-Clutter slows you down and leads to lost parts:
-
-- Component trays and organizers for small screws and parts
-- Labeled storage for tools and accessories
-- Clean, clear bench surface as a working standard
-
-## Tools for Disassembly
-
-- Precision screwdriver set (Pentalobe, Torx, Phillips, flathead in various sizes)
-- Plastic opening picks and spudgers
-- Suction cup for display removal
-- Heat pad or heat gun for adhesive softening
-
-## Cleaning Tools
-
-- Anti-static brushes for PCB cleaning
-- IPA (isopropyl alcohol) for flux and residue removal
-- Swabs and wipes
+- Keep boards separated and labelled to avoid mixing
+- Store ACF tape according to manufacturer requirements
+- Organise LVDS cables by length and connector type
+- Keep COF cutters maintained and sharp
 
 ## Summary
 
-A professional repair bench doesn't need to be built all at once. Start with:
+Start a professional display repair bench with:
 
-1. Quality microscope with good lighting
-2. Temperature-controlled soldering station
-3. ESD mat and wrist strap
-4. Basic precision screwdriver set
-5. Tweezers (ESD safe)
+1. Clean, padded work surface with ESD protection
+2. Panel handling materials (foam, cushioning)
+3. T-CON and LED/LCD board stock for common models
+4. LVDS cable selection
+5. COF and ACF repair materials
 
-Then expand from there based on the specific repairs you perform.
+Browse our [full product range](/shop) to equip your repair bench.
     `,
   },
-  "essential-tools-for-pcb-repair": {
-    title: "Essential Tools for PCB Repair",
-    excerpt: "The core toolkit for printed circuit board repair work — what you need and why.",
+  "essential-parts-cof-acf-repair": {
+    title: "Essential Parts for COF and ACF Repair",
+    excerpt: "The core components and materials required for professional COF bonding, ACF tape application and ACF removal on LCD and LED display panels.",
     category: "Tool Guides",
     readTime: "5 min read",
-    emoji: "⚙️",
-    relatedSlugs: [],
+    emoji: "✂️",
+    relatedSlugs: ["cofs", "acf-tape", "acf-remover", "cof-cutter"],
     content: `
-## PCB Repair Essentials
+## COF and ACF Repair Essentials
 
-Board-level repair requires a specific set of tools beyond standard disassembly equipment.
+COF (Chip on Film) and ACF (Anisotropic Conductive Film) repair is a specialised area of LCD and LED panel servicing. Having the correct materials and tools is critical for consistent, professional results.
 
-## Visual Inspection Tools
+## COF Products
 
-### Microscope
+### COF Components
 
-The single most important tool for PCB repair. Without adequate magnification, identifying component damage, trace breaks, cold solder joints, and corrosion is unreliable. Choose a stereo microscope with a suitable zoom range and working distance.
+COF components connect driver chips to the LCD panel substrate. When these fail or become damaged, accurate replacement or repair is required:
 
-### Multimeter
+- Source COF components that match the original specification
+- Verify compatibility with the panel before installation
+- Handle carefully to avoid static damage
 
-Essential for electrical diagnostics:
-- Continuity testing (checking traces, fuses, connectors)
-- Voltage measurements
-- Resistance measurements
-- Diode testing
+### COF Cutters
 
-A digital multimeter with probes suitable for small PCB pads is required.
+Precision cutting is required during COF preparation and panel work:
 
-### USB Microscope / Camera
+- **Blade sharpness:** A sharp, clean cut is essential
+- **Cutting precision:** Select cutters appropriate for the panel and COF dimensions
+- **Controlled cutting:** Avoid damage to adjacent panel areas
 
-For documentation, displaying live images on a monitor, or recording repair processes.
+## ACF Tape
 
-## Soldering Equipment
+ACF tape creates the conductive bond between the COF and panel substrate. Selecting the right ACF tape is critical:
 
-### Soldering Station
+### Selection Factors
 
-Temperature-controlled station with fine tips for component-level work. Features to look for:
-- Precise temperature control
-- Fast heat-up time
-- Wide tip range compatibility
-- ESD safe design
+- **Tape width:** Must match the COF and panel connection area
+- **Thickness:** Affects bonding pressure and connection quality
+- **Adhesion type:** Check compatibility with the panel substrate
+- **Storage:** ACF tape must be stored correctly — typically refrigerated — to maintain properties
 
-### Hot Air Station
+## ACF Remover
 
-Required for:
-- Removing surface-mount components
-- BGA rework and reballing
-- Reflow of solder joints
-- Softening adhesives
+Before applying new ACF tape, old or damaged ACF residue must be cleanly removed:
 
-### Soldering Tips
+- **Removal method:** Chemical or mechanical, depending on the panel and residue type
+- **Panel compatibility:** Ensure the remover is safe for the specific panel materials
+- **Precision handling:** Avoid damage to panel substrate during removal
+- **Thorough removal:** Residue left behind can affect new ACF bond quality
 
-Have a range available:
-- Fine conical tip for small work
-- Chisel/flat tip for through-hole and larger joints
-- Knife tip for drag soldering
+## Head Assembly
 
-## Support Tools
+Bonding tools and head assemblies are used to apply heat and pressure during COF bonding:
 
-### Flux
+- Match the head assembly to the bonding width required
+- Verify temperature and pressure settings for the specific ACF tape
 
-- No-clean flux paste or liquid for most repair work
-- Quality flux reduces surface tension and improves solder flow
+## Browse COF & ACF Products
 
-### Solder
-
-- Lead-free solder for newer devices
-- Small diameter (0.6mm or less) for fine work
-
-### Desoldering Wick and Pump
-
-For removing excess solder and cleaning up joints.
-
-### PCB Holder / Third Hand
-
-Holds the board securely during repair. Look for one with adjustable arms and heat-resistant clips.
-
-## Cleaning
-
-- IPA (isopropyl alcohol 99%)
-- Anti-static brush
-- Lint-free swabs
-
-## Safety
-
-- ESD mat and wrist strap
-- Fume extractor if working in an enclosed space
-
-## Starting Point
-
-If you're setting up for PCB repair for the first time, prioritize:
-
-1. Stereo microscope
-2. Quality soldering station
-3. Hot air station
-4. Multimeter
-5. Flux, solder, desoldering tools
-6. ESD protection
+- [COFS](/categories/cofs) — COF components and repair solutions
+- [ACF Tape](/categories/acf-tape) — Tape for display panel bonding
+- [ACF Remover](/categories/acf-remover) — Residue removal solutions
+- [COF Cutters](/categories/cof-cutter) — Precision cutting tools
     `,
   },
-  "microsoldering-equipment-checklist": {
-    title: "Microsoldering Equipment Checklist",
-    excerpt: "A complete checklist of tools and equipment required to begin microsoldering work on modern mobile devices.",
-    category: "Microsoldering",
+  "understanding-lvds-cables": {
+    title: "Understanding LVDS Cables and Display Connections",
+    excerpt: "A guide to LVDS connectors, cable configurations and compatibility for LCD and LED display repair and board replacement work.",
+    category: "Technical Guides",
     readTime: "4 min read",
-    emoji: "✅",
-    relatedSlugs: [],
+    emoji: "🔗",
+    relatedSlugs: ["lvds"],
     content: `
-## Microsoldering Equipment Checklist
+## What is LVDS?
 
-Before you begin microsoldering work on modern mobile devices, ensure you have the following equipment in place.
+LVDS (Low-Voltage Differential Signaling) is the standard interface used to carry display signals between the main board and the LCD/LED panel or T-CON board. Most LCD and LED televisions and monitors use LVDS connections.
 
-## Magnification ✓
+## Why LVDS Selection Matters
 
-- [ ] Stereo microscope (7x–45x zoom range)
-- [ ] Working distance suitable for tools (100mm+)
-- [ ] Ring LED lighting or equivalent
-- [ ] Optional: trinocular head with camera for documentation
+An incorrect LVDS cable can result in:
 
-## Soldering Equipment ✓
+- No image on display
+- Partial image or half-screen
+- Image noise or interference
+- No signal detected by panel
 
-- [ ] Temperature-controlled soldering station
-- [ ] Fine soldering tips (conical, knife, chisel)
-- [ ] Hot air rework station
-- [ ] Quality flux (no-clean or rosin-based)
-- [ ] Fine solder wire (0.3mm–0.6mm diameter)
-- [ ] Desoldering wick and/or solder pump
+## Key LVDS Specifications
 
-## ESD Protection ✓
+### Connector Type
 
-- [ ] Anti-static bench mat (grounded)
-- [ ] ESD wrist strap (grounded)
-- [ ] ESD-safe tweezers
-- [ ] ESD-safe tool handles
+LVDS connectors vary by manufacturer and panel generation:
 
-## Measurement & Diagnostics ✓
+- Count the pins on both ends of the cable
+- Verify the connector body style matches
+- Check connector locking mechanism
 
-- [ ] Digital multimeter with fine probes
-- [ ] Optional: bench power supply for controlled voltage testing
-- [ ] Optional: USB oscilloscope
+### Pin Configuration
 
-## Cleaning ✓
+Pin arrangement must match exactly:
 
-- [ ] Isopropyl alcohol (99% purity)
-- [ ] Anti-static PCB cleaning brush
-- [ ] Lint-free swabs and wipes
-- [ ] Cotton swabs
+- Single-channel configurations (typically 20–30 pin)
+- Dual-channel configurations (typically 30–51 pin)
+- Verify pin 1 orientation and direction
 
-## Physical Tools ✓
+### Cable Length
 
-- [ ] Precision tweezers (multiple profiles: straight, curved, angled)
-- [ ] PCB holder / repair clamp
-- [ ] Fine-tip probes for multimeter
+Select an appropriate cable length for your repair setup:
 
-## Documentation (Optional but Recommended) ✓
+- Too short restricts panel positioning
+- Too long creates cable management issues
+- Match original cable length where possible
 
-- [ ] Microscope camera or webcam for recording
-- [ ] Monitor for live viewing via camera
-- [ ] Lighting for documentation quality
+### Display Compatibility
 
-## Consumables to Keep Stocked ✓
+Always verify compatibility:
 
-- [ ] Flux (refill when low)
-- [ ] Solder wire
-- [ ] Desoldering wick
-- [ ] IPA
-- [ ] Swabs and wipes
+- Check the main board connector and the T-CON or panel connector
+- Some boards require specific LVDS cable configurations
+- Refer to board documentation where available
 
-## Notes
+## Troubleshooting LVDS Issues
 
-- Start with quality magnification and soldering equipment before other items.
-- ESD protection is often overlooked but is critical for protecting sensitive components.
-- Build your toolkit progressively based on the specific repairs you take on.
+Before replacing an LVDS cable, check:
 
-Browse related products: [Microscopes](/categories/microscopes) | [Soldering Tools](/categories/soldering-tools) | [Accessories](/categories/accessories)
+- Connector seating on both ends
+- Physical cable damage (kinks, cuts, crushing)
+- Correct cable orientation
+
+Browse our [LVDS category](/categories/lvds) for available cables and connections.
     `,
   },
-  "understanding-microscope-magnification": {
-    title: "Understanding Microscope Magnification for Repair Work",
-    excerpt: "What does 7x–45x mean? How to choose the right magnification range for your specific repair applications.",
-    category: "Buying Guides",
+  "t-con-programming-guide": {
+    title: "T-CON Programming: A Complete Guide for Display Repair",
+    excerpt: "How T-CON programmer tools work, which boards they support, and how to use them in professional LCD and LED display repair workflows.",
+    category: "Technical Guides",
     readTime: "5 min read",
-    emoji: "🔍",
-    relatedSlugs: ["microscopes"],
+    emoji: "💾",
+    relatedSlugs: ["t-con-programmer", "t-con"],
     content: `
-## Understanding Microscope Magnification
+## What is T-CON Programming?
 
-When shopping for a repair microscope, magnification ranges like "7x–45x" appear frequently. Here's what these numbers mean and how to choose the right range.
+T-CON (Timing Controller) boards sometimes require firmware programming or re-flashing to restore correct operation. A T-CON programmer is a dedicated tool that connects to the T-CON board and reads, erases, or writes firmware to the board's flash memory.
 
-## What Magnification Numbers Mean
+## When T-CON Programming is Required
 
-Magnification refers to how many times larger an object appears through the lens compared to the naked eye.
+Programming or re-flashing a T-CON board may be needed when:
 
-- **7x:** An object appears 7 times larger than normal
-- **45x:** An object appears 45 times larger than normal
-- **7x–45x:** A zoom microscope that can adjust between these extremes
+- The board has corrupted firmware
+- A replacement board requires configuration for the specific panel
+- Board-level repair requires firmware restoration
+- Upgrading or replacing flash memory chips
 
-## The Trade-offs of High Magnification
+## How T-CON Programmers Work
 
-Higher magnification:
-- Provides more detail
-- **Reduces field of view** (you see a smaller area)
-- **Reduces working distance** (lens gets closer to the work)
-- Makes depth of field shallower (focus range narrows)
+T-CON programmer tools typically:
 
-This is why balance matters more than maximum magnification.
+1. Connect to the T-CON board via a dedicated interface (ISP or direct flash connection)
+2. Read the existing firmware from the board's flash chip
+3. Allow backup, modification, or replacement of the firmware
+4. Write the new or restored firmware back to the board
 
-## Practical Ranges for Repair Work
+## Key Considerations
 
-| Magnification | Use Case |
-|---|---|
-| 7x–15x | General inspection, overview, finding components |
-| 15x–30x | Soldering, joint inspection, component placement |
-| 30x–45x | Fine inspection, micro-cracks, very small pads |
+### Board Compatibility
 
-For most mobile phone repair and microsoldering: **7x–45x covers virtually everything.**
+Always verify the programmer supports your specific T-CON board model:
 
-## Zoom vs Fixed Magnification
+- Check the supported board list for the programmer
+- Verify firmware files match the exact board revision
+- Incorrect firmware can permanently damage the board
 
-- **Zoom microscope:** Variable magnification, most practical for repair work
-- **Fixed magnification:** Single zoom level, less flexible but potentially sharper
+### Connection Method
 
-For repair use, zoom is almost always preferred.
+Different programmers use different interfaces:
 
-## What to Choose
+- Direct ISP programming via header pins
+- Clip-on connections to flash memory chips
+- Dedicated cable interfaces for specific board families
 
-For professional mobile repair and microsoldering:
-- **Minimum:** 7x–40x zoom range
-- **Recommended:** 7x–45x zoom range
-- **Working distance:** 100mm or more at all zoom levels
-- **Lighting:** Consistent at all zoom levels
+### Software
 
-Browse our [microscopes range](/categories/microscopes) to compare specifications.
+Most T-CON programmers include software for:
+
+- Board identification
+- Firmware reading and backup
+- Firmware writing and verification
+
+## Safety Precautions
+
+- Always back up the original firmware before any changes
+- Verify firmware compatibility before writing
+- Use ESD precautions when handling T-CON boards
+
+Browse [T-CON Programmers](/categories/t-con-programmer) and [T-CON Boards](/categories/t-con) in our product range.
     `,
   },
-  "soldering-tips-guide": {
-    title: "Soldering Tips: Types and When to Use Them",
-    excerpt: "An overview of common soldering tip profiles and their applications in mobile and PCB repair.",
-    category: "Tool Guides",
+  "acf-tape-application-guide": {
+    title: "ACF Tape Application Guide for Panel Repair",
+    excerpt: "A step-by-step overview of ACF tape selection, handling and application for professional display panel bonding and COF repair.",
+    category: "Repair Guides",
     readTime: "4 min read",
-    emoji: "⚡",
-    relatedSlugs: ["soldering-tools"],
+    emoji: "🎞️",
+    relatedSlugs: ["acf-tape", "acf-remover"],
     content: `
-## Soldering Tips — Types and Applications
+## ACF Tape in Display Panel Repair
 
-The soldering tip you use significantly affects your ability to transfer heat efficiently and make clean solder joints. Here's an overview of common tip types.
+ACF (Anisotropic Conductive Film) tape is used in professional LCD and LED panel repair to create reliable conductive bonds between COF components and the panel substrate. Correct selection and application is essential for a lasting repair.
 
-## Tip Types
+## Selecting the Right ACF Tape
 
-### Conical Tips
+### Width
 
-- **Shape:** Pointed, tapered
-- **Use:** Fine point work, SMD components, through-hole work
-- **Pros:** Precise placement, access to tight spaces
-- **Cons:** Less heat transfer than flat tips for larger joints
+The tape width must match the bonding area precisely:
 
-Recommended for: microsoldering, small SMD pads, board-level repair
+- Measure the COF bonding area before ordering
+- Tape that is too narrow may result in incomplete bonding
+- Tape that is too wide must be trimmed, which adds risk
 
-### Chisel/Flat Tips
+### Thickness
 
-- **Shape:** Flat, beveled end
-- **Use:** General purpose, through-hole, drag soldering
-- **Pros:** Good heat transfer, versatile
-- **Cons:** Less precise for very small work
+Tape thickness affects:
 
-Recommended for: general repair, through-hole components, connector soldering
+- Bond gap and pressure requirements
+- Conductivity and connection quality
+- Compatibility with specific bonding equipment
 
-### Knife Tips
+### Adhesion Properties
 
-- **Shape:** Angled edge, like a blade
-- **Use:** Drag soldering, IC leads, bridge correction
-- **Pros:** Excellent for drag soldering rows of pads
-- **Cons:** Not suitable for fine point work
+Different ACF tapes have different adhesion and conductivity properties:
 
-Recommended for: chip soldering, IC replacements, SMD rows
+- Verify the tape is compatible with the panel substrate material
+- Check the bonding temperature range of the tape
+- Confirm compatibility with your head assembly equipment
 
-### Curved/Bent Tips
+## Handling and Storage
 
-- **Shape:** Angled to access otherwise hard-to-reach areas
-- **Use:** Specific access situations
-- **Pros:** Specialized access
-- **Cons:** Limited general use
+ACF tape is sensitive to temperature and moisture:
 
-## Temperature Settings
+- Store according to manufacturer instructions — typically refrigerated
+- Allow tape to reach working temperature before use
+- Handle with care to avoid contamination
+- Do not touch the adhesive surface directly
 
-Temperature depends on:
-- Solder type (lead-free requires higher temperatures)
-- Component sensitivity (lower temperature for heat-sensitive parts)
-- Tip size (smaller tips may need slightly higher temperature)
+## Application Process
 
-General guidelines:
-- Lead solder: 300°C–350°C
-- Lead-free solder: 350°C–400°C
-- Sensitive components: Use minimum effective temperature
+### 1. Surface Preparation
 
-## Tip Care
+Before applying ACF tape:
 
-- Tin the tip before and after each use
-- Clean with wet sponge or brass wool during use
-- Store tinned tips to prevent oxidation
-- Replace tips when they become pitted or oxidized
+- Remove all old ACF residue using appropriate [ACF remover](/categories/acf-remover)
+- Clean the bonding area thoroughly
+- Allow the surface to dry completely
 
-Browse [soldering tools](/categories/soldering-tools) for our current range.
+### 2. Tape Placement
+
+- Cut the tape to the required length
+- Position carefully on the bonding area
+- Apply initial pressure to secure placement
+
+### 3. Bonding
+
+- Use appropriate head assembly at the correct temperature and pressure
+- Follow tape manufacturer specifications for bonding parameters
+- Allow adequate cooling time before handling
+
+## After Bonding
+
+- Inspect the bond visually under magnification
+- Test display function before completing the repair
+- Document the tape specification used for future reference
+
+Browse [ACF Tape](/categories/acf-tape) and [ACF Remover](/categories/acf-remover) in our product range.
     `,
   },
 };
@@ -615,7 +543,7 @@ export default async function LearnArticlePage({ params }: LearnArticleProps) {
 
             <div className="bg-[#0A0A0A] rounded-[10px] p-5 text-center">
               <p className="text-sm text-white font-semibold mb-2">Need help choosing?</p>
-              <p className="text-xs text-[#9E9E9E] mb-4">Our team can help you select the right equipment.</p>
+              <p className="text-xs text-[#9E9E9E] mb-4">Our team can help you select the right display repair parts.</p>
               <Link href="/contact" className="inline-block bg-[#E65C00] text-white text-xs font-bold px-4 py-2 rounded-[5px] hover:bg-[#CC5000] transition-colors">
                 Contact Us
               </Link>
@@ -625,4 +553,8 @@ export default async function LearnArticlePage({ params }: LearnArticleProps) {
       </div>
     </div>
   );
+}
+
+export function generateStaticParams() {
+  return Object.keys(articles).map((slug) => ({ slug }));
 }

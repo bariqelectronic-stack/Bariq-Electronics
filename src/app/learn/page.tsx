@@ -5,69 +5,69 @@ import { Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
-  title: "Learn — Repair Guides & Resources",
-  description: "Technical guides, buying guides and resources for electronics repair professionals.",
+  title: "Learn — Display Repair Guides & Resources",
+  description: "Technical guides, buying guides and resources for LCD and LED display repair professionals.",
 };
 
 const articles = [
   {
-    slug: "how-to-choose-a-microscope-for-microsoldering",
-    title: "How to Choose a Microscope for Microsoldering",
-    excerpt: "A practical guide to selecting the right magnification, working distance and optical system for microsoldering and mobile repair work. Covers stereo vs digital, working distance, zoom range, and camera compatibility.",
+    slug: "how-to-choose-t-con-board",
+    title: "How to Choose the Right T-CON Board for LCD & LED Repair",
+    excerpt: "A practical guide to selecting the correct T-CON board for your display repair — covering compatibility, connector configuration and panel specifications. Understand what to check before ordering a replacement T-CON board.",
     category: "Buying Guides",
     readTime: "6 min read",
-    emoji: "🔬",
+    emoji: "🔲",
     featured: true,
   },
   {
-    slug: "professional-mobile-repair-bench-setup",
-    title: "Professional Mobile Repair Bench Setup",
-    excerpt: "What every professional repair technician needs on their bench — from lighting and magnification to organization and ESD safety.",
+    slug: "lcd-led-display-repair-bench-setup",
+    title: "Professional LCD & LED Display Repair Bench Setup",
+    excerpt: "What every professional display repair technician needs on their bench — from panel handling and board diagnostics to COF repair equipment and proper workspace organisation.",
     category: "Repair Guides",
     readTime: "8 min read",
-    emoji: "🔧",
+    emoji: "🖥️",
     featured: true,
   },
   {
-    slug: "essential-tools-for-pcb-repair",
-    title: "Essential Tools for PCB Repair",
-    excerpt: "The core toolkit for printed circuit board repair work — what you need and why.",
+    slug: "essential-parts-cof-acf-repair",
+    title: "Essential Parts for COF and ACF Repair",
+    excerpt: "The core components and materials required for professional COF bonding, ACF tape application and ACF removal on LCD and LED display panels.",
     category: "Tool Guides",
     readTime: "5 min read",
-    emoji: "⚙️",
+    emoji: "✂️",
     featured: false,
   },
   {
-    slug: "microsoldering-equipment-checklist",
-    title: "Microsoldering Equipment Checklist",
-    excerpt: "A complete checklist of tools and equipment required to begin microsoldering work on modern mobile devices.",
-    category: "Microsoldering",
+    slug: "understanding-lvds-cables",
+    title: "Understanding LVDS Cables and Display Connections",
+    excerpt: "A guide to LVDS connectors, cable configurations and compatibility for LCD and LED display repair and board replacement work.",
+    category: "Technical Guides",
     readTime: "4 min read",
-    emoji: "✅",
+    emoji: "🔗",
     featured: false,
   },
   {
-    slug: "understanding-microscope-magnification",
-    title: "Understanding Microscope Magnification for Repair Work",
-    excerpt: "What does 7x–45x mean? How to choose the right magnification range for your specific repair applications.",
-    category: "Buying Guides",
+    slug: "t-con-programming-guide",
+    title: "T-CON Programming: A Complete Guide for Display Repair",
+    excerpt: "How T-CON programmer tools work, which boards they support, and how to use them in professional LCD and LED display repair workflows.",
+    category: "Technical Guides",
     readTime: "5 min read",
-    emoji: "🔍",
+    emoji: "💾",
     featured: false,
   },
   {
-    slug: "soldering-tips-guide",
-    title: "Soldering Tips: Types and When to Use Them",
-    excerpt: "An overview of common soldering tip profiles and their applications in mobile and PCB repair.",
-    category: "Tool Guides",
+    slug: "acf-tape-application-guide",
+    title: "ACF Tape Application Guide for Panel Repair",
+    excerpt: "A step-by-step overview of ACF tape selection, handling and application for professional display panel bonding and COF repair.",
+    category: "Repair Guides",
     readTime: "4 min read",
-    emoji: "⚡",
+    emoji: "🎞️",
     featured: false,
   },
 ];
 
 const categories = [
-  "All", "Buying Guides", "Repair Guides", "Tool Guides", "Microsoldering", "PCB Repair", "Mobile Repair"
+  "All", "Buying Guides", "Repair Guides", "Tool Guides", "Technical Guides",
 ];
 
 export default function LearnPage() {
@@ -85,7 +85,7 @@ export default function LearnPage() {
           </nav>
           <h1 className="text-2xl font-black text-[#0A0A0A] tracking-tight mb-2">Learn</h1>
           <p className="text-sm text-[#6B6B6B]">
-            Technical guides, buying advice and resources for repair professionals.
+            Technical guides, buying advice and resources for LCD and LED display repair professionals.
           </p>
 
           {/* Category filter */}

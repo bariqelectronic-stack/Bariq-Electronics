@@ -13,28 +13,32 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Bariq Electronics — Professional Repair & Microsoldering Tools",
+    default: "Bariq Electronics — Professional LCD & LED Display Repair Parts",
     template: "%s | Bariq Electronics",
   },
   description:
-    "Professional equipment for mobile phone repair, microsoldering, PCB inspection and electronics workshops. Shop microscopes, soldering tools, precision screwdrivers and more.",
+    "Professional LCD and LED display repair parts — COFS, LVDS, LED & LCD boards, T-CON, ACF tape, ACF remover, COF cutters, T-CON programmers and more. Built for display repair technicians.",
   keywords: [
-    "mobile phone repair tools",
-    "microsoldering equipment",
-    "PCB repair tools",
-    "microscopes for repair",
-    "soldering tools",
-    "precision screwdrivers",
-    "electronics workshop tools",
-    "repair accessories",
+    "LCD repair parts",
+    "LED repair parts",
+    "T-CON board",
+    "LVDS cable",
+    "COF repair",
+    "ACF tape",
+    "ACF remover",
+    "COF cutter",
+    "LED LCD boards",
+    "T-CON programmer",
+    "display repair parts",
+    "display repair technician",
   ],
   authors: [{ name: "Bariq Electronics" }],
   openGraph: {
     type: "website",
     siteName: "Bariq Electronics",
-    title: "Bariq Electronics — Professional Repair & Microsoldering Tools",
+    title: "Bariq Electronics — Professional LCD & LED Display Repair Parts",
     description:
-      "Professional equipment for mobile phone repair, microsoldering, PCB inspection and electronics workshops.",
+      "Professional LCD and LED display repair parts for technicians — COFS, LVDS, T-CON, ACF tape, COF cutters and more.",
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com"),
   robots: {

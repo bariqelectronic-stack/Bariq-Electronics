@@ -5,36 +5,36 @@ import { Badge } from "@/components/ui/badge";
 
 const articles = [
   {
-    slug: "how-to-choose-a-microscope-for-microsoldering",
-    title: "How to Choose a Microscope for Microsoldering",
-    excerpt: "A practical guide to selecting the right magnification, working distance and optical system for microsoldering and mobile repair work.",
+    slug: "how-to-choose-t-con-board",
+    title: "How to Choose the Right T-CON Board for LCD & LED Repair",
+    excerpt: "A practical guide to selecting the correct T-CON board for your display repair — covering compatibility, connector configuration and panel specifications.",
     category: "Buying Guides",
     readTime: "6 min read",
-    emoji: "🔬",
+    emoji: "🔲",
   },
   {
-    slug: "professional-mobile-repair-bench-setup",
-    title: "Professional Mobile Repair Bench Setup",
-    excerpt: "What every professional repair technician needs on their bench — from lighting and magnification to organization and safety.",
+    slug: "lcd-led-display-repair-bench-setup",
+    title: "Professional LCD & LED Display Repair Bench Setup",
+    excerpt: "What every professional display repair technician needs on their bench — from panel handling to board-level diagnostics and COF repair equipment.",
     category: "Repair Guides",
     readTime: "8 min read",
-    emoji: "🔧",
+    emoji: "🖥️",
   },
   {
-    slug: "essential-tools-for-pcb-repair",
-    title: "Essential Tools for PCB Repair",
-    excerpt: "The core toolkit for printed circuit board repair work — microscopes, soldering stations, multimeters and more.",
+    slug: "essential-parts-cof-acf-repair",
+    title: "Essential Parts for COF and ACF Repair",
+    excerpt: "The core components and materials required for professional COF bonding, ACF tape application and ACF removal on LCD and LED display panels.",
     category: "Tool Guides",
     readTime: "5 min read",
-    emoji: "⚙️",
+    emoji: "✂️",
   },
   {
-    slug: "microsoldering-equipment-checklist",
-    title: "Microsoldering Equipment Checklist",
-    excerpt: "A complete checklist of tools and equipment required to begin microsoldering work on modern mobile devices.",
-    category: "Microsoldering",
+    slug: "understanding-lvds-cables",
+    title: "Understanding LVDS Cables and Display Connections",
+    excerpt: "A guide to LVDS connectors, cable configurations and compatibility for LCD and LED display repair and board replacement work.",
+    category: "Technical Guides",
     readTime: "4 min read",
-    emoji: "✅",
+    emoji: "🔗",
   },
 ];
 
@@ -51,7 +51,7 @@ export function LearnSection() {
               Guides & Resources
             </h2>
             <p className="text-sm text-[#9E9E9E] mt-1">
-              Technical guides for repair professionals.
+              Technical guides for display repair professionals.
             </p>
           </div>
           <Link

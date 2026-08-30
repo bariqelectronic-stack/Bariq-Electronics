@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Search, ShoppingCart, Heart, User, Menu, X, ChevronDown,
-  Microscope, Wrench, Package, Layers, Cpu, Monitor, Scissors
+  Wrench, Package, Layers, Cpu, Monitor, Scissors
 } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useWishlistStore } from "@/store/wishlist";
@@ -14,7 +14,6 @@ import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 
 const categories = [
-  { name: "Microscopes",       slug: "microscopes",      icon: Microscope },
   { name: "COFS",              slug: "cofs",             icon: Cpu       },
   { name: "LVDS",              slug: "lvds",             icon: Layers    },
   { name: "LED & LCD BOARDS",  slug: "led-lcd-boards",   icon: Monitor   },
@@ -31,10 +30,10 @@ const categories = [
 ];
 
 const solutions = [
-  { name: "Mobile Phone Repair", slug: "mobile-phone-repair" },
-  { name: "Microsoldering", slug: "microsoldering" },
-  { name: "PCB Repair", slug: "pcb-repair" },
-  { name: "Electronics Laboratory", slug: "electronics-laboratory" },
+  { name: "LCD Panel Repair",   slug: "lcd-panel-repair"   },
+  { name: "LED Display Repair", slug: "led-display-repair" },
+  { name: "COF & ACF Repair",   slug: "cof-acf-repair"     },
+  { name: "Display Board Repair", slug: "display-board-repair" },
 ];
 
 export function Header() {
@@ -68,7 +67,7 @@ export function Header() {
       {/* Top bar */}
       <div className="bg-[#0A0A0A] text-white text-xs py-2 hidden md:block">
         <div className="container-site flex items-center justify-between">
-          <span className="text-[#9E9E9E]">Professional Electronics & Mobile Repair Tools</span>
+          <span className="text-[#9E9E9E]">Professional LCD &amp; LED Display Repair Parts</span>
           <div className="flex items-center gap-6 text-[#9E9E9E]">
             <a href={`tel:${siteConfig.phone}`} className="hover:text-white transition-colors">
               {siteConfig.phone}

@@ -21,12 +21,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const learnPages = [
-    "how-to-choose-a-microscope-for-microsoldering",
-    "professional-mobile-repair-bench-setup",
-    "essential-tools-for-pcb-repair",
-    "microsoldering-equipment-checklist",
-    "understanding-microscope-magnification",
-    "soldering-tips-guide",
+    "how-to-choose-t-con-board",
+    "lcd-led-display-repair-bench-setup",
+    "essential-parts-cof-acf-repair",
+    "understanding-lvds-cables",
+    "t-con-programming-guide",
+    "acf-tape-application-guide",
   ].map((slug) => ({
     url: `${BASE_URL}/learn/${slug}`,
     lastModified: new Date(),
@@ -35,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const solutionPages = [
-    "mobile-phone-repair", "microsoldering", "pcb-repair", "electronics-laboratory",
+    "lcd-panel-repair", "led-display-repair", "cof-acf-repair", "display-board-repair",
   ].map((slug) => ({
     url: `${BASE_URL}/solutions/${slug}`,
     lastModified: new Date(),
