@@ -1,18 +1,26 @@
 import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { createProduct, getCategories } from "@/app/actions/admin";
+import { getProduct, getCategories, updateProduct } from "@/app/actions/admin";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ImageUploader } from "@/components/admin/image-uploader";
 
-export const metadata: Metadata = { title: "Add Product | Admin" };
+export const metadata: Metadata = { title: "Edit Product | Admin" };
 
-export default async function NewProductPage() {
-  const categoryList = await getCategories();
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+export default async function EditProductPage({ params }: Props) {
+  const { id } = await params;
+  const [product, categoryList] = await Promise.all([getProduct(id), getCategories()]);
+
+  if (!product) notFound();
 
   const categoryOptions = [
     { value: "", label: "— No category —" },
@@ -33,6 +41,11 @@ export default async function NewProductPage() {
     { value: "discontinued", label: "Discontinued" },
   ];
 
+  // Bind the product ID so the Server Action knows which row to update
+  const updateThisProduct = updateProduct.bind(null, id);
+
+  const existingImages = Array.isArray(product.images) ? (product.images as string[]) : [];
+
   return (
     <div className="p-6 max-w-3xl">
       {/* Header */}
@@ -44,12 +57,12 @@ export default async function NewProductPage() {
           <ArrowLeft className="w-4 h-4" />
         </Link>
         <div>
-          <h1 className="text-xl font-black text-[#0A0A0A]">Add Product</h1>
-          <p className="text-sm text-[#9E9E9E] mt-0.5">Create a new product listing</p>
+          <h1 className="text-xl font-black text-[#0A0A0A]">Edit Product</h1>
+          <p className="text-sm text-[#9E9E9E] mt-0.5 truncate max-w-xs">{product.name}</p>
         </div>
       </div>
 
-      <form action={createProduct} className="space-y-6">
+      <form action={updateThisProduct} className="space-y-6">
         {/* Basic Info */}
         <div className="bg-white border border-[#E5E5E5] rounded-[10px] p-5 space-y-4">
           <h2 className="font-semibold text-sm text-[#0A0A0A]">Basic Information</h2>
@@ -57,6 +70,7 @@ export default async function NewProductPage() {
           <Input
             label="Product Name *"
             name="name"
+            defaultValue={product.name}
             placeholder="e.g. Professional Trinocular Microscope"
             required
           />
@@ -65,6 +79,7 @@ export default async function NewProductPage() {
             <Input
               label="SKU"
               name="sku"
+              defaultValue={product.sku ?? ""}
               placeholder="e.g. MICRO-001"
             />
             <Input
@@ -73,6 +88,7 @@ export default async function NewProductPage() {
               type="number"
               step="0.01"
               min="0"
+              defaultValue={product.price ?? ""}
               placeholder="e.g. 25000"
             />
           </div>
@@ -84,27 +100,23 @@ export default async function NewProductPage() {
               type="number"
               step="0.01"
               min="0"
+              defaultValue={product.salePrice ?? ""}
               placeholder="Optional"
-            />
-            <Input
-              label="Initial Stock Qty"
-              name="quantity"
-              type="number"
-              min="0"
-              defaultValue="0"
             />
           </div>
 
           <Textarea
             label="Short Description"
             name="shortDescription"
-            placeholder="Brief summary shown in product listings (1-2 sentences)"
+            defaultValue={product.shortDescription ?? ""}
+            placeholder="Brief summary shown in product listings"
             className="min-h-[80px]"
           />
 
           <Textarea
             label="Full Description"
             name="description"
+            defaultValue={product.description ?? ""}
             placeholder="Detailed product description"
           />
         </div>
@@ -114,10 +126,10 @@ export default async function NewProductPage() {
           <div>
             <h2 className="font-semibold text-sm text-[#0A0A0A]">Product Images</h2>
             <p className="text-xs text-[#9E9E9E] mt-0.5">
-              First image is the primary display image. Drag to reorder.
+              First image is the primary display image. Add, remove, or reorder images.
             </p>
           </div>
-          <ImageUploader name="images" />
+          <ImageUploader name="images" initialImages={existingImages} />
         </div>
 
         {/* Categorization */}
@@ -128,6 +140,7 @@ export default async function NewProductPage() {
             label="Category"
             name="categoryId"
             options={categoryOptions}
+            defaultValue={product.categoryId ?? ""}
             placeholder="— No category —"
           />
 
@@ -136,11 +149,13 @@ export default async function NewProductPage() {
               label="Status"
               name="status"
               options={statusOptions}
+              defaultValue={product.status ?? "draft"}
             />
             <Select
               label="Stock Status"
               name="stockStatus"
               options={stockOptions}
+              defaultValue={product.stockStatus ?? "in_stock"}
             />
           </div>
 
@@ -150,6 +165,7 @@ export default async function NewProductPage() {
               id="isFeatured"
               name="isFeatured"
               value="true"
+              defaultChecked={product.isFeatured ?? false}
               className="w-4 h-4 rounded border-[#E5E5E5] accent-[#E65C00]"
             />
             <label htmlFor="isFeatured" className="text-sm font-medium text-[#0A0A0A]">
@@ -161,7 +177,7 @@ export default async function NewProductPage() {
         {/* Actions */}
         <div className="flex items-center gap-3">
           <Button type="submit" className="font-bold">
-            Save Product
+            Save Changes
           </Button>
           <Link
             href="/admin/products"

@@ -54,6 +54,13 @@ export async function createProduct(formData: FormData) {
   const quantity = parseInt((formData.get("quantity") as string) || "0", 10);
   const isFeatured = formData.get("isFeatured") === "true";
 
+  // Images are uploaded to Supabase Storage by the client; we receive URLs as JSON
+  let images: string[] = [];
+  try {
+    const raw = formData.get("images") as string | null;
+    if (raw) images = JSON.parse(raw) as string[];
+  } catch { /* ignore malformed input */ }
+
   if (!name) throw new Error("Product name is required");
 
   // Generate unique slug
@@ -83,7 +90,7 @@ export async function createProduct(formData: FormData) {
     stockStatus,
     isFeatured,
     tags: [],
-    images: [],
+    images,
     features: [],
     applications: [],
     compatibility: [],
@@ -106,6 +113,62 @@ export async function deleteProduct(id: string) {
   if (!db) throw new Error("Database not configured");
   await db.delete(products).where(eq(products.id, id));
   revalidatePath("/admin/products");
+}
+
+export async function getProduct(id: string) {
+  await requireAdmin();
+  if (!db) return null;
+  const result = await db.query.products.findFirst({
+    where: (p, { eq }) => eq(p.id, id),
+    with: { category: true },
+  });
+  return result ?? null;
+}
+
+export async function updateProduct(id: string, formData: FormData) {
+  await requireAdmin();
+  if (!db) throw new Error("Database not configured");
+
+  const name = (formData.get("name") as string).trim();
+  const sku = (formData.get("sku") as string | null)?.trim() || null;
+  const description = (formData.get("description") as string | null)?.trim() || null;
+  const shortDescription = (formData.get("shortDescription") as string | null)?.trim() || null;
+  const price = (formData.get("price") as string | null)?.trim() || null;
+  const salePrice = (formData.get("salePrice") as string | null)?.trim() || null;
+  const categoryId = (formData.get("categoryId") as string | null)?.trim() || null;
+  const status = (formData.get("status") as string) || "draft";
+  const stockStatus = (formData.get("stockStatus") as string) || "in_stock";
+  const isFeatured = formData.get("isFeatured") === "true";
+
+  let images: string[] = [];
+  try {
+    const raw = formData.get("images") as string | null;
+    if (raw) images = JSON.parse(raw) as string[];
+  } catch { /* ignore */ }
+
+  if (!name) throw new Error("Product name is required");
+
+  await db
+    .update(products)
+    .set({
+      name,
+      sku: sku || null,
+      description: description || null,
+      shortDescription: shortDescription || null,
+      price: price || null,
+      salePrice: salePrice || null,
+      categoryId: categoryId || null,
+      status,
+      stockStatus,
+      isFeatured,
+      images,
+      updatedAt: new Date(),
+    })
+    .where(eq(products.id, id));
+
+  revalidatePath("/admin/products");
+  revalidatePath(`/admin/products/${id}/edit`);
+  redirect("/admin/products");
 }
 
 // ── Category actions ──────────────────────────────────────────────────────────
