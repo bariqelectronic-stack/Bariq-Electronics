@@ -23,14 +23,18 @@ export async function POST(request: NextRequest) {
     }
 
     // ── Storage configuration ─────────────────────────────────────────────────
-    const supabaseUrl = (process.env.SUPABASE_URL ?? "").replace(/\/$/, "");
-    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    // .trim() is critical: copy-pasting into Vercel can introduce trailing
+    // newlines or spaces that corrupt the JWT and cause "JWS Protected Header
+    // is invalid" from Supabase Storage.
+    const supabaseUrl = (process.env.SUPABASE_URL ?? "").trim().replace(/\/$/, "");
+    const serviceRoleKey = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
+
     if (!supabaseUrl || !serviceRoleKey) {
       console.error("[upload] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
       return NextResponse.json({ success: false, error: "Storage not configured" }, { status: 500 });
     }
 
-    // Validate URL format — must be a valid https:// URL or fetch() will throw
+    // Validate URL format — must be https:// or fetch() will throw
     try {
       const parsed = new URL(supabaseUrl);
       if (parsed.protocol !== "https:") {
@@ -84,7 +88,6 @@ export async function POST(request: NextRequest) {
 
     // ── Upload directly to the existing product-images bucket ─────────────────
     // The bucket must already exist in Supabase Storage and be set to Public.
-    // We do NOT create or modify the bucket here.
     let uploadRes: Response;
     try {
       uploadRes = await fetch(
@@ -118,7 +121,6 @@ export async function POST(request: NextRequest) {
       const errText = await uploadRes.text().catch(() => "");
       console.error("[upload] Supabase upload failed:", uploadRes.status, errText);
 
-      // Surface the real Supabase error so it can be diagnosed
       let detail = `HTTP ${uploadRes.status}`;
       try {
         const errJson = JSON.parse(errText) as { message?: string; error?: string };
