@@ -83,34 +83,38 @@ export function Header() {
       {/* Main header */}
       <header
         className={cn(
-          "sticky top-0 z-40 bg-white transition-shadow duration-200",
-          scrolled ? "shadow-[0_1px_0_#E5E5E5,0_4px_16px_0_rgba(0,0,0,0.06)]" : "border-b border-[#E5E5E5]"
+          "sticky top-0 z-40 bg-[#0A0A0A] transition-shadow duration-200",
+          scrolled ? "shadow-[0_4px_24px_0_rgba(0,0,0,0.4)]" : "border-b border-[#1E1E1E]"
         )}
       >
         <div className="container-site">
-          <div className="flex items-center h-16 gap-6">
-            {/* Logo */}
-            <Link href="/" className="flex-shrink-0 flex items-center gap-2.5 group">
-              <Image
-                src="/bariq-logo.jpg"
-                alt="Bariq Electronics"
-                width={40}
-                height={40}
-                className="rounded-[6px] flex-shrink-0"
-                priority
-              />
-              <div className="hidden sm:block">
-                <div className="font-black text-[#0A0A0A] text-sm leading-tight tracking-tight">
-                  BARIQ
-                </div>
-                <div className="font-light text-[#6B6B6B] text-[10px] uppercase tracking-[0.15em] leading-tight">
-                  Electronics
-                </div>
-              </div>
-            </Link>
+          {/* 3-column grid: logo | nav (centered) | controls */}
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16">
 
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1 flex-1">
+            {/* Left: Logo */}
+            <div className="flex items-center">
+              <Link href="/" className="flex-shrink-0 flex items-center gap-2.5">
+                <Image
+                  src="/bariq-logo.jpg"
+                  alt="Bariq Electronics"
+                  width={40}
+                  height={40}
+                  className="rounded-[6px] flex-shrink-0"
+                  priority
+                />
+                <div className="hidden sm:block">
+                  <div className="font-black text-white text-sm leading-tight tracking-tight">
+                    BARIQ
+                  </div>
+                  <div className="font-light text-[#9E9E9E] text-[10px] uppercase tracking-[0.15em] leading-tight">
+                    Electronics
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Center: Desktop Nav — mathematically centered relative to full navbar */}
+            <nav className="hidden lg:flex items-center gap-1">
               {/* Shop dropdown */}
               <div
                 className="relative"
@@ -122,7 +126,7 @@ export function Header() {
                     "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-[6px] transition-colors",
                     isActive("/shop") || isActive("/categories")
                       ? "text-[#E65C00]"
-                      : "text-[#3D3D3D] hover:text-[#0A0A0A] hover:bg-[#F7F7F7]"
+                      : "text-[#A0A0A0] hover:text-white hover:bg-[#1A1A1A]"
                   )}
                 >
                   Shop <ChevronDown className="w-3.5 h-3.5" />
@@ -161,7 +165,7 @@ export function Header() {
                     "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-[6px] transition-colors",
                     isActive("/solutions")
                       ? "text-[#E65C00]"
-                      : "text-[#3D3D3D] hover:text-[#0A0A0A] hover:bg-[#F7F7F7]"
+                      : "text-[#A0A0A0] hover:text-white hover:bg-[#1A1A1A]"
                   )}
                 >
                   Solutions <ChevronDown className="w-3.5 h-3.5" />
@@ -182,8 +186,8 @@ export function Header() {
               </div>
 
               {[
-                { label: "Learn", href: "/learn" },
                 { label: "Wholesale", href: "/wholesale" },
+                { label: "Learn", href: "/learn" },
                 { label: "About", href: "/about" },
                 { label: "Contact", href: "/contact" },
               ].map((item) => (
@@ -194,7 +198,7 @@ export function Header() {
                     "px-3 py-2 text-sm font-medium rounded-[6px] transition-colors",
                     isActive(item.href)
                       ? "text-[#E65C00]"
-                      : "text-[#3D3D3D] hover:text-[#0A0A0A] hover:bg-[#F7F7F7]"
+                      : "text-[#A0A0A0] hover:text-white hover:bg-[#1A1A1A]"
                   )}
                 >
                   {item.label}
@@ -202,12 +206,12 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Right actions */}
-            <div className="flex items-center gap-1 ml-auto lg:ml-0">
+            {/* Right: actions */}
+            <div className="flex items-center gap-1 justify-end">
               {/* Search toggle */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2 rounded-[6px] text-[#3D3D3D] hover:bg-[#F7F7F7] hover:text-[#0A0A0A] transition-colors"
+                className="p-2 rounded-[6px] text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors"
                 aria-label="Search"
               >
                 <Search className="w-5 h-5" />
@@ -216,7 +220,7 @@ export function Header() {
               {/* Wishlist */}
               <Link
                 href="/account/wishlist"
-                className="relative p-2 rounded-[6px] text-[#3D3D3D] hover:bg-[#F7F7F7] hover:text-[#0A0A0A] transition-colors hidden sm:flex"
+                className="relative p-2 rounded-[6px] text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors hidden sm:flex"
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5" />
@@ -230,7 +234,7 @@ export function Header() {
               {/* Account */}
               <Link
                 href="/account"
-                className="p-2 rounded-[6px] text-[#3D3D3D] hover:bg-[#F7F7F7] hover:text-[#0A0A0A] transition-colors hidden sm:flex"
+                className="p-2 rounded-[6px] text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors hidden sm:flex"
                 aria-label="Account"
               >
                 <User className="w-5 h-5" />
@@ -239,7 +243,7 @@ export function Header() {
               {/* Cart */}
               <Link
                 href="/cart"
-                className="relative flex items-center gap-2 px-3 py-2 bg-[#0A0A0A] text-white rounded-[6px] text-sm font-medium hover:bg-[#3D3D3D] transition-colors ml-1"
+                className="relative flex items-center gap-2 px-3 py-2 bg-white text-[#0A0A0A] rounded-[6px] text-sm font-medium hover:bg-[#E5E5E5] transition-colors ml-1"
                 aria-label="Cart"
               >
                 <ShoppingCart className="w-4 h-4" />
@@ -254,7 +258,7 @@ export function Header() {
               {/* Mobile menu toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="p-2 rounded-[6px] text-[#3D3D3D] hover:bg-[#F7F7F7] lg:hidden"
+                className="p-2 rounded-[6px] text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors lg:hidden"
                 aria-label="Menu"
               >
                 {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -267,9 +271,9 @@ export function Header() {
             <div className="pb-3 pt-1">
               <form
                 action="/shop"
-                className="flex items-center gap-2 border border-[#E5E5E5] rounded-[8px] px-4 py-2.5 bg-[#F7F7F7]"
+                className="flex items-center gap-2 border border-[#2A2A2A] rounded-[8px] px-4 py-2.5 bg-[#1A1A1A]"
               >
-                <Search className="w-4 h-4 text-[#9E9E9E] flex-shrink-0" />
+                <Search className="w-4 h-4 text-[#6B6B6B] flex-shrink-0" />
                 <input
                   autoFocus
                   type="search"
@@ -277,13 +281,13 @@ export function Header() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search products, categories, guides..."
-                  className="flex-1 bg-transparent text-sm outline-none text-[#0A0A0A] placeholder:text-[#9E9E9E]"
+                  className="flex-1 bg-transparent text-sm outline-none text-white placeholder:text-[#6B6B6B]"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-                    className="text-[#9E9E9E] hover:text-[#0A0A0A]"
+                    className="text-[#6B6B6B] hover:text-white transition-colors"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -295,19 +299,19 @@ export function Header() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-[#E5E5E5] bg-white">
+          <div className="lg:hidden border-t border-[#1E1E1E] bg-[#0A0A0A]">
             <div className="container-site py-4 space-y-1">
-              <Link href="/shop" className="flex items-center justify-between px-3 py-2.5 rounded-[6px] font-medium text-[#0A0A0A] hover:bg-[#F7F7F7]">
+              <Link href="/shop" className="flex items-center justify-between px-3 py-2.5 rounded-[6px] font-medium text-white hover:bg-[#1A1A1A] transition-colors">
                 All Products
               </Link>
               <div className="px-3 pt-2 pb-1">
-                <div className="text-xs font-semibold uppercase tracking-wider text-[#9E9E9E] mb-2">Categories</div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-[#6B6B6B] mb-2">Categories</div>
                 <div className="grid grid-cols-2 gap-1">
                   {categories.map((cat) => (
                     <Link
                       key={cat.slug}
                       href={`/categories/${cat.slug}`}
-                      className="flex items-center gap-2 px-2 py-2 rounded-[6px] text-sm text-[#3D3D3D] hover:bg-[#F7F7F7]"
+                      className="flex items-center gap-2 px-2 py-2 rounded-[6px] text-sm text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors"
                     >
                       <cat.icon className="w-3.5 h-3.5 text-[#E65C00]" />
                       {cat.name}
@@ -315,7 +319,7 @@ export function Header() {
                   ))}
                 </div>
               </div>
-              <div className="h-px bg-[#F0F0F0] my-2" />
+              <div className="h-px bg-[#1E1E1E] my-2" />
               {[
                 { label: "Solutions", href: "/solutions" },
                 { label: "Learn", href: "/learn" },
@@ -328,7 +332,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center px-3 py-2.5 rounded-[6px] text-sm font-medium text-[#3D3D3D] hover:bg-[#F7F7F7] hover:text-[#0A0A0A]"
+                  className="flex items-center px-3 py-2.5 rounded-[6px] text-sm font-medium text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors"
                 >
                   {item.label}
                 </Link>
