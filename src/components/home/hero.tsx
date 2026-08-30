@@ -1,14 +1,11 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getCategories } from "@/app/actions/admin";
 
-export async function Hero() {
-  const allCategories = await getCategories();
-  // Bottom nav bar: all active categories except Microscopes (not in homepage showcase)
-  const navCategories = allCategories.filter((c) => c.isActive && c.slug !== "microscopes");
-
+export function Hero() {
   return (
     <section className="relative bg-[#0A0A0A] overflow-hidden">
       {/* Background texture */}
@@ -46,11 +43,11 @@ export async function Hero() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
             <Link href="/shop">
               <Button size="lg" className="bg-[#E65C00] hover:bg-[#CC5000] text-white border-0 text-sm font-bold tracking-wide uppercase px-8">
-                Shop Products
+                Shop Tools
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
-            <Link href="/categories">
+            <Link href="/categories/microscopes">
               <Button variant="outline" size="lg" className="border-[#2A2A2A] bg-transparent text-white hover:bg-[#1A1A1A] hover:border-[#3D3D3D] text-sm font-semibold tracking-wide">
                 Explore Equipment
               </Button>
@@ -74,26 +71,33 @@ export async function Hero() {
         </div>
       </div>
 
-      {/* Category quick-nav bar — driven by DB, Microscopes excluded from homepage */}
-      {navCategories.length > 0 && (
-        <div className="border-t border-[#1E1E1E]">
-          <div className="container-site">
-            <div className="flex items-center gap-0 overflow-x-auto scrollbar-hide py-3">
-              {navCategories.map((cat, i) => (
-                <React.Fragment key={cat.slug}>
-                  {i > 0 && <ChevronRight className="w-3 h-3 text-[#3D3D3D] flex-shrink-0 mx-1" />}
-                  <Link
-                    href={`/categories/${cat.slug}`}
-                    className="text-xs font-medium text-[#9E9E9E] hover:text-white whitespace-nowrap transition-colors px-1"
-                  >
-                    {cat.name}
-                  </Link>
-                </React.Fragment>
-              ))}
-            </div>
+      {/* Breadcrumb-style category bar */}
+      <div className="border-t border-[#1E1E1E]">
+        <div className="container-site">
+          <div className="flex items-center gap-0 overflow-x-auto scrollbar-hide py-3">
+            {[
+              { label: "Microscopes", href: "/categories/microscopes" },
+              { label: "Soldering", href: "/categories/soldering-tools" },
+              { label: "PCB Repair", href: "/categories/pcb-repair" },
+              { label: "Screwdrivers", href: "/categories/screwdrivers" },
+              { label: "Lab Tools", href: "/categories/lab-tools" },
+              { label: "Cleaning", href: "/categories/cleaning-tools" },
+              { label: "Cables", href: "/categories/repair-cables" },
+              { label: "Accessories", href: "/categories/accessories" },
+            ].map((item, i) => (
+              <React.Fragment key={item.href}>
+                {i > 0 && <ChevronRight className="w-3 h-3 text-[#3D3D3D] flex-shrink-0 mx-1" />}
+                <Link
+                  href={item.href}
+                  className="text-xs font-medium text-[#9E9E9E] hover:text-white whitespace-nowrap transition-colors px-1"
+                >
+                  {item.label}
+                </Link>
+              </React.Fragment>
+            ))}
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 }
