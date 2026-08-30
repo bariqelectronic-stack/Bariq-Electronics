@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Search, ShoppingCart, Heart, User, Menu, X, ChevronDown,
-  Microscope, Wrench, Zap, Package, Layers, FlaskConical
+  Microscope, Wrench, Package, Layers, Cpu, Monitor, Scissors
 } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useWishlistStore } from "@/store/wishlist";
@@ -13,15 +13,20 @@ import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 
 const categories = [
-  { name: "Microscopes", slug: "microscopes", icon: Microscope },
-  { name: "Microscope Cameras", slug: "microscope-cameras", icon: Layers },
-  { name: "Soldering Tools", slug: "soldering-tools", icon: Zap },
-  { name: "Precision Screwdrivers", slug: "screwdrivers", icon: Wrench },
-  { name: "PCB Repair Tools", slug: "pcb-repair", icon: Layers },
-  { name: "Cleaning Tools", slug: "cleaning-tools", icon: Package },
-  { name: "Repair Cables", slug: "repair-cables", icon: Package },
-  { name: "Lab Tools", slug: "lab-tools", icon: FlaskConical },
-  { name: "Accessories", slug: "accessories", icon: Package },
+  { name: "Microscopes",       slug: "microscopes",      icon: Microscope },
+  { name: "COFS",              slug: "cofs",             icon: Cpu       },
+  { name: "LVDS",              slug: "lvds",             icon: Layers    },
+  { name: "LED & LCD BOARDS",  slug: "led-lcd-boards",   icon: Monitor   },
+  { name: "T-CON",             slug: "t-con",            icon: Layers    },
+  { name: "SCALLER",           slug: "scaller",          icon: Cpu       },
+  { name: "QUARD",             slug: "quard",            icon: Package   },
+  { name: "FOAM",              slug: "foam",             icon: Package   },
+  { name: "T-CON PROGRAMMER",  slug: "t-con-programmer", icon: Wrench    },
+  { name: "HEAD ASSEMBLY",     slug: "head-assembly",    icon: Wrench    },
+  { name: "ACF TAPE",          slug: "acf-tape",         icon: Package   },
+  { name: "ACF REMOVER",       slug: "acf-remover",      icon: Package   },
+  { name: "COF CUTTER",        slug: "cof-cutter",       icon: Scissors  },
+  { name: "TAPE",              slug: "tape",             icon: Package   },
 ];
 
 const solutions = [

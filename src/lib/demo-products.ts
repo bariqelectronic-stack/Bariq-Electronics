@@ -28,7 +28,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: true,
     isDemo: true,
-    category: { id: "cat-001", name: "Microscopes", slug: "microscopes", description: null, image: null, sortOrder: 1, isActive: true },
+    category: { id: "cat-001", name: "Microscopes", slug: "microscopes", description: null, image: null, sortOrder: 0, isActive: true },
     brand: null,
     specs: [
       { id: "spec-001", name: "Magnification", value: "Specification not provided", unit: null, sortOrder: 1, groupName: "Optics" },
@@ -66,7 +66,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: true,
     isDemo: true,
-    category: { id: "cat-002", name: "Microscope Cameras", slug: "microscope-cameras", description: null, image: null, sortOrder: 2, isActive: true },
+    category: { id: "cat-002", name: "LVDS", slug: "lvds", description: null, image: null, sortOrder: 2, isActive: true },
     brand: null,
     specs: [
       { id: "spec-010", name: "Resolution", value: "Specification not provided", unit: null, sortOrder: 1, groupName: "Sensor" },
@@ -104,7 +104,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: true,
     isDemo: true,
-    category: { id: "cat-003", name: "Soldering Tools", slug: "soldering-tools", description: null, image: null, sortOrder: 3, isActive: true },
+    category: { id: "cat-003", name: "HEAD ASSEMBLY", slug: "head-assembly", description: null, image: null, sortOrder: 9, isActive: true },
     brand: null,
     specs: [
       { id: "spec-020", name: "Temperature Range", value: "Specification not provided", unit: null, sortOrder: 1, groupName: "Performance" },
@@ -142,7 +142,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: true,
     isDemo: true,
-    category: { id: "cat-004", name: "Precision Screwdrivers", slug: "screwdrivers", description: null, image: null, sortOrder: 4, isActive: true },
+    category: { id: "cat-004", name: "COF CUTTER", slug: "cof-cutter", description: null, image: null, sortOrder: 12, isActive: true },
     brand: null,
     specs: [
       { id: "spec-030", name: "Bits Included", value: "Specification not provided", unit: null, sortOrder: 1, groupName: "Contents" },
@@ -178,7 +178,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: false,
     isDemo: true,
-    category: { id: "cat-007", name: "Repair Cables", slug: "repair-cables", description: null, image: null, sortOrder: 7, isActive: true },
+    category: { id: "cat-007", name: "COFS", slug: "cofs", description: null, image: null, sortOrder: 1, isActive: true },
     brand: null,
     specs: [
       { id: "spec-040", name: "Compatibility", value: "Specification not provided", unit: null, sortOrder: 1, groupName: "Specs" },
@@ -214,7 +214,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: false,
     isDemo: true,
-    category: { id: "cat-006", name: "Cleaning Tools", slug: "cleaning-tools", description: null, image: null, sortOrder: 6, isActive: true },
+    category: { id: "cat-006", name: "ACF REMOVER", slug: "acf-remover", description: null, image: null, sortOrder: 11, isActive: true },
     brand: null,
     specs: [],
     inventory: { quantity: 50, reserved: 0, lowStockThreshold: 10 },
@@ -248,7 +248,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: false,
     isDemo: true,
-    category: { id: "cat-008", name: "Lab Tools", slug: "lab-tools", description: null, image: null, sortOrder: 8, isActive: true },
+    category: { id: "cat-008", name: "T-CON PROGRAMMER", slug: "t-con-programmer", description: null, image: null, sortOrder: 8, isActive: true },
     brand: null,
     specs: [
       { id: "spec-070", name: "Measurement Range", value: "Specification not provided", unit: null, sortOrder: 1, groupName: "Specs" },
@@ -284,7 +284,7 @@ export const demoProducts: Product[] = [
     warranty: null,
     isFeatured: false,
     isDemo: true,
-    category: { id: "cat-009", name: "Accessories", slug: "accessories", description: null, image: null, sortOrder: 9, isActive: true },
+    category: { id: "cat-009", name: "ACF TAPE", slug: "acf-tape", description: null, image: null, sortOrder: 10, isActive: true },
     brand: null,
     specs: [],
     inventory: { quantity: 30, reserved: 0, lowStockThreshold: 5 },

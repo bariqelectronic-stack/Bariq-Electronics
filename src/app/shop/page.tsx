@@ -8,7 +8,7 @@ import { demoProducts } from "@/lib/demo-products";
 
 export const metadata: Metadata = {
   title: "Shop",
-  description: "Browse professional electronics repair tools — microscopes, soldering equipment, screwdrivers, PCB tools and more.",
+  description: "Browse professional display repair parts — COFS, LVDS, LED & LCD boards, T-CON, ACF tape, COF cutters and more.",
 };
 
 const SORT_OPTIONS = [
@@ -20,16 +20,21 @@ const SORT_OPTIONS = [
 ];
 
 const CATEGORY_FILTERS = [
-  { value: "", label: "All Categories" },
-  { value: "microscopes", label: "Microscopes" },
-  { value: "microscope-cameras", label: "Microscope Cameras" },
-  { value: "soldering-tools", label: "Soldering Tools" },
-  { value: "screwdrivers", label: "Precision Screwdrivers" },
-  { value: "pcb-repair", label: "PCB Repair Tools" },
-  { value: "cleaning-tools", label: "Cleaning Tools" },
-  { value: "repair-cables", label: "Repair Cables" },
-  { value: "lab-tools", label: "Lab Tools" },
-  { value: "accessories", label: "Accessories" },
+  { value: "",               label: "All Categories"   },
+  { value: "microscopes",    label: "Microscopes"      },
+  { value: "cofs",           label: "COFS"             },
+  { value: "lvds",           label: "LVDS"             },
+  { value: "led-lcd-boards", label: "LED & LCD BOARDS" },
+  { value: "t-con",          label: "T-CON"            },
+  { value: "scaller",        label: "SCALLER"          },
+  { value: "quard",          label: "QUARD"            },
+  { value: "foam",           label: "FOAM"             },
+  { value: "t-con-programmer", label: "T-CON PROGRAMMER" },
+  { value: "head-assembly",  label: "HEAD ASSEMBLY"    },
+  { value: "acf-tape",       label: "ACF TAPE"         },
+  { value: "acf-remover",    label: "ACF REMOVER"      },
+  { value: "cof-cutter",     label: "COF CUTTER"       },
+  { value: "tape",           label: "TAPE"             },
 ];
 
 interface ShopPageProps {
