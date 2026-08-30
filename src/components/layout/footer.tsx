@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig, getWhatsAppLink } from "@/lib/config";
 import { MessageCircle, Mail, Phone } from "lucide-react";
 
@@ -11,9 +12,13 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 bg-[#E65C00] rounded-[6px] flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-black text-sm tracking-tight">BE</span>
-              </div>
+              <Image
+                src="/bariq-logo.jpg"
+                alt="Bariq Electronics"
+                width={32}
+                height={32}
+                className="rounded-[6px] flex-shrink-0"
+              />
               <div>
                 <div className="font-black text-white text-sm leading-tight tracking-tight">BARIQ</div>
                 <div className="font-light text-[#6B6B6B] text-[10px] uppercase tracking-[0.15em] leading-tight">Electronics</div>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Eye, EyeOff, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -71,9 +72,13 @@ export default function RegisterPage() {
       <div className="w-full max-w-sm">
         <div className="flex flex-col items-center mb-8">
           <Link href="/" className="flex items-center gap-2.5 mb-6">
-            <div className="w-9 h-9 bg-[#E65C00] rounded-[7px] flex items-center justify-center">
-              <span className="text-white font-black text-sm tracking-tight">BE</span>
-            </div>
+            <Image
+              src="/bariq-logo.jpg"
+              alt="Bariq Electronics"
+              width={36}
+              height={36}
+              className="rounded-[7px] flex-shrink-0"
+            />
             <div>
               <div className="font-black text-[#0A0A0A] text-sm leading-tight tracking-tight">BARIQ</div>
               <div className="font-light text-[#6B6B6B] text-[10px] uppercase tracking-[0.15em] leading-tight">Electronics</div>

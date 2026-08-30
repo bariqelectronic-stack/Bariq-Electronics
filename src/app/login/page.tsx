@@ -2,6 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Eye, EyeOff } from "lucide-react";
@@ -111,9 +112,13 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
           <Link href="/" className="flex items-center gap-2.5 mb-6">
-            <div className="w-9 h-9 bg-[#E65C00] rounded-[7px] flex items-center justify-center">
-              <span className="text-white font-black text-sm tracking-tight">BE</span>
-            </div>
+            <Image
+              src="/bariq-logo.jpg"
+              alt="Bariq Electronics"
+              width={36}
+              height={36}
+              className="rounded-[7px] flex-shrink-0"
+            />
             <div>
               <div className="font-black text-[#0A0A0A] text-sm leading-tight tracking-tight">BARIQ</div>
               <div className="font-light text-[#6B6B6B] text-[10px] uppercase tracking-[0.15em] leading-tight">Electronics</div>

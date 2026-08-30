@@ -2,6 +2,7 @@ import React from "react";
 
 export const dynamic = "force-dynamic";
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import {
@@ -36,9 +37,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <aside className="w-56 bg-[#0A0A0A] flex-shrink-0 flex flex-col hidden lg:flex">
         <div className="p-5 border-b border-[#1E1E1E]">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-[#E65C00] rounded-[5px] flex items-center justify-center">
-              <span className="text-white font-black text-xs">BE</span>
-            </div>
+            <Image
+              src="/bariq-logo.jpg"
+              alt="Bariq Electronics"
+              width={28}
+              height={28}
+              className="rounded-[5px] flex-shrink-0"
+            />
             <div>
               <div className="text-white font-bold text-xs leading-tight">BARIQ</div>
               <div className="text-[#9E9E9E] text-[9px] uppercase tracking-widest">Admin</div>
@@ -84,9 +89,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         {/* Mobile header */}
         <div className="lg:hidden bg-[#0A0A0A] text-white px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[#E65C00] rounded-[4px] flex items-center justify-center">
-              <span className="text-white font-black text-[10px]">BE</span>
-            </div>
+            <Image
+              src="/bariq-logo.jpg"
+              alt="Bariq Electronics"
+              width={24}
+              height={24}
+              className="rounded-[4px] flex-shrink-0"
+            />
             <span className="text-white font-bold text-sm">Admin</span>
           </Link>
           <Link href="/" className="text-xs text-[#9E9E9E] hover:text-white">View Store →</Link>

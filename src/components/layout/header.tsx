@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useTransition } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Search, ShoppingCart, Heart, User, Menu, X, ChevronDown,
@@ -90,9 +91,14 @@ export function Header() {
           <div className="flex items-center h-16 gap-6">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0 flex items-center gap-2.5 group">
-              <div className="w-8 h-8 bg-[#E65C00] rounded-[6px] flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-black text-sm tracking-tight">BE</span>
-              </div>
+              <Image
+                src="/bariq-logo.jpg"
+                alt="Bariq Electronics"
+                width={40}
+                height={40}
+                className="rounded-[6px] flex-shrink-0"
+                priority
+              />
               <div className="hidden sm:block">
                 <div className="font-black text-[#0A0A0A] text-sm leading-tight tracking-tight">
                   BARIQ

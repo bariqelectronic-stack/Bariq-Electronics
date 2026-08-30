@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore } from "@/store/cart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -99,9 +100,13 @@ export default function CheckoutPage() {
         <div className="container-site py-5">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-[#E65C00] rounded-[5px] flex items-center justify-center">
-                <span className="text-white font-black text-xs">BE</span>
-              </div>
+              <Image
+                src="/bariq-logo.jpg"
+                alt="Bariq Electronics"
+                width={28}
+                height={28}
+                className="rounded-[5px] flex-shrink-0"
+              />
               <span className="font-bold text-sm text-[#0A0A0A]">Bariq Electronics</span>
             </Link>
             <div className="flex items-center gap-1">
