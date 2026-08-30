@@ -54,13 +54,13 @@ export function Footer() {
             <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Shop</h4>
             <ul className="space-y-2.5">
               {[
-                { label: "All Products", href: "/shop" },
-                { label: "Microscopes", href: "/categories/microscopes" },
-                { label: "Soldering Tools", href: "/categories/soldering-tools" },
-                { label: "Screwdrivers", href: "/categories/screwdrivers" },
-                { label: "PCB Tools", href: "/categories/pcb-repair" },
-                { label: "Lab Tools", href: "/categories/lab-tools" },
-                { label: "Accessories", href: "/categories/accessories" },
+                { label: "All Products",    href: "/shop" },
+                { label: "Microscopes",     href: "/categories/microscopes" },
+                { label: "COFS",            href: "/categories/cofs" },
+                { label: "LVDS",            href: "/categories/lvds" },
+                { label: "LED & LCD BOARDS",href: "/categories/led-lcd-boards" },
+                { label: "T-CON",           href: "/categories/t-con" },
+                { label: "ACF TAPE",        href: "/categories/acf-tape" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-[#9E9E9E] hover:text-white transition-colors">

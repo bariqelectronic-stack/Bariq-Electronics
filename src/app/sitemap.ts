@@ -1,14 +1,13 @@
 import { MetadataRoute } from "next";
 import { demoProducts } from "@/lib/demo-products";
+import { getCategories } from "@/app/actions/admin";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const categoryPages = [
-    "microscopes", "microscope-cameras", "soldering-tools", "screwdrivers",
-    "pcb-repair", "cleaning-tools", "repair-cables", "lab-tools", "accessories",
-  ].map((slug) => ({
-    url: `${BASE_URL}/categories/${slug}`,
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const dbCategories = await getCategories();
+  const categoryPages = dbCategories.map((c) => ({
+    url: `${BASE_URL}/categories/${c.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,

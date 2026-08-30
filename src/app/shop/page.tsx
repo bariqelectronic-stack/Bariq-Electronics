@@ -5,6 +5,7 @@ import { Search, SlidersHorizontal, ChevronDown } from "lucide-react";
 import { ProductCard } from "@/components/shop/product-card";
 import { Badge } from "@/components/ui/badge";
 import { demoProducts } from "@/lib/demo-products";
+import { getCategories } from "@/app/actions/admin";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -19,24 +20,6 @@ const SORT_OPTIONS = [
   { value: "best_selling", label: "Best Selling" },
 ];
 
-const CATEGORY_FILTERS = [
-  { value: "",               label: "All Categories"   },
-  { value: "microscopes",    label: "Microscopes"      },
-  { value: "cofs",           label: "COFS"             },
-  { value: "lvds",           label: "LVDS"             },
-  { value: "led-lcd-boards", label: "LED & LCD BOARDS" },
-  { value: "t-con",          label: "T-CON"            },
-  { value: "scaller",        label: "SCALLER"          },
-  { value: "quard",          label: "QUARD"            },
-  { value: "foam",           label: "FOAM"             },
-  { value: "t-con-programmer", label: "T-CON PROGRAMMER" },
-  { value: "head-assembly",  label: "HEAD ASSEMBLY"    },
-  { value: "acf-tape",       label: "ACF TAPE"         },
-  { value: "acf-remover",    label: "ACF REMOVER"      },
-  { value: "cof-cutter",     label: "COF CUTTER"       },
-  { value: "tape",           label: "TAPE"             },
-];
-
 interface ShopPageProps {
   searchParams: Promise<{ q?: string; category?: string; sort?: string; inStock?: string }>;
 }
@@ -47,6 +30,12 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const category = params.category || "";
   const sort = params.sort || "featured";
   const inStockOnly = params.inStock === "true";
+
+  const dbCategories = await getCategories();
+  const CATEGORY_FILTERS = [
+    { value: "", label: "All Categories" },
+    ...dbCategories.map((c) => ({ value: c.slug, label: c.name })),
+  ];
 
   let products = [...demoProducts];
 

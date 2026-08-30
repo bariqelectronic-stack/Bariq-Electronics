@@ -2,7 +2,7 @@
  * Database seed script for Bariq Electronics
  *
  * Creates:
- *  - 9 product categories
+ *  - 14 product categories
  *  - 8 demo products (isDemo = true, price = null — replace via admin)
  *  - Inventory records for each demo product
  *  - Default site settings
@@ -58,15 +58,20 @@ function generateSecurePassword(): string {
 // ─── Categories ───────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-  { name: "Microscopes",            slug: "microscopes",         description: "Stereo and digital microscopes for PCB inspection and microsoldering.", sortOrder: 1 },
-  { name: "Microscope Cameras",     slug: "microscope-cameras",  description: "Cameras and adapters for connecting to stereo microscopes.",           sortOrder: 2 },
-  { name: "Soldering Tools",        slug: "soldering-tools",     description: "Soldering stations, hot air rework stations and accessories.",          sortOrder: 3 },
-  { name: "Precision Screwdrivers", slug: "screwdrivers",        description: "Precision screwdriver sets for mobile phone and laptop repair.",        sortOrder: 4 },
-  { name: "Hot Air Stations",       slug: "hot-air-stations",    description: "Hot air rework stations for SMD component removal and placement.",      sortOrder: 5 },
-  { name: "Cleaning Tools",         slug: "cleaning-tools",      description: "Anti-static brushes, flux removers and PCB cleaning supplies.",         sortOrder: 6 },
-  { name: "Repair Cables",          slug: "repair-cables",       description: "Boot cables, test cables and diagnostic accessories for PCB repair.",   sortOrder: 7 },
-  { name: "Lab Tools",              slug: "lab-tools",           description: "Multimeters, power supplies and laboratory diagnostic equipment.",       sortOrder: 8 },
-  { name: "Accessories",            slug: "accessories",         description: "Tweezers, mats, helping hands and workshop accessories.",               sortOrder: 9 },
+  { name: "Microscopes",        slug: "microscopes",       description: "Stereo and digital microscopes for display inspection.",                    sortOrder: 0  },
+  { name: "COFS",               slug: "cofs",              description: "Chip-on-film connectors for LCD and display bonding.",                      sortOrder: 1  },
+  { name: "LVDS",               slug: "lvds",              description: "LVDS cables and connectors for display signal transmission.",               sortOrder: 2  },
+  { name: "LED & LCD BOARDS",   slug: "led-lcd-boards",    description: "LED driver boards and LCD display panels for TV repair.",                   sortOrder: 3  },
+  { name: "T-CON",              slug: "t-con",             description: "Timing controller boards for LCD/LED panel signal processing.",             sortOrder: 4  },
+  { name: "SCALLER",            slug: "scaller",           description: "Scaler boards and chips for display signal conversion.",                    sortOrder: 5  },
+  { name: "QUARD",              slug: "quard",             description: "Quard display boards and components.",                                      sortOrder: 6  },
+  { name: "FOAM",               slug: "foam",              description: "Foam padding and cushioning materials for display assembly.",               sortOrder: 7  },
+  { name: "T-CON PROGRAMMER",   slug: "t-con-programmer",  description: "Programmer tools for flashing and repairing T-CON boards.",                sortOrder: 8  },
+  { name: "HEAD ASSEMBLY",      slug: "head-assembly",     description: "Head assembly components for display bonding and repair.",                  sortOrder: 9  },
+  { name: "ACF TAPE",           slug: "acf-tape",          description: "Anisotropic conductive film tape for COF bonding.",                        sortOrder: 10 },
+  { name: "ACF REMOVER",        slug: "acf-remover",       description: "Chemical solutions for ACF residue removal from display panels.",          sortOrder: 11 },
+  { name: "COF CUTTER",         slug: "cof-cutter",        description: "Precision cutters for chip-on-film trimming and preparation.",             sortOrder: 12 },
+  { name: "TAPE",               slug: "tape",              description: "Adhesive tapes for display assembly and component securing.",              sortOrder: 13 },
 ] as const;
 
 // ─── Demo products ─────────────────────────────────────────────────────────────
@@ -112,7 +117,7 @@ const DEMO_PRODUCTS: DemoProduct[] = [
     sku: "DEMO-CAM-001",
     shortDescription: "High-resolution camera for microscope integration with PC/Mac compatibility.",
     description: "DEMO PRODUCT — Replace via Admin > Products with your real product details.",
-    categorySlug: "microscope-cameras",
+    categorySlug: "lvds",
     features: ["High resolution CMOS sensor", "USB connectivity", "Compatible with major microscope brands", "Measurement software included"],
     applications: ["Microscope documentation", "Live view inspection", "Quality control"],
     tags: ["camera", "microscope camera", "digital", "USB"],
@@ -130,7 +135,7 @@ const DEMO_PRODUCTS: DemoProduct[] = [
     sku: "DEMO-SOLD-001",
     shortDescription: "Temperature-controlled soldering station for microsoldering and PCB rework.",
     description: "DEMO PRODUCT — Replace via Admin > Products with your real product details.",
-    categorySlug: "soldering-tools",
+    categorySlug: "head-assembly",
     features: ["Digital temperature display", "Fast heat-up", "Interchangeable tips", "ESD safe"],
     applications: ["Microsoldering", "PCB rework", "Component replacement"],
     tags: ["soldering", "soldering station", "microsoldering", "ESD"],
@@ -148,7 +153,7 @@ const DEMO_PRODUCTS: DemoProduct[] = [
     sku: "DEMO-HAIRS-001",
     shortDescription: "Dual-display hot air station for SMD rework and chip-level repair.",
     description: "DEMO PRODUCT — Replace via Admin > Products with your real product details.",
-    categorySlug: "hot-air-stations",
+    categorySlug: "t-con",
     features: ["Separate temperature and airflow control", "Digital LED display", "Multiple nozzle sizes", "Auto-sleep function"],
     applications: ["SMD rework", "Chip-level repair", "BGA reballing", "Flex cable removal"],
     tags: ["hot air", "rework", "SMD", "BGA"],
@@ -166,7 +171,7 @@ const DEMO_PRODUCTS: DemoProduct[] = [
     sku: "DEMO-SCRW-001",
     shortDescription: "Complete precision screwdriver set for mobile phone and laptop disassembly.",
     description: "DEMO PRODUCT — Replace via Admin > Products with your real product details.",
-    categorySlug: "screwdrivers",
+    categorySlug: "cof-cutter",
     features: ["Pentalobe, Torx, Phillips, Flathead bits", "Rotating top cap", "ESD safe handles", "Magnetic tips", "Storage case"],
     applications: ["iPhone disassembly", "Android repair", "Laptop servicing"],
     tags: ["screwdriver", "precision", "pentalobe", "torx"],
@@ -183,7 +188,7 @@ const DEMO_PRODUCTS: DemoProduct[] = [
     sku: "DEMO-CABLE-001",
     shortDescription: "Diagnostic power boot cable for mobile device PCB testing.",
     description: "DEMO PRODUCT — Replace via Admin > Products with your real product details.",
-    categorySlug: "repair-cables",
+    categorySlug: "cofs",
     features: ["Multi-device compatibility", "Direct PCB power boot", "Short circuit protection"],
     applications: ["PCB short-circuit diagnosis", "Baseband boot testing", "Dead phone repair"],
     tags: ["boot cable", "PCB cable", "diagnostic"],
@@ -200,7 +205,7 @@ const DEMO_PRODUCTS: DemoProduct[] = [
     sku: "DEMO-LAB-001",
     shortDescription: "Professional auto-ranging digital multimeter for electronics diagnostics.",
     description: "DEMO PRODUCT — Replace via Admin > Products with your real product details.",
-    categorySlug: "lab-tools",
+    categorySlug: "t-con-programmer",
     features: ["Auto-ranging", "Large backlit LCD", "AC/DC voltage, current, resistance, continuity", "Overload protection"],
     applications: ["Component testing", "Voltage/current measurement", "Board-level diagnostics"],
     tags: ["multimeter", "DMM", "diagnostic", "lab"],
@@ -218,7 +223,7 @@ const DEMO_PRODUCTS: DemoProduct[] = [
     sku: "DEMO-ACC-001",
     shortDescription: "Anti-static precision tweezers for SMD work and mobile phone repair.",
     description: "DEMO PRODUCT — Replace via Admin > Products with your real product details.",
-    categorySlug: "accessories",
+    categorySlug: "acf-tape",
     features: ["ESD-safe composite", "Multiple tip profiles", "Anti-magnetic", "Storage pouch"],
     applications: ["SMD component placement", "BGA inspection", "Mobile phone repair"],
     tags: ["tweezers", "ESD", "SMD", "anti-static"],
