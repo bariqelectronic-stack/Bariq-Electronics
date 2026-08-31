@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Test Storage bucket list
-    let storageTestResult;
+    let storageTestResult: Record<string, unknown>;
     try {
       const listRes = await fetch(`${supabaseUrl}/storage/v1/bucket`, {
         method: "GET",
