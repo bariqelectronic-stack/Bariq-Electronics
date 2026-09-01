@@ -18,3 +18,5 @@ out/
 npm-debug.log*
 tsconfig.tsbuildinfo
 .github-token.local
+GITHUB_TOKEN.txt
+verify-upload-system.js

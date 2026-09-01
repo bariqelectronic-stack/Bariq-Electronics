@@ -26,8 +26,21 @@ export async function POST(request: NextRequest) {
     // .trim() is critical: copy-pasting into Vercel can introduce trailing
     // newlines or spaces that corrupt the JWT and cause "JWS Protected Header
     // is invalid" from Supabase Storage.
-    const supabaseUrl = (process.env.SUPABASE_URL ?? "").trim().replace(/\/$/, "");
-    const serviceRoleKey = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
+    const supabaseUrl = (process.env.SUPABASE_URL ?? "")
+      .trim()
+      .replace(/[[:space:]]/g, "")
+
+    const serviceRoleKey = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "")
+      .trim()
+      .replace(/[[:space:]]/g, "");
+
+    if (!serviceRoleKey.startsWith("eyJ") || serviceRoleKey.split(".").length !== 3) {
+      console.error("[upload] SUPABASE_SERVICE_ROLE_KEY has invalid JWT format");
+      return NextResponse.json(
+        { success: false, error: "Storage authentication configuration is invalid. Check SUPABASE_SERVICE_ROLE_KEY." },
+        { status: 500 }
+      );
+    }
 
     if (!supabaseUrl || !serviceRoleKey) {
       console.error("[upload] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
