@@ -17,3 +17,4 @@ out/
 *.pem
 npm-debug.log*
 tsconfig.tsbuildinfo
+.github-token.local
