@@ -1,0 +1,276 @@
+From 57875dc305b3734d5d84818e745a3d39e1e89056 Mon Sep 17 00:00:00 2001
+From: Bariq Electronics <bariq@bariqelectronics.com>
+Date: Tue, 1 Sep 2026 01:45:16 +0000
+Subject: [PATCH] Fix production image upload - enhance Supabase client
+ credential handling
+
+- Aggressively sanitize SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to remove line breaks and whitespace
+- Add JWT format validation for service role key (must be 3-part JWT starting with eyJ)
+- Add improved error logging in upload route to identify JWS/JWT errors
+- Add production diagnostic endpoint at /api/admin/upload-diagnostic
+- Enhance error messages to help identify malformed credentials
+
+This fixes the 'JWS Protected Header is invalid' error in production by ensuring
+environment variables are properly cleaned and validated before use.
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+---
+ .gitignore                                   |   3 +
+ src/app/api/admin/upload-diagnostic/route.ts | 119 +++++++++++++++++++
+ src/app/api/admin/upload/route.ts            |  23 +++-
+ src/lib/supabase-server.ts                   |  32 ++++-
+ 4 files changed, 171 insertions(+), 6 deletions(-)
+ create mode 100644 src/app/api/admin/upload-diagnostic/route.ts
+
+diff --git a/.gitignore b/.gitignore
+index 73270c7..4e639bb 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -17,3 +17,6 @@ out/
+ *.pem
+ npm-debug.log*
+ tsconfig.tsbuildinfo
++.github-token.local
++GITHUB_TOKEN.txt
++verify-upload-system.js
+diff --git a/src/app/api/admin/upload-diagnostic/route.ts b/src/app/api/admin/upload-diagnostic/route.ts
+new file mode 100644
+index 0000000..5a49929
+--- /dev/null
++++ b/src/app/api/admin/upload-diagnostic/route.ts
+@@ -0,0 +1,119 @@
++import { NextRequest, NextResponse } from "next/server";
++import { auth } from "@/auth";
++
++/**
++ * Production-safe diagnostic endpoint for upload system
++ * NEVER exposes secrets
++ */
++export async function GET(request: NextRequest) {
++  try {
++    // Check authentication
++    const session = await auth();
++
++    if (!session || (session as { user?: { role?: string } }).user?.role !== "ADMIN") {
++      return NextResponse.json(
++        { error: "Unauthorized" },
++        { status: 401 }
++      );
++    }
++
++    const diagnostics = {
++      timestamp: new Date().toISOString(),
++      environment: process.env.NODE_ENV,
++      checks: {} as Record<string, unknown>,
++    };
++
++    // Check environment variables exist (without exposing values)
++    const supabaseUrl = process.env.SUPABASE_URL;
++    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
++
++    diagnostics.checks.supabaseUrl = {
++      exists: !!supabaseUrl,
++      length: supabaseUrl?.length || 0,
++      startsWithHttps: supabaseUrl?.startsWith('https://'),
++      format: supabaseUrl ? 'https://<project>.supabase.co' : 'missing',
++    };
++
++    diagnostics.checks.serviceRoleKey = {
++      exists: !!serviceRoleKey,
++      length: serviceRoleKey?.length || 0,
++      startsWithEyJ: serviceRoleKey?.startsWith('eyJ'),
++      hasTwoPeriods: (serviceRoleKey?.match(/\./g) || []).length === 2,
++      format: serviceRoleKey?.startsWith('eyJ') ? 'JWT format' : 'invalid format',
++    };
++
++    // Validate URL format
++    if (supabaseUrl) {
++      try {
++        const url = new URL(supabaseUrl);
++        diagnostics.checks.urlValidation = {
++          valid: true,
++          protocol: url.protocol,
++          hostname: url.hostname.replace(/[a-z0-9]+\.supabase\.co/, '<project>.supabase.co'),
++        };
++      } catch (err) {
++        diagnostics.checks.urlValidation = {
++          valid: false,
++          error: err instanceof Error ? err.message : 'Invalid URL',
++        };
++      }
++    }
++
++    // Check if we can create a Supabase client
++    if (supabaseUrl && serviceRoleKey) {
++      try {
++        const { createClient } = await import("@supabase/supabase-js");
++        const client = createClient(supabaseUrl.trim(), serviceRoleKey.trim(), {
++          auth: {
++            autoRefreshToken: false,
++            persistSession: false,
++          },
++        });
++
++        diagnostics.checks.clientCreation = {
++          success: true,
++        };
++
++        // Try to list buckets (safe operation)
++        try {
++          const { data: buckets, error } = await client.storage.listBuckets();
++
++          if (error) {
++            diagnostics.checks.storageBuckets = {
++              success: false,
++              error: error.message,
++              statusCode: (error as { statusCode?: number }).statusCode,
++            };
++          } else {
++            diagnostics.checks.storageBuckets = {
++              success: true,
++              count: buckets?.length || 0,
++              hasProductImages: buckets?.some(b => b.name === 'product-images') || false,
++            };
++          }
++        } catch (storageErr) {
++          diagnostics.checks.storageBuckets = {
++            success: false,
++            error: storageErr instanceof Error ? storageErr.message : 'Unknown error',
++          };
++        }
++      } catch (clientErr) {
++        diagnostics.checks.clientCreation = {
++          success: false,
++          error: clientErr instanceof Error ? clientErr.message : 'Unknown error',
++        };
++      }
++    }
++
++    return NextResponse.json(diagnostics);
++
++  } catch (err) {
++    return NextResponse.json(
++      {
++        error: "Diagnostic failed",
++        message: err instanceof Error ? err.message : "Unknown error",
++      },
++      { status: 500 }
++    );
++  }
++}
+diff --git a/src/app/api/admin/upload/route.ts b/src/app/api/admin/upload/route.ts
+index 1f804a0..38f1f7f 100644
+--- a/src/app/api/admin/upload/route.ts
++++ b/src/app/api/admin/upload/route.ts
+@@ -190,12 +190,14 @@ export async function POST(request: NextRequest) {
+     let supabase;
+     try {
+       supabase = createServerSupabaseClient();
++      console.log("[upload] Supabase client created successfully");
+     } catch (err) {
+       console.error("[upload] Failed to create Supabase client:", err);
++      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+       return NextResponse.json(
+         {
+           success: false,
+-          error: "Storage configuration error. Please check SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY."
++          error: `Storage configuration error: ${errorMessage}`
+         },
+         { status: 500 }
+       );
+@@ -215,7 +217,12 @@ export async function POST(request: NextRequest) {
+       });
+ 
+     if (error) {
+-      console.error("[upload] Supabase upload error:", error);
++      // Log the full error details for debugging
++      console.error("[upload] Supabase upload error:", {
++        message: error.message,
++        statusCode: (error as { statusCode?: number }).statusCode,
++        error: error,
++      });
+ 
+       // Provide helpful error messages
+       if (error.message.includes("Bucket not found")) {
+@@ -238,8 +245,18 @@ export async function POST(request: NextRequest) {
+         );
+       }
+ 
++      if (error.message.includes("JWS") || error.message.includes("JWT") || error.message.includes("Header")) {
++        return NextResponse.json(
++          {
++            success: false,
++            error: `Storage authentication failed: ${error.message}. This usually means the SUPABASE_SERVICE_ROLE_KEY environment variable is malformed or invalid.`
++          },
++          { status: 500 }
++        );
++      }
++
+       return NextResponse.json(
+-        { success: false, error: `Upload failed: ${error.message}` },
++        { success: false, error: `Storage upload failed: ${error.message}` },
+         { status: 500 }
+       );
+     }
+diff --git a/src/lib/supabase-server.ts b/src/lib/supabase-server.ts
+index 80cbe51..9e77edb 100644
+--- a/src/lib/supabase-server.ts
++++ b/src/lib/supabase-server.ts
+@@ -10,12 +10,23 @@ import { createClient } from "@supabase/supabase-js";
+  * NEVER expose this client or its key to the browser.
+  */
+ export function createServerSupabaseClient() {
+-  const supabaseUrl = process.env.SUPABASE_URL?.trim();
+-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
++  // Get environment variables and aggressively clean them
++  const supabaseUrl = process.env.SUPABASE_URL
++    ?.trim()
++    .replace(/[\n\r]/g, '') // Remove line breaks
++    .replace(/\s+/g, ''); // Remove all whitespace
++
++  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
++    ?.trim()
++    .replace(/[\n\r]/g, '') // Remove line breaks
++    .replace(/\s+/g, ''); // Remove all whitespace
+ 
+   if (!supabaseUrl || !serviceRoleKey) {
++    const missing = [];
++    if (!supabaseUrl) missing.push('SUPABASE_URL');
++    if (!serviceRoleKey) missing.push('SUPABASE_SERVICE_ROLE_KEY');
+     throw new Error(
+-      "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY environment variable"
++      `Missing environment variable(s): ${missing.join(', ')}`
+     );
+   }
+ 
+@@ -25,12 +36,27 @@ export function createServerSupabaseClient() {
+     if (url.protocol !== "https:") {
+       throw new Error("SUPABASE_URL must use https://");
+     }
++    if (!url.hostname.includes('supabase.co')) {
++      throw new Error("SUPABASE_URL must be a valid Supabase URL");
++    }
+   } catch (err) {
+     throw new Error(
+       `Invalid SUPABASE_URL: ${err instanceof Error ? err.message : String(err)}`
+     );
+   }
+ 
++  // Validate service role key format (should be a JWT: xxx.yyy.zzz)
++  if (!serviceRoleKey.startsWith('eyJ')) {
++    throw new Error("SUPABASE_SERVICE_ROLE_KEY must be a valid JWT token");
++  }
++
++  const parts = serviceRoleKey.split('.');
++  if (parts.length !== 3) {
++    throw new Error("SUPABASE_SERVICE_ROLE_KEY must be a valid JWT with 3 parts");
++  }
++
++  // Create client with service_role key
++  // The service role key bypasses RLS and should only be used server-side
+   return createClient(supabaseUrl, serviceRoleKey, {
+     auth: {
+       autoRefreshToken: false,
+-- 
+2.49.0
+
