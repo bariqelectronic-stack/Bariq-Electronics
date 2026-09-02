@@ -20,3 +20,4 @@ tsconfig.tsbuildinfo
 .github-token.local
 GITHUB_TOKEN.txt
 verify-upload-system.js
+*.patch
