@@ -1,0 +1,92 @@
+
+> bariq-electronics@0.1.0 build
+> next build
+
+▲ Next.js 16.3.3 (Turbopack)
+- Environments: .env.local
+⚠ `images.domains` is deprecated in favor of `images.remotePatterns`. Please update next.config.ts to protect your application from malicious users.
+✓ Running next.config.ts took 295ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.5s
+  Running TypeScript ...
+  Finished TypeScript in 9.2s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/45) ...
+  Generating static pages using 7 workers (11/45) 
+  Generating static pages using 7 workers (22/45) 
+  Generating static pages using 7 workers (33/45) 
+✓ Generating static pages using 7 workers (45/45) in 7.0s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /account
+├ ○ /account/addresses
+├ ○ /account/orders
+├ ƒ /account/orders/[id]
+├ ○ /account/profile
+├ ○ /account/wishlist
+├ ƒ /admin
+├ ƒ /admin/blog
+├ ƒ /admin/categories
+├ ƒ /admin/customers
+├ ƒ /admin/inventory
+├ ƒ /admin/messages
+├ ƒ /admin/migrate-categories
+├ ƒ /admin/orders
+├ ƒ /admin/pages
+├ ƒ /admin/products
+├ ƒ /admin/products/[id]/edit
+├ ƒ /admin/products/new
+├ ƒ /admin/reviews
+├ ƒ /admin/settings
+├ ƒ /admin/wholesale
+├ ƒ /api/admin/delete-image
+├ ƒ /api/admin/migrate-categories
+├ ƒ /api/admin/storage-check
+├ ƒ /api/admin/test-storage
+├ ƒ /api/admin/upload
+├ ƒ /api/auth/[...nextauth]
+├ ○ /cart
+├ ○ /categories
+├ ƒ /categories/[slug]
+├ ○ /checkout
+├ ○ /compare
+├ ○ /contact
+├ ○ /faq
+├ ○ /forgot-password
+├ ○ /learn
+├   /learn/[slug]
+│ ├ ● /learn/how-to-choose-t-con-board
+│ ├ ● /learn/lcd-led-display-repair-bench-setup
+│ ├ ● /learn/essential-parts-cof-acf-repair
+│ └ ● [+3 more paths]
+├ ○ /login
+├ ○ /privacy
+├ ƒ /products/[slug]
+├ ○ /register
+├ ○ /returns
+├ ○ /robots.txt
+├ ○ /shipping
+├ ƒ /shop
+├ ○ /sitemap.xml
+├ ○ /solutions
+├   /solutions/[slug]
+│ ├ ● /solutions/lcd-panel-repair
+│ ├ ● /solutions/led-display-repair
+│ ├ ● /solutions/cof-acf-repair
+│ └ ● /solutions/display-board-repair
+├ ○ /terms
+├ ○ /track-order
+└ ○ /wholesale
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
