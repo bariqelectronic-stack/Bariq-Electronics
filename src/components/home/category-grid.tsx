@@ -1,11 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getCategories } from "@/app/actions/admin";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 // Visual-only styling map — slug → { emoji, bg }.
-// The DB is the single source of truth for which categories exist and their names.
-// This map only provides presentation data (emoji icon and background tint).
 const CATEGORY_VISUALS: Record<string, { emoji: string; bg: string }> = {
   cofs:               { emoji: "🔲", bg: "#EEF4F7" },
   lvds:               { emoji: "🔗", bg: "#F7F4EE" },
@@ -24,10 +22,14 @@ const CATEGORY_VISUALS: Record<string, { emoji: string; bg: string }> = {
 const DEFAULT_VISUAL = { emoji: "📦", bg: "#F7F7F7" };
 
 export async function CategoryGrid() {
-  const allCategories = await getCategories();
+  const supabase = await createServerSupabaseClient();
+  const { data: allCategories } = await supabase
+    .from("categories")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
   // Microscopes is excluded from the homepage category showcase.
-  // It remains in the DB and is accessible via /categories/microscopes.
-  const categories = allCategories.filter((c) => c.isActive && c.slug !== "microscopes");
+  const categories = (allCategories ?? []).filter((c) => c.isActive && c.slug !== "microscopes");
 
   return (
     <section className="py-16 bg-[#F7F7F7]">

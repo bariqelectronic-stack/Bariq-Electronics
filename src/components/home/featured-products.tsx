@@ -2,11 +2,18 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ProductCard } from "@/components/shop/product-card";
-import { getFeaturedProducts } from "@/lib/demo-products";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { Badge } from "@/components/ui/badge";
 
-export function FeaturedProducts() {
-  const products = getFeaturedProducts();
+export async function FeaturedProducts() {
+  const supabase = await createServerSupabaseClient();
+  const { data: products } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(8);
+
+  const productList = products ?? [];
 
   return (
     <section className="py-16 bg-white">
@@ -17,13 +24,13 @@ export function FeaturedProducts() {
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E65C00]">
                 Featured
               </div>
-              <Badge variant="demo">Demo Products</Badge>
+              <Badge variant="demo">Featured Products</Badge>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-[#0A0A0A] tracking-tight">
               Featured Equipment
             </h2>
             <p className="text-sm text-[#9E9E9E] mt-1">
-              Demo products shown — add your real inventory in the admin panel.
+              Browse our top-rated professional repair equipment.
             </p>
           </div>
           <Link
@@ -34,9 +41,9 @@ export function FeaturedProducts() {
           </Link>
         </div>
 
-        {products.length > 0 ? (
+        {productList.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {products.map((product) => (
+            {productList.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

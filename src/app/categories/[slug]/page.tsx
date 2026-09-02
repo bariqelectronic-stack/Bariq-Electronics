@@ -4,8 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/shop/product-card";
 import { Badge } from "@/components/ui/badge";
-import { getProductsByCategory } from "@/lib/demo-products";
-import { db } from "@/db";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { CategoryFeatureSection } from "@/components/category/category-feature-section";
 import { CATEGORY_CONTENT } from "@/lib/category-content";
 
@@ -15,10 +14,14 @@ interface CategoryPageProps {
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (!db) return { title: "Category" };
-  const cat = await db.query.categories.findFirst({
-    where: (c, { eq }) => eq(c.slug, slug),
-  });
+  const supabase = await createServerSupabaseClient();
+  
+  const { data: cat } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
   if (!cat) return { title: "Category Not Found" };
   return {
     title: cat.name,
@@ -28,16 +31,26 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
+  const supabase = await createServerSupabaseClient();
 
-  if (!db) notFound();
-
-  const cat = await db.query.categories.findFirst({
-    where: (c, { eq }) => eq(c.slug, slug),
-  });
+  const { data: cat } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("slug", slug)
+    .single();
 
   if (!cat) notFound();
 
-  const products = getProductsByCategory(slug);
+  // Ab demo products ki jagah asli database se products fetch kar rahe hain
+  const { data: products, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("category", slug) // Category slug se match karein
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching products:", error);
+  }
 
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
@@ -68,7 +81,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <p className="text-sm text-[#6B6B6B]">
-              {products.length} {products.length === 1 ? "product" : "products"}
+              {products?.length ?? 0} {products?.length === 1 ? "product" : "products"}
             </p>
             <Badge variant="demo">Demo</Badge>
           </div>
@@ -77,7 +90,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </Link>
         </div>
 
-        {products.length > 0 ? (
+        {products && products.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />

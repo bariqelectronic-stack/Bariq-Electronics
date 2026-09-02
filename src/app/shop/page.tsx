@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Search, SlidersHorizontal, ChevronDown } from "lucide-react";
 import { ProductCard } from "@/components/shop/product-card";
 import { Badge } from "@/components/ui/badge";
-import { demoProducts } from "@/lib/demo-products";
 import { getCategories } from "@/app/actions/admin";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -37,26 +37,30 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     ...dbCategories.map((c) => ({ value: c.slug, label: c.name })),
   ];
 
-  let products = [...demoProducts];
+    const supabase = await createServerSupabaseClient();
+
+  let queryBuilder = supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (query) {
     const q = query.toLowerCase();
-    products = products.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.shortDescription?.toLowerCase().includes(q) ||
-        p.tags.some((t) => t.toLowerCase().includes(q))
-    );
+    queryBuilder = queryBuilder.or(`name.ilike.%${q}%,short_description.ilike.%${q}%,tags.ilike.%${q}%`);
   }
 
   if (category) {
-    products = products.filter((p) => p.category?.slug === category);
+    queryBuilder = queryBuilder.eq("category", category);
   }
 
   if (inStockOnly) {
-    products = products.filter((p) => p.stockStatus !== "out_of_stock");
+    queryBuilder = queryBuilder.neq("stock_status", "out_of_stock");
   }
 
+  let { data: products, error } = await queryBuilder;
+  if (products === null) {
+    products = [];
+  }
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
       {/* Page header */}
@@ -71,7 +75,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             <div>
               <h1 className="text-2xl font-black text-[#0A0A0A] tracking-tight">All Products</h1>
               <p className="text-sm text-[#9E9E9E] mt-1">
-                {products.length} {products.length === 1 ? "product" : "products"} found
+                {products?.length ?? 0} {products?.length === 1 ? "product" : "products"} found
                 {query && ` for "${query}"`}
               </p>
             </div>
@@ -96,7 +100,6 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                     placeholder="Search products..."
                     className="w-full border border-[#E5E5E5] rounded-[6px] pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-[#E65C00] bg-[#F7F7F7]"
                   />
-                  {/* Preserve other params */}
                   {category && <input type="hidden" name="category" value={category} />}
                   {sort && <input type="hidden" name="sort" value={sort} />}
                 </form>
@@ -171,9 +174,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               </div>
             </div>
 
-            {products.length > 0 ? (
+            {products?.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {products.map((product) => (
+                {products?.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
