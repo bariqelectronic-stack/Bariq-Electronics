@@ -1,17 +1,4 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-    ],
-  },
-  typescript: {
-    ignoreBuildErrors: false,
-  },
+const nextConfig = {
+  // output: 'export',  // Comment karein
+  // ... baaki config
 };
-
-export default nextConfig;
