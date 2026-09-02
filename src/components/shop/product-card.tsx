@@ -8,7 +8,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const mainImage = product.images?.[0]?.url || product.image || null;
+ const mainImage = product.images?.[0]?.url || product.image || product.images?.[0] || product.images || null;
 
   return (
     <div className="group bg-white border border-[#E5E5E5] rounded-[12px] p-4 hover:border-[#E65C00] hover:shadow-[0_4px_16px_0_rgba(230,92,0,0.1)] transition-all duration-200">
