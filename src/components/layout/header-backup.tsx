@@ -6,8 +6,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Search, ShoppingCart, Heart, User, Menu, X, ChevronDown,
-  Home, Wrench, Package, Layers, Cpu, Monitor, Scissors
-}  from "lucide-react";
+  Wrench, Package, Layers, Cpu, Monitor, Scissors
+} from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useWishlistStore } from "@/store/wishlist";
 import { siteConfig } from "@/lib/config";
@@ -88,16 +88,16 @@ export function Header() {
       >
         <div className="container-site">
           {/* 3-column grid: logo | nav (centered) | controls */}
-          <div className="grid grid-cols-[auto_1fr_auto] items-center h-16 relative">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16">
 
             {/* Left: Logo */}
             <div className="flex items-center">
-              <Link href="/" className="flex-shrink-0 flex items-center gap-2.5 absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
+              <Link href="/" className="flex-shrink-0 flex items-center gap-2.5">
                 <Image
                   src="/bariq-logo.jpg"
                   alt="Bariq Electronics"
-                  width={48}
-                  height={48}
+                  width={40}
+                  height={40}
                   className="rounded-[6px] flex-shrink-0"
                   priority
                 />
@@ -230,6 +230,15 @@ export function Header() {
                 )}
               </Link>
 
+              {/* Account */}
+              <Link
+                href="/account"
+                className="p-2 rounded-[6px] text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors hidden sm:flex"
+                aria-label="Account"
+              >
+                <User className="w-5 h-5" />
+              </Link>
+
               {/* Cart */}
               <Link
                 href="/cart"
@@ -248,7 +257,7 @@ export function Header() {
               {/* Mobile menu toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="absolute left-0 p-2 rounded-[6px] text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors lg:hidden"
+                className="p-2 rounded-[6px] text-[#A0A0A0] hover:bg-[#1A1A1A] hover:text-white transition-colors lg:hidden"
                 aria-label="Menu"
               >
                 {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -334,12 +343,13 @@ export function Header() {
 
       {/* Mobile bottom nav */}
       <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[#E5E5E5] lg:hidden">
-        <div className="grid grid-cols-4 h-14">
+        <div className="grid grid-cols-5 h-14">
           {[
             { icon: "🏠", label: "Home", href: "/" },
             { icon: "🔧", label: "Shop", href: "/shop" },
             { icon: "🔍", label: "Search", href: "/shop", search: true },
             { icon: "🛒", label: "Cart", href: "/cart", badge: cartCount },
+            { icon: "👤", label: "Account", href: "/account" },
           ].map((item) => (
             <Link
               key={item.href + item.label}
@@ -352,7 +362,7 @@ export function Header() {
                   : "text-[#9E9E9E]"
               )}
             >
-              <span className="text-base leading-none">{item.label === "Home" ? <Home className="w-5 h-5" /> : item.label === "Shop" ? <Wrench className="w-5 h-5" /> : item.label === "Search" ? <Search className="w-5 h-5" /> : item.label === "Cart" ? <ShoppingCart className="w-5 h-5" /> : <User className="w-5 h-5" />}</span>
+              <span className="text-base leading-none">{item.icon}</span>
               {item.label}
               {item.badge && item.badge > 0 && (
                 <span className="absolute top-1.5 right-5 w-4 h-4 bg-[#E65C00] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
@@ -365,9 +375,7 @@ export function Header() {
       </nav>
 
       {/* Bottom nav spacer on mobile */}
+      <div className="h-14 lg:hidden" />
     </>
   );
 }
-
-
-

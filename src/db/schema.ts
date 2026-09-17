@@ -147,7 +147,7 @@ export const inventory = pgTable("inventory", {
 
 export const inventoryMovements = pgTable("inventory_movements", {
   id: uuid("id").primaryKey().defaultRandom(),
-  productId: uuid("product_id").notNull().references(() => products.id),
+  productId: uuid("product_id").notNull().references(() => products.id, { onDelete: "cascade" }),
   type: varchar("type", { length: 50 }).notNull(),
   quantity: integer("quantity").notNull(),
   reason: text("reason"),
@@ -171,7 +171,7 @@ export const carts = pgTable("carts", {
 export const cartItems = pgTable("cart_items", {
   id: uuid("id").primaryKey().defaultRandom(),
   cartId: uuid("cart_id").notNull().references(() => carts.id, { onDelete: "cascade" }),
-  productId: uuid("product_id").notNull().references(() => products.id),
+  productId: uuid("product_id").notNull().references(() => products.id, { onDelete: "cascade" }),
   quantity: integer("quantity").notNull().default(1),
   priceAtAdd: decimal("price_at_add", { precision: 10, scale: 2 }),
   addedAt: timestamp("added_at").defaultNow().notNull(),
@@ -467,3 +467,4 @@ export const wishlistItemsRelations = relations(wishlistItems, ({ one }) => ({
   wishlist: one(wishlists, { fields: [wishlistItems.wishlistId], references: [wishlists.id] }),
   product: one(products, { fields: [wishlistItems.productId], references: [products.id] }),
 }));
+

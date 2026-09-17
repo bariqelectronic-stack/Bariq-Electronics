@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Search, ShoppingCart } from "lucide-react";
@@ -20,7 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
               src={mainImage}
               alt={product.name}
               fill
-              className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+              className="object-cover p-0 transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
         ) : (

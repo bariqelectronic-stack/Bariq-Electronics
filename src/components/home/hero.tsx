@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getCategories } from "@/app/actions/admin";
+import { MachineScroll } from "@/components/home/machine-scroll";
 
 export async function Hero() {
   const allCategories = await getCategories();
@@ -10,7 +11,7 @@ export async function Hero() {
   const navCategories = allCategories.filter((c) => c.isActive && c.slug !== "microscopes");
 
   return (
-    <section className="relative bg-[#0A0A0A] overflow-hidden">
+    <section className="relative bg-[#0A0A0A] overflow-visible">
       {/* Background texture */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -19,7 +20,8 @@ export async function Hero() {
       {/* Orange accent line */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#E65C00]" />
 
-      <div className="container-site relative z-10 py-20 lg:py-28">
+      <div className="container-site relative z-10 py-14 lg:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-4 items-center">
         <div className="max-w-3xl">
           {/* Eyebrow */}
           <div className="flex items-center gap-2 mb-6">
@@ -31,16 +33,11 @@ export async function Hero() {
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
-            Professional Tools.{" "}
-            <span className="text-[#E65C00]">Precise</span>{" "}
-            Repairs.
+            Empowering Businesses Worldwide with Advanced Display Technology
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg text-[#9E9E9E] max-w-2xl mb-10 leading-relaxed">
-            Professional tools, boards, and repair solutions for LED &amp; LCD, T-CON, COF,
-            ACF, LVDS, and electronics technicians. Built for precision. Built for professionals.
-          </p>
+          <p className="text-lg text-[#9E9E9E] max-w-2xl mb-10 leading-relaxed">Supplying state-of-the-art laser &amp; bonding machine, complete hardware support, High quality accessories,free professional training.</p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
@@ -72,6 +69,8 @@ export async function Hero() {
             ))}
           </div>
         </div>
+        <MachineScroll />
+        </div>
       </div>
 
       {/* Category quick-nav bar — driven by DB, Microscopes excluded from homepage */}
@@ -97,3 +96,4 @@ export async function Hero() {
     </section>
   );
 }
+

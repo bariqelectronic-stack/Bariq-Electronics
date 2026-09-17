@@ -28,21 +28,49 @@ export default function RegisterPage() {
   const strengthColor = ["", "#DC2626", "#CA8A04", "#2563EB", "#16A34A"][strength];
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (form.password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
-    setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setLoading(false);
-    setSuccess(true);
+  e.preventDefault();
+  setError("");
+
+  if (form.password !== form.confirmPassword) {
+    setError("Passwords do not match.");
+    return;
   }
+
+  if (form.password.length < 8) {
+    setError("Password must be at least 8 characters.");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        password: form.password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.error || "Unable to create account.");
+      return;
+    }
+
+    setSuccess(true);
+  } catch {
+    setError("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+}
 
   function set(field: string, value: string) {
     setForm((p) => ({ ...p, [field]: value }));

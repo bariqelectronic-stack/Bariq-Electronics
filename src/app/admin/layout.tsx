@@ -28,7 +28,7 @@ const navItems = [
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   // Server-side guard — second layer after middleware
   const session = await auth();
-  if (!session) redirect("/login");
+  if (!session) redirect("/admin-login");
   if (session.user?.role !== "ADMIN") redirect("/");
 
   return (

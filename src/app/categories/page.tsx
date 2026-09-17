@@ -29,7 +29,7 @@ const CATEGORY_EMOJIS: Record<string, string> = {
 
 export default async function CategoriesPage() {
   const allCategories = await getCategories();
-  const categories = allCategories.filter((c) => c.isActive);
+  const categories = allCategories.filter((c) => c.isActive && c.slug !== "microscopes");
 
   return (
     <div className="bg-[#F7F7F7] min-h-screen">

@@ -110,15 +110,6 @@ export default async function AdminProductsPage() {
                       >
                         <Edit className="w-3.5 h-3.5" />
                       </Link>
-                      <form action={deleteProduct.bind(null, product.id)}>
-                        <button type="submit"
-                          className="flex items-center gap-1 px-2 py-1.5 rounded-[5px] text-xs font-semibold text-[#DC2626] hover:bg-[#FEF2F2] transition-colors"
-                          title="Delete product"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                          Delete
-                        </button>
-                      </form>
                     </div>
                   </td>
                 </tr>

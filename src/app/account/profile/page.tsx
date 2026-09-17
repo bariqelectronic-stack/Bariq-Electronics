@@ -57,22 +57,9 @@ export default function ProfilePage() {
           </form>
         </div>
 
-        <div className="mt-4 bg-white border border-[#E5E5E5] rounded-[12px] p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <Shield className="w-5 h-5 text-[#E65C00]" />
-            <h3 className="font-bold text-[#0A0A0A]">Security</h3>
-          </div>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-[#6B6B6B]">Password</span>
-              <Link href="/forgot-password" className="text-[#E65C00] font-medium hover:underline text-xs">Change password →</Link>
-            </div>
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-[#6B6B6B]">Account</span>
-              <button className="text-[#DC2626] text-xs font-medium hover:underline">Delete account</button>
-            </div>
-          </div>
-        </div>
+        <p className="text-xs text-[#9E9E9E] text-center mt-4">
+  Profile changes require database and authentication configuration.
+</p>
 
         <p className="text-xs text-[#9E9E9E] text-center mt-4">
           Profile changes require database and authentication configuration.

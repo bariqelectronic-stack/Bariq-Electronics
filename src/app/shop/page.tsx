@@ -34,7 +34,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const dbCategories = await getCategories();
   const CATEGORY_FILTERS = [
     { value: "", label: "All Categories" },
-    ...dbCategories.map((c) => ({ value: c.slug, label: c.name })),
+    ...dbCategories.filter((c) => c.slug !== "microscopes").map((c) => ({ value: c.slug, label: c.name })),
   ];
 
     const supabase = await createServerSupabaseClient();
@@ -45,12 +45,78 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     .order("created_at", { ascending: false });
 
   if (query) {
-    const q = query.toLowerCase();
-    queryBuilder = queryBuilder.or(`name.ilike.%${q}%,short_description.ilike.%${q}%,tags.ilike.%${q}%`);
+  const q = query.toLowerCase();
+
+  const { data: matchingCategories } = await supabase
+    .from("categories")
+    .select("id")
+    .or(`name.ilike.%${q}%,slug.ilike.%${q}%`);
+
+  const categoryIds = (matchingCategories ?? []).map((cat) => cat.id);
+
+  const textQuery = `name.ilike.%${q}%,short_description.ilike.%${q}%,tags.ilike.%${q}%`;
+
+  if (categoryIds.length > 0) {
+    const { data: textProducts } = await supabase
+      .from("products")
+      .select("*")
+      .or(textQuery);
+
+    const { data: categoryProducts } = await supabase
+      .from("products")
+      .select("*")
+      .in("category_id", categoryIds);
+
+    const merged = new Map<string, any>();
+
+    [...(textProducts ?? []), ...(categoryProducts ?? [])].forEach((product) => {
+      merged.set(product.id, product);
+    });
+
+    let results = Array.from(merged.values());
+
+    if (category) {
+      const { data: selectedCategory } = await supabase
+        .from("categories")
+        .select("id")
+        .eq("slug", category)
+        .single();
+
+      if (selectedCategory?.id) {
+        results = results.filter(
+          (product) => product.category_id === selectedCategory.id
+        );
+      }
+    }
+
+    if (inStockOnly) {
+      results = results.filter(
+        (product) => product.stock_status !== "out_of_stock"
+      );
+    }
+
+    results.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() -
+        new Date(a.created_at).getTime()
+    );
+
+    queryBuilder = Promise.resolve({ data: results, error: null }) as any;
+  } else {
+    queryBuilder = queryBuilder.or(textQuery);
   }
+}
 
   if (category) {
-    queryBuilder = queryBuilder.eq("category", category);
+    const { data: selectedCategory } = await supabase
+      .from("categories")
+      .select("id")
+      .eq("slug", category)
+      .single();
+
+    if (selectedCategory?.id) {
+      queryBuilder = queryBuilder.eq("category_id", selectedCategory.id);
+    }
   }
 
   if (inStockOnly) {
@@ -79,7 +145,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 {query && ` for "${query}"`}
               </p>
             </div>
-            <Badge variant="demo">Demo Catalog</Badge>
+            
           </div>
         </div>
       </div>

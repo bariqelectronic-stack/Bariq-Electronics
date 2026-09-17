@@ -11,13 +11,38 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setLoading(false);
-    setSent(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/password-reset", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.toLowerCase().trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Unable to send reset link.");
+        return;
+      }
+
+      setSent(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -30,28 +55,53 @@ export default function ForgotPasswordPage() {
               alt="Bariq Electronics"
               width={36}
               height={36}
-              className="rounded-[7px] flex-shrink-0"
+              className="rounded-[7px]"
             />
             <div>
-              <div className="font-black text-[#0A0A0A] text-sm leading-tight tracking-tight">BARIQ</div>
-              <div className="font-light text-[#6B6B6B] text-[10px] uppercase tracking-[0.15em] leading-tight">Electronics</div>
+              <div className="font-black text-[#0A0A0A] text-sm">
+                BARIQ
+              </div>
+              <div className="font-light text-[#6B6B6B] text-[10px] uppercase tracking-[0.15em]">
+                Electronics
+              </div>
             </div>
           </Link>
-          <h1 className="text-xl font-black text-[#0A0A0A] tracking-tight">Reset Password</h1>
-          <p className="text-sm text-[#9E9E9E] mt-1">We&apos;ll send you a reset link</p>
+
+          <h1 className="text-xl font-black text-[#0A0A0A]">
+            Reset Password
+          </h1>
+
+          <p className="text-sm text-[#9E9E9E] mt-1">
+            We&apos;ll send you a secure reset link
+          </p>
         </div>
 
         <div className="bg-white border border-[#E5E5E5] rounded-[12px] p-6">
+          {error && (
+            <div className="bg-[#FEE2E2] border border-[#FCA5A5] rounded-[6px] p-3 mb-4 text-xs text-[#DC2626]">
+              {error}
+            </div>
+          )}
+
           {sent ? (
             <div className="text-center py-4">
               <div className="w-12 h-12 bg-[#DBEAFE] rounded-full flex items-center justify-center mx-auto mb-3">
                 <Mail className="w-6 h-6 text-[#2563EB]" />
               </div>
-              <h3 className="font-bold text-[#0A0A0A] mb-2">Check your email</h3>
+
+              <h3 className="font-bold text-[#0A0A0A] mb-2">
+                Check your email
+              </h3>
+
               <p className="text-sm text-[#6B6B6B] mb-5">
-                If an account with <strong>{email}</strong> exists, a password reset link will be sent.
+                If an account with <strong>{email}</strong> exists, a
+                password reset link has been sent.
               </p>
-              <Link href="/login" className="text-sm text-[#E65C00] hover:underline">
+
+              <Link
+                href="/login"
+                className="text-sm text-[#E65C00] hover:underline"
+              >
                 Back to sign in
               </Link>
             </div>
@@ -64,12 +114,22 @@ export default function ForgotPasswordPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
+                autoComplete="email"
               />
-              <Button type="submit" loading={loading} className="w-full font-bold">
+
+              <Button
+                type="submit"
+                loading={loading}
+                className="w-full font-bold"
+              >
                 Send Reset Link
               </Button>
+
               <div className="text-center">
-                <Link href="/login" className="text-sm text-[#9E9E9E] hover:text-[#6B6B6B]">
+                <Link
+                  href="/login"
+                  className="text-sm text-[#9E9E9E] hover:text-[#6B6B6B]"
+                >
                   Back to sign in
                 </Link>
               </div>

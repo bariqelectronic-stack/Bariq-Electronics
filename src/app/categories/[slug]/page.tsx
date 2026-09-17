@@ -45,7 +45,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { data: products, error } = await supabase
     .from("products")
     .select("*")
-    .eq("category", slug) // Category slug se match karein
+    .eq("category_id", cat.id) // Category slug se match karein
     .order("created_at", { ascending: false });
 
   if (error) {

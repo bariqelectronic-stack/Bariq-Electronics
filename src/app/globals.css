@@ -128,3 +128,142 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+
+/* Premium page entrance animation */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main.page-enter > * {
+  opacity: 0;
+  animation: page-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+main.page-enter > *:nth-child(1) { animation-delay: 0.05s; }
+main.page-enter > *:nth-child(2) { animation-delay: 0.12s; }
+main.page-enter > *:nth-child(3) { animation-delay: 0.19s; }
+main.page-enter > *:nth-child(4) { animation-delay: 0.26s; }
+main.page-enter > *:nth-child(5) { animation-delay: 0.33s; }
+main.page-enter > *:nth-child(6) { animation-delay: 0.40s; }
+main.page-enter > *:nth-child(7) { animation-delay: 0.47s; }
+main.page-enter > *:nth-child(8) { animation-delay: 0.54s; }
+
+@media (prefers-reduced-motion: reduce) {
+  main.page-enter > * {
+    opacity: 1;
+    animation: none;
+  }
+}
+/* =========================================================
+/* FINANCE SAAS INSPIRED THEME */
+:root {
+  --finance-black: #030202;
+  --finance-white: #D7D9E0;
+  --finance-brown: #5E180B;
+  --finance-gray: #AAA2AA;
+  --finance-slate: #4E525D;
+  --finance-orange: #B65C20;
+  --finance-red: #A12008;
+  --finance-muted: #6E7180;
+}
+
+html { background: #030202; }
+
+body {
+  background: #030202 !important;
+  color: #D7D9E0;
+}
+
+section.bg-\[\#0A0A0A\] {
+  background: radial-gradient(circle at 72% 20%, rgba(182,92,32,.16), transparent 30%), radial-gradient(circle at 20% 80%, rgba(94,24,11,.20), transparent 32%), linear-gradient(135deg,#030202 0%,#090505 55%,#030202 100%) !important;
+}
+
+.bg-white {
+  background: #0A0808 !important;
+}
+
+.bg-\[\#F7F7F7\], .bg-\[\#F0F0F0\] {
+  background: #090707 !important;
+}
+
+.text-\[\#0A0A0A\] {
+  color: #D7D9E0 !important;
+}
+
+.text-\[\#3D3D3D\], .text-\[\#6B6B6B\] {
+  color: #AAA2AA !important;
+}
+
+.text-\[\#9E9E9E\] {
+  color: #6E7180 !important;
+}
+
+.text-\[\#E65C00\] {
+  color: #B65C20 !important;
+}
+
+.bg-\[\#E65C00\] {
+  background: linear-gradient(135deg,#B65C20 0%,#A12008 100%) !important;
+  box-shadow: 0 12px 32px rgba(166,55,20,.22);
+}
+
+.hover\:bg-\[\#CC5000\]:hover {
+  background: linear-gradient(135deg,#A9501B 0%,#871A08 100%) !important;
+}
+
+.border-\[\#E5E5E5\], .border-\[\#D0D0D0\] {
+  border-color: rgba(215,217,224,.10) !important;
+}
+
+.border-\[\#2A2A2A\], .border-\[\#3D3D3D\] {
+  border-color: rgba(215,217,224,.14) !important;
+}
+
+input, textarea, select {
+  background: #0B0909 !important;
+  color: #D7D9E0 !important;
+  border-color: rgba(215,217,224,.12) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #6E7180 !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #B65C20 !important;
+  box-shadow: 0 0 0 4px rgba(182,92,32,.10) !important;
+}
+
+.rounded-\[10px\], .rounded-\[12px\], .rounded-\[8px\] {
+  border-color: rgba(215,217,224,.08);
+}
+
+.rounded-\[10px\]:hover, .rounded-\[12px\]:hover {
+  box-shadow: 0 20px 55px rgba(0,0,0,.40), 0 0 0 1px rgba(182,92,32,.10);
+}
+
+a {
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+::-webkit-scrollbar-track {
+  background: #080606;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4E525D;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B65C20;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
