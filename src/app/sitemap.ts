@@ -1,23 +1,32 @@
 import { MetadataRoute } from "next";
-import { demoProducts } from "@/lib/demo-products";
-import { getCategories } from "@/app/actions/admin";
+import { db } from "@/db";
+import { products, categories } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com";
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const dbCategories = await getCategories();
+  const dbCategories = db
+    ? await db.select().from(categories).where(eq(categories.isActive, true))
+    : [];
+
+  const dbProducts = db
+    ? await db.select().from(products).where(eq(products.status, "published"))
+    : [];
+
   const categoryPages = dbCategories.map((c) => ({
     url: `${BASE_URL}/categories/${c.slug}`,
-    lastModified: new Date(),
+    lastModified: c.createdAt,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
-  const productPages = demoProducts.map((p) => ({
+  const productPages = dbProducts.map((p) => ({
     url: `${BASE_URL}/products/${p.slug}`,
     lastModified: p.updatedAt,
     changeFrequency: "weekly" as const,
-    priority: 0.7,
+    priority: 0.9,
   }));
 
   const learnPages = [
@@ -35,7 +44,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const solutionPages = [
-    "lcd-panel-repair", "led-display-repair", "cof-acf-repair", "display-board-repair",
+    "lcd-panel-repair",
+    "led-display-repair",
+    "cof-acf-repair",
+    "display-board-repair",
   ].map((slug) => ({
     url: `${BASE_URL}/solutions/${slug}`,
     lastModified: new Date(),
@@ -49,12 +61,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/categories`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/solutions`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/learn`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
-    { url: `${BASE_URL}/wholesale`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/wholesale`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/shipping`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
-    { url: `${BASE_URL}/returns`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
     ...categoryPages,
     ...productPages,
     ...learnPages,

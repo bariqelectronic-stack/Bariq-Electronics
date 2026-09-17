@@ -21,3 +21,10 @@ tsconfig.tsbuildinfo
 GITHUB_TOKEN.txt
 verify-upload-system.js
 *.patch
+
+.vercel
+.env*
+
+# local secret files
+Api keys.txt
+openAi api key.txt
