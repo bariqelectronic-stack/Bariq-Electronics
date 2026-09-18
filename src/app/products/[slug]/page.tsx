@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { AddToCartButton } from "@/components/product/add-to-cart-button";
 import { ProductCard } from "@/components/shop/product-card";
 import { getProductBySlug, demoProducts } from "@/lib/demo-products";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
 import { getWhatsAppLink } from "@/lib/config";
 import { Check, MessageCircle, Package, ChevronRight } from "lucide-react";
@@ -15,9 +16,85 @@ interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
+async function getProductForPage(slug: string) {
+  const demoProduct = getProductBySlug(slug);
+  if (demoProduct) return demoProduct;
+
+  const supabase = await createServerSupabaseClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (error || !data) return null;
+
+  const [{ data: category }, { data: specs }, { data: inventory }] = await Promise.all([
+    data.category_id
+      ? supabase.from("categories").select("*").eq("id", data.category_id).maybeSingle()
+      : Promise.resolve({ data: null }),
+    supabase.from("product_specs").select("*").eq("product_id", data.id).order("sort_order", { ascending: true }),
+    supabase.from("inventory").select("*").eq("product_id", data.id).maybeSingle(),
+  ]);
+
+  return {
+    id: data.id,
+    name: data.name,
+    slug: data.slug,
+    sku: data.sku ?? null,
+    description: data.description ?? null,
+    shortDescription: data.short_description ?? null,
+    price: data.price != null ? String(data.price) : null,
+    salePrice: data.sale_price != null ? String(data.sale_price) : null,
+    status: data.status ?? null,
+    stockStatus: data.stock_status ?? "in_stock",
+    images: Array.isArray(data.images) ? data.images : [],
+    features: Array.isArray(data.features) ? data.features : [],
+    applications: Array.isArray(data.applications) ? data.applications : [],
+    compatibility: Array.isArray(data.compatibility) ? data.compatibility : [],
+    whatsIncluded: Array.isArray(data.whats_included) ? data.whats_included : [],
+    warranty: data.warranty ?? null,
+    isFeatured: data.is_featured ?? false,
+    isDemo: data.is_demo ?? false,
+    category: category
+      ? {
+          id: category.id,
+          name: category.name,
+          slug: category.slug,
+          description: category.description ?? null,
+          image: category.image ?? null,
+          sortOrder: category.sort_order ?? null,
+          isActive: category.is_active ?? null,
+        }
+      : null,
+    brand: null,
+    specs: (specs ?? []).map((spec: any) => ({
+      id: spec.id,
+      name: spec.name,
+      value: spec.value ?? null,
+      unit: spec.unit ?? null,
+      sortOrder: spec.sort_order ?? null,
+      groupName: spec.group_name ?? null,
+    })),
+    inventory: inventory
+      ? {
+          quantity: inventory.quantity ?? 0,
+          reserved: inventory.reserved ?? 0,
+          lowStockThreshold: inventory.low_stock_threshold ?? null,
+        }
+      : null,
+    reviews: [],
+    tags: Array.isArray(data.tags) ? data.tags : [],
+    viewCount: data.view_count ?? 0,
+    saleCount: data.sale_count ?? 0,
+    createdAt: new Date(data.created_at),
+    updatedAt: new Date(data.updated_at),
+  };
+}
+
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductForPage(slug);
   if (!product) return { title: "Product Not Found" };
   return {
     title: product.name,
@@ -32,7 +109,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductForPage(slug);
   if (!product) notFound();
 
   const price = product.price ? parseFloat(product.price) : null;
