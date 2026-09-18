@@ -21,22 +21,15 @@ async function getProductForPage(slug: string): Promise<Product | null> {
   const demoProduct = getProductBySlug(slug);
   if (demoProduct) return demoProduct;
 
-  const supabase = await createServerSupabaseClient();
+  const supabase = createServerSupabaseClient();
   const { data, error } = await supabase
     .from("products")
     .select("*")
     .eq("slug", slug)
+    .eq("status", "published")
     .maybeSingle();
 
   if (error || !data) return null;
-
-  const [{ data: category }, { data: specs }, { data: inventory }] = await Promise.all([
-    data.category_id
-      ? supabase.from("categories").select("*").eq("id", data.category_id).maybeSingle()
-      : Promise.resolve({ data: null }),
-    supabase.from("product_specs").select("*").eq("product_id", data.id).order("sort_order", { ascending: true }),
-    supabase.from("inventory").select("*").eq("product_id", data.id).maybeSingle(),
-  ]);
 
   return {
     id: data.id,
@@ -57,33 +50,10 @@ async function getProductForPage(slug: string): Promise<Product | null> {
     warranty: data.warranty ?? null,
     isFeatured: data.is_featured ?? false,
     isDemo: data.is_demo ?? false,
-    category: category
-      ? {
-          id: category.id,
-          name: category.name,
-          slug: category.slug,
-          description: category.description ?? null,
-          image: category.image ?? null,
-          sortOrder: category.sort_order ?? null,
-          isActive: category.is_active ?? null,
-        }
-      : null,
+    category: null,
     brand: null,
-    specs: (specs ?? []).map((spec: any) => ({
-      id: spec.id,
-      name: spec.name,
-      value: spec.value ?? null,
-      unit: spec.unit ?? null,
-      sortOrder: spec.sort_order ?? null,
-      groupName: spec.group_name ?? null,
-    })),
-    inventory: inventory
-      ? {
-          quantity: inventory.quantity ?? 0,
-          reserved: inventory.reserved ?? 0,
-          lowStockThreshold: inventory.low_stock_threshold ?? null,
-        }
-      : null,
+    specs: [],
+    inventory: null,
     reviews: [],
     tags: Array.isArray(data.tags) ? data.tags : [],
     viewCount: data.view_count ?? 0,
