@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { demoProducts } from "@/lib/demo-products";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { getCategories } from "@/app/actions/admin";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com";
@@ -13,9 +13,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const productPages = demoProducts.map((p) => ({
+  const supabase = createServerSupabaseClient();
+  const { data: dbProducts } = await supabase
+    .from("products")
+    .select("slug, updated_at")
+    .eq("status", "published");
+
+  const productPages = (dbProducts ?? []).map((p) => ({
     url: `${BASE_URL}/products/${p.slug}`,
-    lastModified: p.updatedAt,
+    lastModified: new Date(p.updated_at),
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
