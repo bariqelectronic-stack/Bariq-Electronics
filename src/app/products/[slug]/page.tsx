@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
+import type { Product } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -16,7 +17,7 @@ interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
-async function getProductForPage(slug: string) {
+async function getProductForPage(slug: string): Promise<Product | null> {
   const demoProduct = getProductBySlug(slug);
   if (demoProduct) return demoProduct;
 
