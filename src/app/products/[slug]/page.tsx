@@ -105,6 +105,27 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const whatsappMsg = `Hi, I'm interested in: ${product.name}${product.sku ? ` (SKU: ${product.sku})` : ""}. Can you provide more information?`;
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.shortDescription || product.description || undefined,
+    sku: product.sku || undefined,
+    image: product.images.length ? product.images : undefined,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com"}/products/${product.slug}`,
+    offers: displayPrice !== null ? {
+      "@type": "Offer",
+      priceCurrency: "PKR",
+      price: displayPrice,
+      availability: product.stockStatus === "out_of_stock"
+        ? "https://schema.org/OutOfStock"
+        : "https://schema.org/InStock",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com"}/products/${product.slug}`,
+    } : undefined,
+  };
+
+
+
   // Group specs by group name
   const specGroups: Record<string, typeof product.specs> = {};
   (product.specs || []).forEach((spec) => {
@@ -115,6 +136,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
       <div className="container-site py-6">
         {/* Breadcrumb */}
         <nav className="text-xs text-[#9E9E9E] mb-6 flex items-center gap-1.5 flex-wrap">
