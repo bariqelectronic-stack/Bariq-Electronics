@@ -70,6 +70,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   return {
     title: product.name,
     description: product.shortDescription || product.description || "",
+    alternates: {
+      canonical: `https://www.bariqelectronics.com/products/${encodeURIComponent(slug)}`,
+    },
     openGraph: {
       title: product.name,
       description: product.shortDescription || "",

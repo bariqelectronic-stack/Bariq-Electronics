@@ -429,6 +429,9 @@ export async function generateMetadata({ params }: LearnArticleProps): Promise<M
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: {
+      canonical: `https://www.bariqelectronics.com/learn/${encodeURIComponent(slug)}`,
+    },
   };
 }
 
