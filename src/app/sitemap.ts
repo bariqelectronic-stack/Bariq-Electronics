@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { getCategories } from "@/app/actions/admin";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com";
+const BASE_URL = "https://www.bariqelectronics.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dbCategories = await getCategories();
