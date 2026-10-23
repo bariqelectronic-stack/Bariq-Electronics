@@ -208,8 +208,8 @@ Bonding tools and head assemblies are used to apply heat and pressure during COF
     `,
   },
   "understanding-lvds-cables": {
-    title: "Understanding LVDS Cables and Display Connections",
-    excerpt: "A guide to LVDS connectors, cable configurations and compatibility for LCD and LED display repair and board replacement work.",
+    title: "LVDS Cable Guide: Connectors, Pinouts & Compatibility",
+    excerpt: "Learn how to check LVDS cable connectors, pinouts, length and display-board compatibility before selecting a replacement for LCD or LED display repairs.",
     category: "Technical Guides",
     readTime: "4 min read",
     emoji: "🔗",
@@ -217,7 +217,7 @@ Bonding tools and head assemblies are used to apply heat and pressure during COF
     content: `
 ## What is LVDS?
 
-LVDS (Low-Voltage Differential Signaling) is the standard interface used to carry display signals between the main board and the LCD/LED panel or T-CON board. Most LCD and LED televisions and monitors use LVDS connections.
+LVDS (Low-Voltage Differential Signaling) is a method of transmitting high-speed signals using differential pairs. In compatible display systems, LVDS cables carry display signals between boards and panels. Not every LCD or LED-backlit display uses LVDS, so always verify the interface specified for the exact panel and board.
 
 ## Why LVDS Selection Matters
 
@@ -262,6 +262,17 @@ Always verify compatibility:
 - Some boards require specific LVDS cable configurations
 - Refer to board documentation where available
 
+## LVDS Cable Replacement Checklist
+
+Before selecting a replacement cable, verify:
+
+- Original cable part number and exact panel and board model numbers
+- Pin count and connector shape at both ends
+- Pin-1 orientation, wiring layout, and cable length
+- Interface requirements documented for the panel and board
+
+Matching pin counts alone do not guarantee identical wiring.
+
 ## Troubleshooting LVDS Issues
 
 Before replacing an LVDS cable, check:
@@ -270,7 +281,7 @@ Before replacing an LVDS cable, check:
 - Physical cable damage (kinks, cuts, crushing)
 - Correct cable orientation
 
-Browse our [LVDS category](/categories/lvds) for available cables and connections.
+Review the [LVDS product page](/products/lvds) and browse the [LVDS category](/categories/lvds) for related details. Confirm compatibility before requesting a replacement.
     `,
   },
   "t-con-programming-guide": {
