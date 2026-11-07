@@ -64,7 +64,9 @@ export function Footer() {
                 { label: "LVDS",              href: "/categories/lvds" },
                 { label: "LED & LCD BOARDS",  href: "/categories/led-lcd-boards" },
                 { label: "T-CON",             href: "/categories/t-con" },
+                { label: "T-CON PROGRAMMER",  href: "/categories/t-con-programmer" },
                 { label: "ACF TAPE",          href: "/categories/acf-tape" },
+                { label: "ACF REMOVER",       href: "/categories/acf-remover" },
                 { label: "COF CUTTER",        href: "/categories/cof-cutter" },
               ].map((item) => (
                 <li key={item.href}>

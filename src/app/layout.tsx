@@ -14,13 +14,54 @@ const inter = Inter({
 });
 
 
+// Official public profiles only; a WhatsApp link is a contact channel, not a profile.
+const sameAsLinks = [
+  siteConfig.social.facebook,
+  siteConfig.social.instagram,
+  siteConfig.social.youtube,
+].filter(Boolean);
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://www.bariqelectronics.com/#organization",
   name: siteConfig.name,
-  url: siteConfig.url,
+  url: "https://www.bariqelectronics.com",
+  logo: "https://www.bariqelectronics.com/bariq-logo.jpg",
+  description:
+    "Supplier of professional LCD and LED display repair parts, including COFS, LVDS cables, T-CON boards, ACF tape, ACF remover and COF cutters, for technicians and workshops.",
   email: siteConfig.email,
-  telephone: siteConfig.phone,
+  telephone: `+${siteConfig.whatsappNumber}`,
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: `+${siteConfig.whatsappNumber}`,
+      email: siteConfig.email,
+      contactType: "customer service",
+      url: "https://www.bariqelectronics.com/contact",
+      availableLanguage: ["English"],
+    },
+  ],
+  ...(sameAsLinks.length > 0 ? { sameAs: sameAsLinks } : {}),
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.bariqelectronics.com/#website",
+  url: "https://www.bariqelectronics.com",
+  name: siteConfig.name,
+  publisher: {
+    "@id": "https://www.bariqelectronics.com/#organization",
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://www.bariqelectronics.com/shop?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export const metadata: Metadata = {
@@ -29,7 +70,7 @@ export const metadata: Metadata = {
     template: "%s | Bariq Electronics",
   },
   description:
-    "Professional LCD and LED display repair parts — COFS, LVDS, LED & LCD boards, T-CON, ACF tape, ACF remover, COF cutters, T-CON programmers and more. Built for display repair technicians.",
+    "Professional LCD and LED display repair parts — COFS, LVDS cables, LED & LCD boards, T-CON boards, ACF tape, ACF remover, COF cutters, T-CON programmers and bonding head assemblies for display repair technicians.",
   keywords: [
     "LCD repair parts",
     "LED repair parts",
@@ -38,6 +79,7 @@ export const metadata: Metadata = {
     "COF repair",
     "ACF tape",
     "ACF remover",
+    "ACF remover solution",
     "COF cutter",
     "LED LCD boards",
     "T-CON programmer",
@@ -50,12 +92,19 @@ export const metadata: Metadata = {
     siteName: "Bariq Electronics",
     title: "Bariq Electronics — Professional LCD & LED Display Repair Parts",
     description:
-      "Professional LCD and LED display repair parts for technicians — COFS, LVDS, T-CON, ACF tape, COF cutters and more.",
+      "Professional LCD and LED display repair parts for technicians — COFS, LVDS cables, T-CON boards, ACF tape, ACF remover, COF cutters and more.",
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com"),
+  metadataBase: new URL("https://www.bariqelectronics.com"),
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -64,6 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen flex flex-col bg-white antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
         <Header />
         <main className="flex-1 page-enter">{children}</main>
         <Footer />

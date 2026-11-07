@@ -41,7 +41,7 @@ const COUNTRIES = [
 
 const benefits = [
   { icon: TrendingUp, title: "Competitive Bulk Pricing", desc: "Volume-based pricing tailored to your order size and product mix." },
-  { icon: Package, title: "Wide Product Range", desc: "Microscopes, soldering tools, screwdrivers, cables and all repair accessories." },
+  { icon: Package, title: "Display Repair Product Range", desc: "COFS, LVDS cables, LED & LCD boards, T-CON boards, ACF tape, ACF remover, COF cutters, and T-CON programmers." },
   { icon: Globe, title: "International Shipping", desc: "We ship to repair distributors and businesses worldwide." },
   { icon: Building, title: "Business Partnership", desc: "Long-term partnership arrangements for established distributors and resellers." },
 ];
@@ -133,11 +133,11 @@ export default function WholesalePage() {
               <h3 className="font-bold text-[#0A0A0A] mb-2 text-sm">Suitable For</h3>
               <ul className="space-y-1.5">
                 {[
-                  "Mobile phone repair shops",
-                  "Electronics distributors",
-                  "Tool resellers",
-                  "Repair training centers",
-                  "Electronics retailers",
+                  "LCD & LED TV and display repair workshops",
+                  "Display parts distributors",
+                  "Panel repair tool & component resellers",
+                  "Display repair training centers",
+                  "Electronics service centers",
                 ].map((item) => (
                   <li key={item} className="text-xs text-[#6B6B6B] flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 bg-[#E65C00] rounded-full" />
@@ -174,7 +174,7 @@ export default function WholesalePage() {
                       <Select label="Business Type" value={form.businessType} onChange={(e) => setForm((p) => ({ ...p, businessType: e.target.value }))} options={BUSINESS_TYPES} placeholder="Select type" />
                       <Select label="Expected Monthly Volume" value={form.expectedVolume} onChange={(e) => setForm((p) => ({ ...p, expectedVolume: e.target.value }))} options={ORDER_VOLUMES} placeholder="Select range" />
                     </div>
-                    <Textarea label="Products Interested In" value={form.productsInterested} onChange={(e) => setForm((p) => ({ ...p, productsInterested: e.target.value }))} placeholder="e.g. Microscopes, soldering stations, screwdriver sets..." className="min-h-[80px]" />
+                    <Textarea label="Products Interested In" value={form.productsInterested} onChange={(e) => setForm((p) => ({ ...p, productsInterested: e.target.value }))} placeholder="e.g. COFS, LVDS cables, T-CON boards, ACF tape, ACF remover, COF cutters..." className="min-h-[80px]" />
                     <div className="grid sm:grid-cols-2 gap-4">
                       <Input label="Email *" type="email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} required />
                       <Input label="WhatsApp" value={form.whatsapp} onChange={(e) => setForm((p) => ({ ...p, whatsapp: e.target.value }))} placeholder="+92..." />

@@ -5,7 +5,7 @@ import { ArrowRight, Monitor, Tv, Scissors, CircuitBoard } from "lucide-react";
 const solutions = [
   {
     slug: "lcd-panel-repair",
-    href: "/shop",
+    href: "/solutions/lcd-panel-repair",
     title: "LCD PANEL REPAIR",
     desc: "Essential parts and solutions for professional LCD panel repair, servicing and restoration.",
     items: [
@@ -18,7 +18,7 @@ const solutions = [
   },
   {
     slug: "led-display-repair",
-    href: "/categories/led-lcd-boards",
+    href: "/solutions/led-display-repair",
     title: "LED DISPLAY REPAIR",
     desc: "Professional repair parts for LED displays and television panels, helping technicians diagnose and restore display systems.",
     items: [
@@ -31,7 +31,7 @@ const solutions = [
   },
   {
     slug: "cof-acf-repair",
-    href: "/categories/cofs",
+    href: "/solutions/cof-acf-repair",
     title: "COF & ACF REPAIR",
     desc: "Specialized products for COF and ACF bonding, removal, cutting and professional LCD/LED panel repair.",
     items: [
@@ -44,7 +44,7 @@ const solutions = [
   },
   {
     slug: "display-board-repair",
-    href: "/categories/t-con",
+    href: "/solutions/display-board-repair",
     title: "DISPLAY BOARD REPAIR",
     desc: "Display boards and related components for professional LED and LCD television repair and troubleshooting.",
     items: [

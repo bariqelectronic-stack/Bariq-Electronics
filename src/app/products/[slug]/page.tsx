@@ -11,7 +11,8 @@ import { getProductBySlug, demoProducts } from "@/lib/demo-products";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
 import { getWhatsAppLink } from "@/lib/config";
-import { Check, MessageCircle, Package, ChevronRight } from "lucide-react";
+import { getProductSeoDescription, getProductSeoGuidance } from "@/lib/seo-product-guidance";
+import { Check, MessageCircle, Package, ChevronRight, ArrowRight } from "lucide-react";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -67,15 +68,30 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const { slug } = await params;
   const product = await getProductForPage(slug);
   if (!product) return { title: "Product Not Found" };
+  // Demo placeholders must not be presented to search engines as genuine catalog items.
+  if (product.isDemo) {
+    return {
+      title: `${product.name} (Demo)`,
+      description: "Demo placeholder listing. Not a product available from Bariq Electronics.",
+      robots: { index: false, follow: true },
+    };
+  }
+  const seoGuidance = getProductSeoGuidance(product);
+  const canonicalUrl = `https://www.bariqelectronics.com/products/${encodeURIComponent(slug)}`;
+  const metaDescription = getProductSeoDescription(product, seoGuidance);
+
   return {
-    title: product.name,
-    description: product.shortDescription || product.description || "",
+    title: seoGuidance.seoTitle,
+    description: metaDescription,
     alternates: {
-      canonical: `https://www.bariqelectronics.com/products/${encodeURIComponent(slug)}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
-      title: product.name,
-      description: product.shortDescription || "",
+      title: `${seoGuidance.seoTitle} | Bariq Electronics`,
+      description: metaDescription,
+      url: canonicalUrl,
+      type: "website",
+      siteName: "Bariq Electronics",
       images: product.images[0] ? [product.images[0]] : [],
     },
   };
@@ -96,6 +112,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
     .filter((p) => p.id !== product.id && p.category?.slug === product.category?.slug)
     .slice(0, 4);
 
+  const seoGuidance = getProductSeoGuidance(product);
+  const canonicalUrl = `https://www.bariqelectronics.com/products/${encodeURIComponent(product.slug)}`;
+  const schemaDescription = getProductSeoDescription(product, seoGuidance);
+
   const stockStatusDisplay = {
     in_stock: { label: "In Stock", color: "success" as const },
     low_stock: { label: "Low Stock", color: "warning" as const },
@@ -108,26 +128,72 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const whatsappMsg = `Hi, I'm interested in: ${product.name}${product.sku ? ` (SKU: ${product.sku})` : ""}. Can you provide more information?`;
 
+  // Mirrors the stock label shown on the page.
+  const schemaAvailability = {
+    in_stock: "https://schema.org/InStock",
+    low_stock: "https://schema.org/LimitedAvailability",
+    out_of_stock: "https://schema.org/OutOfStock",
+    preorder: "https://schema.org/PreOrder",
+    discontinued: "https://schema.org/Discontinued",
+  };
+
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.shortDescription || product.description || undefined,
+    description: schemaDescription,
     sku: product.sku || undefined,
+    category: seoGuidance.categoryName ?? undefined,
     image: product.images.length ? product.images : undefined,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com"}/products/${product.slug}`,
-    offers: displayPrice !== null ? {
+    url: canonicalUrl,
+    // No Offer without a real price; never publish a zero or estimated price.
+    offers: displayPrice ? {
       "@type": "Offer",
       priceCurrency: "PKR",
       price: displayPrice,
-      availability: product.stockStatus === "out_of_stock"
-        ? "https://schema.org/OutOfStock"
-        : "https://schema.org/InStock",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com"}/products/${product.slug}`,
+      availability: schemaAvailability[product.stockStatus as keyof typeof schemaAvailability] ?? schemaAvailability.in_stock,
+      url: canonicalUrl,
+      seller: {
+        "@type": "Organization",
+        "@id": "https://www.bariqelectronics.com/#organization",
+        name: "Bariq Electronics",
+        url: "https://www.bariqelectronics.com",
+      },
     } : undefined,
   };
 
-
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.bariqelectronics.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Shop",
+        item: "https://www.bariqelectronics.com/shop",
+      },
+      ...(seoGuidance.categoryName && seoGuidance.categorySlug
+        ? [{
+            "@type": "ListItem",
+            position: 3,
+            name: seoGuidance.categoryName,
+            item: `https://www.bariqelectronics.com/categories/${encodeURIComponent(seoGuidance.categorySlug)}`,
+          }]
+        : []),
+      {
+        "@type": "ListItem",
+        position: seoGuidance.categoryName && seoGuidance.categorySlug ? 4 : 3,
+        name: product.name,
+        item: canonicalUrl,
+      },
+    ],
+  };
 
   // Group specs by group name
   const specGroups: Record<string, typeof product.specs> = {};
@@ -139,18 +205,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+      {!product.isDemo && (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        </>
+      )}
       <div className="container-site py-6">
         {/* Breadcrumb */}
         <nav className="text-xs text-[#9E9E9E] mb-6 flex items-center gap-1.5 flex-wrap">
           <Link href="/" className="hover:text-[#0A0A0A]">Home</Link>
           <ChevronRight className="w-3 h-3" />
           <Link href="/shop" className="hover:text-[#0A0A0A]">Shop</Link>
-          {product.category && (
+          {seoGuidance.categoryName && seoGuidance.categorySlug && (
             <>
               <ChevronRight className="w-3 h-3" />
-              <Link href={`/categories/${product.category.slug}`} className="hover:text-[#0A0A0A]">
-                {product.category.name}
+              <Link href={`/categories/${seoGuidance.categorySlug}`} className="hover:text-[#0A0A0A]">
+                {seoGuidance.categoryName}
               </Link>
             </>
           )}
@@ -425,6 +496,104 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
           </div>
         </div>
+
+        {/* General Buying & Compatibility Guidance (AEO/GEO Resource Block) */}
+        {!product.isDemo && <div className="bg-white border border-[#E5E5E5] rounded-[12px] mb-8 overflow-hidden">
+          <div className="border-b border-[#E5E5E5] px-6 pt-6 pb-0">
+            <h2 className="text-base font-bold text-[#0A0A0A] mb-0 pb-3">
+              General Buying &amp; Compatibility Guide{seoGuidance.categoryName ? ` (${seoGuidance.categoryName})` : ""}
+            </h2>
+          </div>
+          <div className="p-6 space-y-6">
+            <div>
+              <h3 className="font-semibold text-sm text-[#0A0A0A] uppercase tracking-wider mb-2">
+                Category Overview
+              </h3>
+              <p className="text-sm text-[#6B6B6B] leading-relaxed">{seoGuidance.overview}</p>
+            </div>
+
+            {seoGuidance.checklist.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-sm text-[#0A0A0A] uppercase tracking-wider mb-3">
+                  What to Check Before Ordering
+                </h3>
+                <ul className="space-y-2">
+                  {seoGuidance.checklist.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-[#3D3D3D]">
+                      <Check className="w-3.5 h-3.5 text-[#E65C00] mt-0.5 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {seoGuidance.faqs.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-sm text-[#0A0A0A] uppercase tracking-wider mb-3">
+                  Common Technician Questions
+                </h3>
+                <div className="space-y-3">
+                  {seoGuidance.faqs.map((faq, i) => (
+                    <div key={i} className="bg-[#F7F7F7] border border-[#E5E5E5] rounded-[8px] p-4">
+                      <h4 className="font-semibold text-sm text-[#0A0A0A] mb-1">{faq.q}</h4>
+                      <p className="text-sm text-[#6B6B6B] leading-relaxed">{faq.a}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {seoGuidance.relatedLinks.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-sm text-[#0A0A0A] uppercase tracking-wider mb-3">
+                  Related Guides &amp; Categories
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-2.5">
+                  {seoGuidance.relatedLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center justify-between gap-2 text-sm text-[#3D3D3D] hover:text-[#E65C00] bg-[#F7F7F7] border border-[#E5E5E5] rounded-[8px] px-4 py-2.5 transition-colors"
+                    >
+                      <span>{link.label}</span>
+                      <ArrowRight className="w-4 h-4 text-[#E65C00] flex-shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {seoGuidance.relatedProductLinks.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-sm text-[#0A0A0A] uppercase tracking-wider mb-3">
+                  Explore Related Catalog Pages
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {seoGuidance.relatedProductLinks.map((rp) => (
+                    <Link
+                      key={rp.slug}
+                      href={`/products/${rp.slug}`}
+                      className="group bg-[#F7F7F7] border border-[#E5E5E5] rounded-[8px] p-4 hover:border-[#E65C00] transition-all duration-200 flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="text-[10px] font-semibold uppercase tracking-wider text-[#E65C00] mb-1">
+                          {rp.categoryName}
+                        </div>
+                        <div className="font-bold text-sm text-[#0A0A0A] group-hover:text-[#E65C00] transition-colors">
+                          {rp.name}
+                        </div>
+                      </div>
+                      <div className="mt-3 flex items-center gap-1 text-xs font-medium text-[#6B6B6B] group-hover:text-[#E65C00] transition-colors">
+                        View page <ArrowRight className="w-3.5 h-3.5" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>}
 
         {/* Shipping & returns */}
         <div className="grid sm:grid-cols-3 gap-4 mb-10">

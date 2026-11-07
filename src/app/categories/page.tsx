@@ -5,8 +5,12 @@ import { ArrowRight } from "lucide-react";
 import { getCategories } from "@/app/actions/admin";
 
 export const metadata: Metadata = {
-  title: "Product Categories",
-  description: "Browse all product categories — COFS, LVDS, LED & LCD boards, T-CON, ACF tape, COF cutters and more.",
+  title: "Product Categories — LCD & LED Display Repair Parts",
+  description:
+    "Browse all Bariq Electronics product categories — COFS, LVDS cables, LED & LCD boards, T-CON boards, ACF tape, ACF remover, COF cutters, T-CON programmers, head assemblies, scaler boards, and repair tapes.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/categories",
+  },
 };
 
 // Emoji map keyed by slug — presentation only. DB is the source of truth for category data.

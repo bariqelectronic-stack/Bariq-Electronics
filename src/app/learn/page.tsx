@@ -5,8 +5,12 @@ import { Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
-  title: "Learn — Display Repair Guides & Resources",
-  description: "Technical guides, buying guides and resources for LCD and LED display repair professionals.",
+  title: "Learn — LCD & LED Display Repair Guides",
+  description:
+    "Technical guides, buying checklists, and resources for LCD and LED display repair technicians — covering LVDS cables, T-CON boards, T-CON programmers, COF cutters, ACF tape, and ACF remover.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/learn",
+  },
 };
 
 const articles = [
@@ -39,8 +43,8 @@ const articles = [
   },
   {
     slug: "understanding-lvds-cables",
-    title: "Understanding LVDS Cables and Display Connections",
-    excerpt: "A guide to LVDS connectors, cable configurations and compatibility for LCD and LED display repair and board replacement work.",
+    title: "LVDS Cable Guide: Connectors, Pinouts & Compatibility",
+    excerpt: "Learn how to check LVDS cable connectors, pinouts, length and display-board compatibility before selecting a replacement for LCD or LED display repairs.",
     category: "Technical Guides",
     readTime: "4 min read",
     emoji: "🔗",

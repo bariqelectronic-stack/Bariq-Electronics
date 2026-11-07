@@ -4,7 +4,42 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Clock, ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { demoProducts } from "@/lib/demo-products";
+
+const RELATED_PRODUCT_LINKS: Record<string, { name: string; slug: string }[]> = {
+  "t-con": [
+    { name: "T-CON Board", slug: "t-con" },
+    { name: "T-CON Programmer", slug: "t-con-programmer" },
+  ],
+  "t-con-programmer": [
+    { name: "T-CON Programmer", slug: "t-con-programmer" },
+    { name: "T-CON Board", slug: "t-con" },
+  ],
+  "led-lcd-boards": [
+    { name: "Samsung Main Board", slug: "samsung-main-board" },
+    { name: "TCL Main Board", slug: "tcl-main-board" },
+    { name: "Scalar Board", slug: "scalar" },
+  ],
+  lvds: [
+    { name: "LVDS Display Cable", slug: "lvds" },
+    { name: "4K LVDS Cable", slug: "4k-lvds" },
+  ],
+  cofs: [
+    { name: "COFS (Chip-on-Film)", slug: "cofs" },
+    { name: "COF Cutter", slug: "cof-cutter" },
+    { name: "Head 68mm, 50mm, X1.2/1.4", slug: "head-68mm-50mm-x1214" },
+  ],
+  "acf-tape": [
+    { name: "ACF Tape", slug: "acf-tape" },
+    { name: "ACF Tape (7813)", slug: "acf-tape-7813" },
+  ],
+  "acf-remover": [
+    { name: "ACF Remover", slug: "acf-remover" },
+  ],
+  "cof-cutter": [
+    { name: "COF Cutter", slug: "cof-cutter" },
+    { name: "COFS (Chip-on-Film)", slug: "cofs" },
+  ],
+};
 
 const articles: Record<string, {
   title: string;
@@ -80,7 +115,7 @@ Before replacing a T-CON board, confirm the board is actually faulty:
 
 ## Browse T-CON Products
 
-Visit our [T-CON category](/categories/t-con) to view available boards, or see [T-CON Programmers](/categories/t-con-programmer) for programming tools.
+Review our [T-CON Board product page](/products/t-con), browse the [T-CON category](/categories/t-con) for available boards, or see our [T-CON Programmer](/products/t-con-programmer) and [T-CON Programmers category](/categories/t-con-programmer) for firmware tools.
     `,
   },
   "lcd-led-display-repair-bench-setup": {
@@ -158,53 +193,61 @@ COF (Chip on Film) and ACF (Anisotropic Conductive Film) repair is a specialised
 
 ### COF Components
 
-COF components connect driver chips to the LCD panel substrate. When these fail or become damaged, accurate replacement or repair is required:
+[COF components](/products/cofs) connect driver chips to the LCD or LED panel substrate. When these fail or become damaged, accurate replacement or repair is required:
 
-- Source COF components that match the original specification
+- Source COF components that match the original IC part number and specification
 - Verify compatibility with the panel before installation
 - Handle carefully to avoid static damage
 
-### COF Cutters
+### What Should I Check Before Purchasing a COF Cutter?
 
-Precision cutting is required during COF preparation and panel work:
+Before purchasing a [COF cutter](/products/cof-cutter), verify that its blade geometry and cutting control match the COF tab dimensions and panel preparation workflow on your repair bench:
 
-- **Blade sharpness:** A sharp, clean cut is essential
+- **Blade sharpness:** A sharp, clean cut is essential to trim Chip-on-Film flex tabs without tearing
 - **Cutting precision:** Select cutters appropriate for the panel and COF dimensions
-- **Controlled cutting:** Avoid damage to adjacent panel areas
+- **Controlled cutting:** Avoid nicking or damaging adjacent panel circuitry or glass traces
 
 ## ACF Tape
 
-ACF tape creates the conductive bond between the COF and panel substrate. Selecting the right ACF tape is critical:
+[ACF tape](/products/acf-tape) (including specifications such as [ACF Tape 7813](/products/acf-tape-7813)) creates the conductive bond between the COF and panel substrate or source PCB. Selecting the right ACF tape is critical:
 
 ### Selection Factors
 
 - **Tape width:** Must match the COF and panel connection area
 - **Thickness:** Affects bonding pressure and connection quality
-- **Adhesion type:** Check compatibility with the panel substrate
+- **Adhesion type:** Check compatibility with the panel substrate (glass vs PCB)
 - **Storage:** ACF tape must be stored correctly — typically refrigerated — to maintain properties
 
 ## ACF Remover
 
-Before applying new ACF tape, old or damaged ACF residue must be cleanly removed:
+### What Is ACF Remover Used For?
 
-- **Removal method:** Chemical or mechanical, depending on the panel and residue type
-- **Panel compatibility:** Ensure the remover is safe for the specific panel materials
-- **Precision handling:** Avoid damage to panel substrate during removal
-- **Thorough removal:** Residue left behind can affect new ACF bond quality
+Before applying new ACF tape, old or hardened Anisotropic Conductive Film adhesive residue must be cleanly removed from the display glass substrate and PCB bonding pads using [ACF remover](/products/acf-remover) or another suitable method:
+
+- **Removal method:** Chemical or mechanical, depending on the panel and residue type; take care not to scratch delicate ITO glass traces
+- **Panel compatibility:** Ensure the remover is safe for the specific panel materials and polariser edges
+- **Precision handling:** Apply in controlled amounts with lint-free swabs to avoid damage to surrounding components
+- **Thorough removal:** Any residue left behind can prevent conductive particle contact during new ACF bonding
+
+### Is ACF Remover the Same as ACF Remover Solution?
+
+Both phrases are generally used for liquid cleaners that soften old ACF adhesive before COF re-bonding, but formulations vary, so check the product label. See our [ACF Remover product page](/products/acf-remover) and [ACF Remover category](/categories/acf-remover), and contact us with your panel type to confirm suitability.
 
 ## Head Assembly
 
-Bonding tools and head assemblies are used to apply heat and pressure during COF bonding:
+Bonding tools and [head assemblies](/products/head-68mm-50mm-x1214) are used to apply heat and pressure during COF bonding:
 
-- Match the head assembly to the bonding width required
+- Match the head assembly dimensions (such as 68mm or 50mm) to the bonding width required
 - Verify temperature and pressure settings for the specific ACF tape
+- Use appropriate protective [Teflon tape](/products/taflon-tape) or [cotton tape](/products/cotton-tape) where required during thermocompression bonding
 
 ## Browse COF & ACF Products
 
-- [COFS](/categories/cofs) — COF components and repair solutions
-- [ACF Tape](/categories/acf-tape) — Tape for display panel bonding
-- [ACF Remover](/categories/acf-remover) — Residue removal solutions
-- [COF Cutters](/categories/cof-cutter) — Precision cutting tools
+- [COFS](/products/cofs) & [COFS Category](/categories/cofs) — COF components and repair solutions
+- [ACF Tape](/products/acf-tape), [ACF Tape (7813)](/products/acf-tape-7813) & [ACF Tape Category](/categories/acf-tape) — Conductive tape for display panel bonding
+- [ACF Remover](/products/acf-remover) & [ACF Remover Category](/categories/acf-remover) — Residue removal solutions
+- [COF Cutter](/products/cof-cutter) & [COF Cutters Category](/categories/cof-cutter) — Precision cutting tools
+- [Head 68mm, 50mm, X1.2/1.4](/products/head-68mm-50mm-x1214) & [Head Assembly Category](/categories/head-assembly) — Bonding head assemblies
     `,
   },
   "understanding-lvds-cables": {
@@ -346,7 +389,7 @@ Most T-CON programmers include software for:
 - Verify firmware compatibility before writing
 - Use ESD precautions when handling T-CON boards
 
-Browse [T-CON Programmers](/categories/t-con-programmer) and [T-CON Boards](/categories/t-con) in our product range.
+Review our [T-CON Programmer product page](/products/t-con-programmer) and [T-CON Board product page](/products/t-con), or browse [T-CON Programmers](/categories/t-con-programmer) and [T-CON Boards](/categories/t-con) in our catalog.
     `,
   },
   "acf-tape-application-guide": {
@@ -359,7 +402,7 @@ Browse [T-CON Programmers](/categories/t-con-programmer) and [T-CON Boards](/cat
     content: `
 ## ACF Tape in Display Panel Repair
 
-ACF (Anisotropic Conductive Film) tape is used in professional LCD and LED panel repair to create reliable conductive bonds between COF components and the panel substrate. Correct selection and application is essential for a lasting repair.
+ACF (Anisotropic Conductive Film) tape is used in professional LCD and LED panel repair to create reliable conductive bonds between [COF components](/products/cofs) and the panel substrate. Correct selection and application is essential for a lasting repair.
 
 ## Selecting the Right ACF Tape
 
@@ -381,11 +424,11 @@ Tape thickness affects:
 
 ### Adhesion Properties
 
-Different ACF tapes have different adhesion and conductivity properties:
+Different ACF tapes (such as [ACF Tape](/products/acf-tape) and [ACF Tape 7813](/products/acf-tape-7813)) have specific adhesion and conductivity characteristics:
 
-- Verify the tape is compatible with the panel substrate material
+- Verify the tape is compatible with the panel substrate material (glass vs PCB)
 - Check the bonding temperature range of the tape
-- Confirm compatibility with your head assembly equipment
+- Confirm compatibility with your [bonding head assembly](/products/head-68mm-50mm-x1214)
 
 ## Handling and Storage
 
@@ -402,8 +445,8 @@ ACF tape is sensitive to temperature and moisture:
 
 Before applying ACF tape:
 
-- Remove all old ACF residue using appropriate [ACF remover](/categories/acf-remover)
-- Clean the bonding area thoroughly
+- Remove all old ACF residue using appropriate [ACF remover](/products/acf-remover) from the [ACF Remover category](/categories/acf-remover)
+- Clean the bonding area thoroughly without scratching ITO traces
 - Allow the surface to dry completely
 
 ### 2. Tape Placement
@@ -414,7 +457,7 @@ Before applying ACF tape:
 
 ### 3. Bonding
 
-- Use appropriate head assembly at the correct temperature and pressure
+- Use an appropriate [head assembly](/products/head-68mm-50mm-x1214) at the correct temperature and pressure
 - Follow tape manufacturer specifications for bonding parameters
 - Allow adequate cooling time before handling
 
@@ -424,7 +467,7 @@ Before applying ACF tape:
 - Test display function before completing the repair
 - Document the tape specification used for future reference
 
-Browse [ACF Tape](/categories/acf-tape) and [ACF Remover](/categories/acf-remover) in our product range.
+Review [ACF Tape](/products/acf-tape), [ACF Tape (7813)](/products/acf-tape-7813), and [ACF Remover](/products/acf-remover), or browse [ACF Tape](/categories/acf-tape) and [ACF Remover](/categories/acf-remover) in our product range.
     `,
   },
 };
@@ -495,12 +538,80 @@ export default async function LearnArticlePage({ params }: LearnArticleProps) {
   const article = articles[slug];
   if (!article) notFound();
 
-  const relatedProducts = demoProducts.filter((p) =>
-    article.relatedSlugs.some((s) => p.category?.slug === s)
-  ).slice(0, 4);
+  const relatedMap = new Map<string, { name: string; slug: string }>();
+  article.relatedSlugs.forEach((catSlug) => {
+    (RELATED_PRODUCT_LINKS[catSlug] ?? []).forEach((item) => {
+      relatedMap.set(item.slug, item);
+    });
+  });
+  const relatedProducts = Array.from(relatedMap.values()).slice(0, 6);
+
+  const canonicalUrl = `https://www.bariqelectronics.com/learn/${encodeURIComponent(slug)}`;
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: article.title,
+    description: article.excerpt,
+    articleSection: article.category,
+    url: canonicalUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    author: {
+      "@type": "Organization",
+      "@id": "https://www.bariqelectronics.com/#organization",
+      name: "Bariq Electronics",
+      url: "https://www.bariqelectronics.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://www.bariqelectronics.com/#organization",
+      name: "Bariq Electronics",
+      url: "https://www.bariqelectronics.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.bariqelectronics.com/bariq-logo.jpg",
+      },
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.bariqelectronics.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Learn",
+        item: "https://www.bariqelectronics.com/learn",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.title,
+        item: canonicalUrl,
+      },
+    ],
+  };
 
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <div className="bg-white border-b border-[#E5E5E5]">
         <div className="container-site py-8">
           <nav className="text-xs text-[#9E9E9E] mb-3 flex items-center gap-1.5">
@@ -544,7 +655,7 @@ export default async function LearnArticlePage({ params }: LearnArticleProps) {
                 <div className="space-y-2">
                   {relatedProducts.map((p) => (
                     <Link
-                      key={p.id}
+                      key={p.slug}
                       href={`/products/${p.slug}`}
                       className="block text-sm text-[#6B6B6B] hover:text-[#E65C00] transition-colors py-1 border-b border-[#F0F0F0] last:border-0"
                     >

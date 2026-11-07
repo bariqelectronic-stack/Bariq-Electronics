@@ -8,8 +8,12 @@ import { getCategories } from "@/app/actions/admin";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 export const metadata: Metadata = {
-  title: "Shop",
-  description: "Browse professional display repair parts — COFS, LVDS, LED & LCD boards, T-CON, ACF tape, COF cutters and more.",
+  title: "Shop LCD & LED Display Repair Parts",
+  description:
+    "Browse professional LCD and LED display repair parts from Bariq Electronics — COFS, LVDS cables, LED & LCD boards, T-CON boards, ACF tape, ACF remover, COF cutters, T-CON programmers, and head assemblies.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/shop",
+  },
 };
 
 const SORT_OPTIONS = [

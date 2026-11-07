@@ -22,6 +22,8 @@ export type CategoryContent = {
   factors: { label: string; desc: string }[];
   /** CTA button label (uppercase). */
   ctaLabel: string;
+  /** Optional contextual links to relevant technical guides and products. */
+  relatedLinks?: { label: string; href: string }[];
 };
 
 export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
@@ -59,6 +61,11 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Repair Type", desc: "Panel repair, COF servicing and related applications" },
     ],
     ctaLabel: "SHOP COF PRODUCTS",
+    relatedLinks: [
+      { label: "COFS Product Page", href: "/products/cofs" },
+      { label: "COF Cutter", href: "/products/cof-cutter" },
+      { label: "Essential Parts for COF & ACF Repair", href: "/learn/essential-parts-cof-acf-repair" },
+    ],
   },
 
   lvds: {
@@ -95,6 +102,11 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Application", desc: "TV, LED and LCD display repair" },
     ],
     ctaLabel: "SHOP LVDS PRODUCTS",
+    relatedLinks: [
+      { label: "LVDS Product Page", href: "/products/lvds" },
+      { label: "4K LVDS Cable", href: "/products/4k-lvds" },
+      { label: "LVDS Cable Guide: Connectors, Pinouts & Compatibility", href: "/learn/understanding-lvds-cables" },
+    ],
   },
 
   "led-lcd-boards": {
@@ -167,6 +179,11 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Application", desc: "LED/LCD TV and display repair" },
     ],
     ctaLabel: "SHOP T-CON PRODUCTS",
+    relatedLinks: [
+      { label: "T-CON Board", href: "/products/t-con" },
+      { label: "T-CON Programmer", href: "/products/t-con-programmer" },
+      { label: "How to Choose the Right T-CON Board", href: "/learn/how-to-choose-t-con-board" },
+    ],
   },
 
   scaller: {
@@ -311,6 +328,11 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Application", desc: "T-CON programming and display repair" },
     ],
     ctaLabel: "SHOP T-CON PROGRAMMERS",
+    relatedLinks: [
+      { label: "T-CON Programmer", href: "/products/t-con-programmer" },
+      { label: "T-CON Programming Guide", href: "/learn/t-con-programming-guide" },
+      { label: "T-CON Boards Category", href: "/categories/t-con" },
+    ],
   },
 
   "head-assembly": {
@@ -347,6 +369,10 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Application", desc: "Professional electronics repair" },
     ],
     ctaLabel: "SHOP HEAD ASSEMBLIES",
+    relatedLinks: [
+      { label: "Head 68mm, 50mm, X1.2/1.4", href: "/products/head-68mm-50mm-x1214" },
+      { label: "Essential Parts for COF & ACF Repair", href: "/learn/essential-parts-cof-acf-repair" },
+    ],
   },
 
   "acf-tape": {
@@ -383,6 +409,11 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Application", desc: "ACF and display panel repair" },
     ],
     ctaLabel: "SHOP ACF TAPE",
+    relatedLinks: [
+      { label: "ACF Tape", href: "/products/acf-tape" },
+      { label: "ACF Tape (7813)", href: "/products/acf-tape-7813" },
+      { label: "ACF Tape Application Guide", href: "/learn/acf-tape-application-guide" },
+    ],
   },
 
   "acf-remover": {
@@ -419,6 +450,10 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Application", desc: "ACF and panel repair" },
     ],
     ctaLabel: "SHOP ACF REMOVER",
+    relatedLinks: [
+      { label: "ACF Remover", href: "/products/acf-remover" },
+      { label: "Essential Parts for COF & ACF Repair", href: "/learn/essential-parts-cof-acf-repair" },
+    ],
   },
 
   "cof-cutter": {
@@ -455,6 +490,11 @@ export const CATEGORY_CONTENT: Record<string, CategoryContent> = {
       { label: "Application", desc: "COF cutting and panel repair" },
     ],
     ctaLabel: "SHOP COF CUTTERS",
+    relatedLinks: [
+      { label: "COF Cutter", href: "/products/cof-cutter" },
+      { label: "COFS Category", href: "/categories/cofs" },
+      { label: "Essential Parts for COF & ACF Repair", href: "/learn/essential-parts-cof-acf-repair" },
+    ],
   },
 
   tape: {

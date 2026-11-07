@@ -49,6 +49,25 @@ export function CategoryFeatureSection({ content, slug }: CategoryFeatureSection
                 {content.ctaLabel} <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
+
+            {content.relatedLinks && content.relatedLinks.length > 0 && (
+              <div className="mt-6 pt-5 border-t border-[#1E1E1E]">
+                <div className="text-xs font-semibold uppercase tracking-wider text-[#9E9E9E] mb-2.5">
+                  Related Products &amp; Technical Guides
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {content.relatedLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="text-xs font-medium text-[#E65C00] hover:text-[#FF7A1A] bg-[#141414] border border-[#262626] rounded-full px-3 py-1 transition-colors"
+                    >
+                      {link.label} →
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Visual panel */}

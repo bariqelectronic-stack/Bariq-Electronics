@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/shop/product-card";
-import { Badge } from "@/components/ui/badge";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { CategoryFeatureSection } from "@/components/category/category-feature-section";
 import { CATEGORY_CONTENT } from "@/lib/category-content";
@@ -23,9 +22,16 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     .single();
 
   if (!cat) return { title: "Category Not Found" };
+  const editorial = CATEGORY_CONTENT[slug];
   return {
-    title: cat.name,
-    description: cat.description ?? `Browse ${cat.name} products`,
+    title: `${cat.name} — LCD & LED Display Repair Parts`,
+    description:
+      cat.description ||
+      editorial?.description ||
+      `Browse ${cat.name} products for professional LCD and LED display repair from Bariq Electronics.`,
+    alternates: {
+      canonical: `https://www.bariqelectronics.com/categories/${encodeURIComponent(slug)}`,
+    },
   };
 }
 
@@ -52,8 +58,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     console.error("Error fetching products:", error);
   }
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bariqelectronics.com" },
+      { "@type": "ListItem", position: 2, name: "Categories", item: "https://www.bariqelectronics.com/categories" },
+      { "@type": "ListItem", position: 3, name: cat.name, item: `https://www.bariqelectronics.com/categories/${encodeURIComponent(slug)}` },
+    ],
+  };
+
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* Header */}
       <div className="bg-white border-b border-[#E5E5E5]">
         <div className="container-site py-8">
@@ -83,7 +100,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <p className="text-sm text-[#6B6B6B]">
               {products?.length ?? 0} {products?.length === 1 ? "product" : "products"}
             </p>
-            <Badge variant="demo">Demo</Badge>
           </div>
           <Link href="/shop" className="text-sm text-[#E65C00] hover:underline">
             Browse all categories

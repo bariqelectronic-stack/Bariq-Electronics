@@ -3,7 +3,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig, getWhatsAppLink } from "@/lib/config";
 
-export const metadata: Metadata = { title: "Shipping Information" };
+export const metadata: Metadata = {
+  title: "Shipping Information",
+  description:
+    "Shipping information for Bariq Electronics LCD and LED display repair parts, and how to contact us with shipping questions.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/shipping",
+  },
+};
 
 export default function ShippingPage() {
   return (
