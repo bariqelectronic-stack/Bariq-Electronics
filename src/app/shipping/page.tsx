@@ -6,7 +6,7 @@ import { siteConfig, getWhatsAppLink } from "@/lib/config";
 export const metadata: Metadata = {
   title: "Shipping Information",
   description:
-    "How to ask Bariq Electronics about delivery options, charges and order status for LCD and LED display repair parts.",
+    "Shipping information for Bariq Electronics LCD and LED display repair parts, and how to contact us with shipping questions.",
   alternates: {
     canonical: "https://www.bariqelectronics.com/shipping",
   },
@@ -27,15 +27,30 @@ export default function ShippingPage() {
       </div>
       <div className="container-site py-10 max-w-3xl">
         <div className="bg-white border border-[#E5E5E5] rounded-[12px] p-6 sm:p-8 prose">
-          <h2>Delivery Enquiries</h2>
-          <p>
-            Delivery availability, charges and timing depend on your location and order. Please contact us to
-            confirm these details before you order.
+          <p className="text-[#9E9E9E] text-sm bg-[#F7F3EE] border border-[#E65C0020] rounded-[6px] p-3 not-prose mb-5">
+            <strong>Note:</strong> This page is editable in the admin panel → Pages. Configure your actual shipping policy here.
           </p>
-          <h2>Order Status</h2>
+          <h2>International Shipping</h2>
           <p>
-            If you have a question about an order, contact us with your order number. You can also try the{" "}
-            <Link href="/track-order">Track Order</Link> page.
+            We ship our products worldwide. Shipping rates and estimated delivery times are calculated based on
+            destination, package weight and chosen shipping method.
+          </p>
+          <h2>Shipping Process</h2>
+          <p>After your order is confirmed and payment is arranged:</p>
+          <ul>
+            <li>Orders are processed and packed</li>
+            <li>Shipment tracking information is provided when available</li>
+            <li>Estimated delivery times vary by destination</li>
+          </ul>
+          <h2>Shipping Costs</h2>
+          <p>
+            Shipping costs are calculated at checkout or confirmed with your order. For wholesale and bulk orders,
+            shipping arrangements are discussed directly.
+          </p>
+          <h2>Tracking</h2>
+          <p>
+            When your order ships, tracking information will be provided where available.
+            You can use the <Link href="/track-order">Track Order</Link> page.
           </p>
           <h2>Questions</h2>
           <p>

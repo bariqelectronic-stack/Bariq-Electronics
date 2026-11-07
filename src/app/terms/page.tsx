@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
 };
 
-const LAST_UPDATED = "November 7, 2026";
+const LAST_UPDATED = "August 1, 2025";
 
 export default function TermsPage() {
   return (
@@ -58,7 +58,7 @@ export default function TermsPage() {
             </li>
             <li>
               Product availability is not guaranteed. If a product becomes unavailable after your order, we will
-              notify you to discuss the next steps.
+              notify you and offer a full refund or alternative.
             </li>
           </ul>
 
@@ -69,7 +69,8 @@ export default function TermsPage() {
               right to cancel any order at our discretion.
             </li>
             <li>
-              Available payment options and payment timing are confirmed with your order.
+              Payment is required before dispatch. We accept Bank Transfer, EasyPaisa, JazzCash, and Cash on Delivery
+              (COD) for eligible orders and areas.
             </li>
             <li>
               For wholesale and large orders, a deposit may be required. Terms will be agreed in writing before
@@ -83,14 +84,15 @@ export default function TermsPage() {
 
           <h2>4. Shipping</h2>
           <p>
-            Delivery options, timing, and charges are confirmed with your order. See{" "}
-            <Link href="/shipping">Shipping Information</Link> for how to ask us about them. We are not responsible for delays caused by couriers, customs,
+            Shipping terms, estimated delivery times, and charges are detailed in our{" "}
+            <Link href="/shipping">Shipping Policy</Link>. We are not responsible for delays caused by couriers, customs,
             or circumstances beyond our control. Risk of loss passes to you upon delivery to the courier.
           </p>
 
           <h2>5. Returns and Refunds</h2>
           <p>
-            See our <Link href="/returns">Returns &amp; Refunds</Link> page for how to contact us about a return or refund.
+            Our return and refund conditions are detailed in our{" "}
+            <Link href="/returns">Returns Policy</Link>. By placing an order, you agree to those terms.
           </p>
 
           <h2>6. Warranty</h2>
