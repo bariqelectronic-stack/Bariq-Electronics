@@ -11,7 +11,7 @@ import { getProductBySlug, demoProducts } from "@/lib/demo-products";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
 import { getWhatsAppLink } from "@/lib/config";
-import { getProductSeoDescription, getProductSeoGuidance } from "@/lib/seo-product-guidance";
+import { getProductMetaDescription, getProductSeoDescription, getProductSeoGuidance } from "@/lib/seo-product-guidance";
 import { Check, MessageCircle, Package, ChevronRight, ArrowRight } from "lucide-react";
 
 interface ProductPageProps {
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
   const seoGuidance = getProductSeoGuidance(product);
   const canonicalUrl = `https://www.bariqelectronics.com/products/${encodeURIComponent(slug)}`;
-  const metaDescription = getProductSeoDescription(product, seoGuidance);
+  const metaDescription = getProductMetaDescription(product, seoGuidance);
 
   return {
     title: seoGuidance.seoTitle,
