@@ -24,7 +24,7 @@ export default function AboutPage() {
           </nav>
           <h1 className="text-3xl font-black text-white tracking-tight mb-3">About Bariq Electronics</h1>
           <p className="text-[#9E9E9E] max-w-xl text-base leading-relaxed">
-            Professional LCD and LED display repair parts for technicians and repair workshops worldwide.
+            Professional LCD and LED display repair parts for technicians and repair workshops.
           </p>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function AboutPage() {
                 <h3>Our Mission</h3>
                 <p>
                   Our goal is to make professional-grade display repair parts and panel bonding supplies accessible to
-                  technicians and workshops worldwide. We also publish practical technical guides in our{" "}
+                  technicians and workshops. We also publish practical technical guides in our{" "}
                   <Link href="/learn">Learn knowledge base</Link> to help technicians verify compatibility before ordering.
                 </p>
                 <h3>How to Enquire &amp; Order</h3>
@@ -75,7 +75,7 @@ export default function AboutPage() {
                 </p>
                 <h3>Wholesale &amp; Business</h3>
                 <p>
-                  We work with TV and display repair shops, electronics distributors, training centers, and parts
+                  We welcome enquiries from TV and display repair shops, electronics distributors, training centers, and parts
                   resellers. If you are interested in bulk ordering or business partnerships, submit an enquiry on our{" "}
                   <Link href="/wholesale">Wholesale page</Link> or <Link href="/contact">Contact page</Link>.
                 </p>

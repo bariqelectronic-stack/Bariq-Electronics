@@ -117,7 +117,7 @@ export default function ContactPage() {
                   { label: "FAQ", href: "/faq" },
                   { label: "Display Repair Guides", href: "/learn" },
                   { label: "Shipping Information", href: "/shipping" },
-                  { label: "Returns Policy", href: "/returns" },
+                  { label: "Returns & Refunds", href: "/returns" },
                   { label: "Track Your Order", href: "/track-order" },
                   { label: "Wholesale Inquiries", href: "/wholesale" },
                 ].map((link) => (

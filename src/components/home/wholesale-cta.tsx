@@ -15,13 +15,13 @@ export function WholesaleCta() {
             Need Tools in Bulk?
           </h2>
           <p className="text-[#6B6B6B] text-base leading-relaxed mb-8 max-w-xl mx-auto">
-            We work with repair shops, distributors, training centers and resellers.
-            Contact us to discuss wholesale pricing, bulk orders and partnership opportunities.
+            We welcome enquiries from repair shops, distributors, training centers and resellers.
+            Contact us to discuss bulk orders and partnership opportunities.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link href="/wholesale">
               <Button size="lg" className="font-bold tracking-wide uppercase text-sm">
-                Request Wholesale Pricing <ArrowRight className="w-4 h-4 ml-1" />
+                Send Wholesale Enquiry <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <Link href="/contact">

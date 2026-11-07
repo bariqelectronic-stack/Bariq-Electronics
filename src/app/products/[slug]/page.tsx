@@ -598,9 +598,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
         {/* Shipping & returns */}
         <div className="grid sm:grid-cols-3 gap-4 mb-10">
           {[
-            { icon: "📦", title: "Shipping", desc: "Worldwide shipping available. Rates calculated at checkout.", link: "/shipping" },
-            { icon: "↩️", title: "Returns", desc: "Please review our returns policy before purchasing.", link: "/returns" },
-            { icon: "💬", title: "Wholesale Inquiry", desc: "Interested in bulk pricing? Contact our wholesale team.", link: "/wholesale" },
+            { icon: "📦", title: "Shipping", desc: "Ask us about delivery options and charges for your location.", link: "/shipping" },
+            { icon: "↩️", title: "Returns", desc: "Contact us with any questions about returns before you order.", link: "/returns" },
+            { icon: "💬", title: "Wholesale Inquiry", desc: "Buying in bulk? Send us a wholesale enquiry.", link: "/wholesale" },
           ].map((item) => (
             <div key={item.title} className="bg-white border border-[#E5E5E5] rounded-[10px] p-5">
               <div className="text-xl mb-2">{item.icon}</div>
@@ -630,14 +630,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div>
             <h3 className="font-bold text-white mb-1">Need this product in bulk?</h3>
             <p className="text-sm text-[#9E9E9E]">
-              Contact us for wholesale pricing on {product.name} and other products.
+              Contact us about bulk orders of {product.name} and other products.
             </p>
           </div>
           <Link
             href={`/wholesale?product=${encodeURIComponent(product.name)}`}
             className="flex-shrink-0 bg-[#E65C00] text-white text-sm font-bold px-5 py-2.5 rounded-[6px] hover:bg-[#CC5000] transition-colors whitespace-nowrap"
           >
-            Request Wholesale Pricing
+            Send Wholesale Enquiry
           </Link>
         </div>
       </div>

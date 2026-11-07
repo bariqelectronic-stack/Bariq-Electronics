@@ -25,7 +25,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-[#9E9E9E] text-sm leading-relaxed max-w-xs mb-6">
-              Professional LCD and LED display repair parts for technicians and repair workshops worldwide. COFS, LVDS, T-CON, ACF tape, COF cutters and more.
+              Professional LCD and LED display repair parts for technicians and repair workshops. COFS, LVDS, T-CON, ACF tape, COF cutters and more.
             </p>
             <div className="space-y-2.5">
               <a

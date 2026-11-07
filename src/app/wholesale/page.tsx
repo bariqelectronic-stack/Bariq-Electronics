@@ -40,10 +40,10 @@ const COUNTRIES = [
 ];
 
 const benefits = [
-  { icon: TrendingUp, title: "Competitive Bulk Pricing", desc: "Volume-based pricing tailored to your order size and product mix." },
+  { icon: TrendingUp, title: "Bulk Order Enquiries", desc: "Ask about pricing for your order size and product mix." },
   { icon: Package, title: "Display Repair Product Range", desc: "COFS, LVDS cables, LED & LCD boards, T-CON boards, ACF tape, ACF remover, COF cutters, and T-CON programmers." },
-  { icon: Globe, title: "International Shipping", desc: "We ship to repair distributors and businesses worldwide." },
-  { icon: Building, title: "Business Partnership", desc: "Long-term partnership arrangements for established distributors and resellers." },
+  { icon: Globe, title: "Delivery Enquiries", desc: "Tell us your location and ask about delivery options for your order." },
+  { icon: Building, title: "Business Enquiries", desc: "Tell us about your business and what you are looking for." },
 ];
 
 export default function WholesalePage() {
@@ -79,8 +79,8 @@ export default function WholesalePage() {
               Grow Your Repair Business With Bariq Electronics
             </h1>
             <p className="text-[#9E9E9E] text-base leading-relaxed">
-              Professional bulk pricing for repair shops, distributors, resellers, and training centers.
-              Contact us to discuss partnership opportunities and wholesale arrangements.
+              Send us an enquiry if you are a repair shop, distributor, reseller, or training center, and our team
+              can discuss your requirements.
             </p>
           </div>
         </div>
@@ -110,16 +110,14 @@ export default function WholesalePage() {
           {/* Info */}
           <div className="space-y-5">
             <div className="bg-white border border-[#E5E5E5] rounded-[10px] p-5">
-              <h3 className="font-bold text-[#0A0A0A] mb-3 text-sm">What We Offer</h3>
+              <h3 className="font-bold text-[#0A0A0A] mb-3 text-sm">What You Can Ask About</h3>
               <ul className="space-y-2">
                 {[
-                  "Wholesale pricing on all product lines",
-                  "Bulk order arrangements",
-                  "Reseller & distributor programs",
-                  "Priority stock allocation",
-                  "Flexible payment terms (negotiable)",
-                  "Technical product support",
-                  "International shipping",
+                  "Bulk order pricing",
+                  "Reseller and distributor enquiries",
+                  "Product availability",
+                  "Payment and delivery options",
+                  "Technical product questions",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2 text-sm text-[#6B6B6B]">
                     <Check className="w-3.5 h-3.5 text-[#E65C00] mt-0.5 flex-shrink-0" />
@@ -158,7 +156,7 @@ export default function WholesalePage() {
                   </div>
                   <h3 className="text-lg font-black text-[#0A0A0A] mb-2">Inquiry Submitted</h3>
                   <p className="text-sm text-[#6B6B6B] max-w-sm mx-auto">
-                    We&apos;ve received your wholesale inquiry. Our team will review it and contact you at <strong>{form.email}</strong> within 1–2 business days.
+                    We&apos;ve received your wholesale inquiry. Our team will review it and contact you at <strong>{form.email}</strong>.
                   </p>
                 </div>
               ) : (

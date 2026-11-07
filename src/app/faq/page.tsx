@@ -91,37 +91,37 @@ const faqs = [
   },
   {
     q: "What payment methods are accepted?",
-    a: "We currently accept bank transfer and WhatsApp-arranged payment. Online payment (Stripe, PayPal) integration is planned. Contact us to discuss options.",
+    a: "Available payment options can depend on your order. Please contact us and we'll confirm the options for your order.",
     links: [
       { label: "Contact Support", href: "/contact" },
     ],
   },
   {
-    q: "Do you ship internationally?",
-    a: "Yes, we ship worldwide. Shipping rates and delivery times are calculated at checkout or confirmed with your order.",
+    q: "Can you deliver to my location?",
+    a: "Delivery availability, charges and timing depend on your location and order. Please contact us with your location and the items you need, and we'll confirm the options.",
     links: [
       { label: "Shipping Information", href: "/shipping" },
     ],
   },
   {
     q: "How do I track my order?",
-    a: "Once your order is shipped, you'll receive tracking information. You can also use the Track Order page with your order number and email.",
+    a: "Contact us with your order number if you have a question about your order's status. You can also try the Track Order page with your order number and email.",
     links: [
       { label: "Track Order", href: "/track-order" },
     ],
   },
   {
-    q: "What is your return policy?",
-    a: "Please review our returns policy page for full details on returns and exchanges. Contact us if you have a specific question.",
+    q: "Can I return an item?",
+    a: "Please contact us with your order number and the reason before sending anything back, and we'll confirm the options for your order.",
     links: [
-      { label: "Returns Policy", href: "/returns" },
+      { label: "Returns & Refunds", href: "/returns" },
     ],
   },
   {
-    q: "Do you offer wholesale pricing?",
-    a: "Yes. We work with repair shops, distributors and resellers. Submit a wholesale inquiry with your business details and we'll be in touch.",
+    q: "How do I enquire about bulk or wholesale orders?",
+    a: "Submit a wholesale enquiry with your business details and the products you need, and our team can discuss your requirements.",
     links: [
-      { label: "Request Wholesale Pricing", href: "/wholesale" },
+      { label: "Wholesale Enquiries", href: "/wholesale" },
     ],
   },
 ];
