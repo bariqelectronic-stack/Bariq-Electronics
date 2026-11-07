@@ -212,7 +212,6 @@ export default function CheckoutPage() {
 
                 <div className="bg-[#F7F7F7] border border-[#E5E5E5] rounded-[8px] p-4 mb-5 text-xs text-[#6B6B6B]">
                   <strong>Note:</strong> We currently accept Bank Transfer, Cash on Delivery, and WhatsApp-arranged payments.
-                  JazzCash and EasyPaisa integration can be activated — see <code>.env.example</code> for setup.
                 </div>
 
                 <div className="flex gap-3">
