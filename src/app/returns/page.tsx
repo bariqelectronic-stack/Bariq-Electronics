@@ -3,7 +3,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig, getWhatsAppLink } from "@/lib/config";
 
-export const metadata: Metadata = { title: "Returns Policy" };
+export const metadata: Metadata = {
+  title: "Returns Policy",
+  description:
+    "Returns information for Bariq Electronics LCD and LED display repair parts, and how to contact us about a return.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/returns",
+  },
+};
 
 export default function ReturnsPage() {
   return (

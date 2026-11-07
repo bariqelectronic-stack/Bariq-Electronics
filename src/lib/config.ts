@@ -18,7 +18,7 @@ export const siteConfig = {
   whatsappNumber: "923009445230",
 
   // ── Site URL ───────────────────────────────────────────────────────────────
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://bariqelectronics.com",
+  url: "https://www.bariqelectronics.com",
 
   // ── Commerce ───────────────────────────────────────────────────────────────
   currency: "PKR",

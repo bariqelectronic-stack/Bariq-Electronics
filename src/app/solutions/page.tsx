@@ -4,8 +4,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Solutions — LCD & LED Display Repair",
-  description: "Professional LCD and LED display repair solutions for technicians — LCD panel repair, LED display repair, COF & ACF repair, and display board repair.",
+  title: "Solutions — LCD & LED Display Repair Workflows",
+  description:
+    "Professional LCD and LED display repair solutions for technicians — LCD panel repair, LED display repair, COF & ACF bonding repair, and display board repair.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/solutions",
+  },
 };
 
 const solutions = [

@@ -30,8 +30,8 @@ const articles = [
   },
   {
     slug: "understanding-lvds-cables",
-    title: "Understanding LVDS Cables and Display Connections",
-    excerpt: "A guide to LVDS connectors, cable configurations and compatibility for LCD and LED display repair and board replacement work.",
+    title: "LVDS Cable Guide: Connectors, Pinouts & Compatibility",
+    excerpt: "Learn how to check LVDS cable connectors, pinouts, length and display-board compatibility before selecting a replacement for LCD or LED display repairs.",
     category: "Technical Guides",
     readTime: "4 min read",
     emoji: "🔗",

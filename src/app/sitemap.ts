@@ -8,7 +8,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dbCategories = await getCategories();
   const categoryPages = dbCategories.map((c) => ({
     url: `${BASE_URL}/categories/${c.slug}`,
-    lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
@@ -35,7 +34,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "acf-tape-application-guide",
   ].map((slug) => ({
     url: `${BASE_URL}/learn/${slug}`,
-    lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
@@ -44,23 +42,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "lcd-panel-repair", "led-display-repair", "cof-acf-repair", "display-board-repair",
   ].map((slug) => ({
     url: `${BASE_URL}/solutions/${slug}`,
-    lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
   return [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
-    { url: `${BASE_URL}/shop`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${BASE_URL}/categories`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/solutions`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/learn`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
-    { url: `${BASE_URL}/wholesale`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/shipping`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
-    { url: `${BASE_URL}/returns`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
+    { url: BASE_URL, changeFrequency: "daily", priority: 1 },
+    { url: `${BASE_URL}/shop`, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE_URL}/categories`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/solutions`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/learn`, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE_URL}/wholesale`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/about`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/faq`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/shipping`, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${BASE_URL}/returns`, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${BASE_URL}/terms`, changeFrequency: "yearly", priority: 0.2 },
     ...categoryPages,
     ...productPages,
     ...learnPages,

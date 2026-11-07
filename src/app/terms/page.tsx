@@ -4,8 +4,11 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Bariq Electronics",
+  title: "Terms of Service",
   description: "Terms and conditions for purchasing from Bariq Electronics.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/terms",
+  },
 };
 
 const LAST_UPDATED = "August 1, 2025";

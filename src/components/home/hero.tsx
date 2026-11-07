@@ -33,11 +33,11 @@ export async function Hero() {
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
-            Empowering Businesses Worldwide with Advanced Display Technology
+            Empowering Businesses with Advanced Display Technology
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg text-[#9E9E9E] max-w-2xl mb-10 leading-relaxed">Supplying state-of-the-art laser &amp; bonding machine, complete hardware support, High quality accessories,free professional training.</p>
+          <p className="text-lg text-[#9E9E9E] max-w-2xl mb-10 leading-relaxed">Supplying state-of-the-art laser &amp; bonding machine, hardware support, and high quality accessories. Ask us about professional training.</p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
@@ -59,8 +59,8 @@ export async function Hero() {
             {[
               "Precision Engineered",
               "Technician Focused",
-              "Worldwide Shipping",
-              "Wholesale Available",
+              "Delivery Enquiries Welcome",
+              "Wholesale Enquiries Welcome",
             ].map((item) => (
               <div key={item} className="flex items-center gap-2">
                 <div className="w-1 h-1 rounded-full bg-[#E65C00]" />

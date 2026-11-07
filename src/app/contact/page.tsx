@@ -102,12 +102,22 @@ export default function ContactPage() {
 
             {/* Useful links */}
             <div className="bg-white border border-[#E5E5E5] rounded-[10px] p-5">
+              <h3 className="font-semibold text-[#0A0A0A] text-sm mb-2">How to Enquire About Compatibility</h3>
+              <p className="text-xs text-[#6B6B6B] leading-relaxed mb-3">
+                For faster assistance with <Link href="/products/lvds" className="text-[#E65C00] hover:underline">LVDS cables</Link>,{" "}
+                <Link href="/products/t-con" className="text-[#E65C00] hover:underline">T-CON boards</Link>,{" "}
+                <Link href="/products/cofs" className="text-[#E65C00] hover:underline">COFs</Link>,{" "}
+                <Link href="/products/acf-tape" className="text-[#E65C00] hover:underline">ACF tape</Link>,{" "}
+                <Link href="/products/acf-remover" className="text-[#E65C00] hover:underline">ACF remover</Link>, or{" "}
+                <Link href="/products/cof-cutter" className="text-[#E65C00] hover:underline">COF cutters</Link>, include your display panel model number, board part number, or connector pin count in your WhatsApp or form message.
+              </p>
               <h3 className="font-semibold text-[#0A0A0A] text-sm mb-3">Quick Links</h3>
               <ul className="space-y-2">
                 {[
                   { label: "FAQ", href: "/faq" },
+                  { label: "Display Repair Guides", href: "/learn" },
                   { label: "Shipping Information", href: "/shipping" },
-                  { label: "Returns Policy", href: "/returns" },
+                  { label: "Returns & Refunds", href: "/returns" },
                   { label: "Track Your Order", href: "/track-order" },
                   { label: "Wholesale Inquiries", href: "/wholesale" },
                 ].map((link) => (

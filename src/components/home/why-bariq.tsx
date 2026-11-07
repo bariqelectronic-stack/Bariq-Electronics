@@ -9,13 +9,13 @@ const reasons = [
   },
   {
     icon: Package,
-    title: "Wholesale Friendly",
-    desc: "We work with repair shops, distributors and resellers. Contact us for competitive bulk pricing on all products.",
+    title: "Wholesale Enquiries",
+    desc: "We welcome enquiries from repair shops, distributors and resellers. Contact us about bulk orders.",
   },
   {
     icon: Globe,
-    title: "Worldwide Delivery",
-    desc: "We ship internationally. Get your tools delivered to your workshop wherever you are.",
+    title: "Delivery Enquiries",
+    desc: "Tell us your location and ask about delivery options for your order.",
   },
   {
     icon: Headphones,
@@ -42,7 +42,7 @@ export function WhyBariq() {
             </h2>
             <p className="text-[#6B6B6B] leading-relaxed mb-8">
               We focus on professional repair tools for technicians, workshops and businesses.
-              Our goal is to make the right equipment accessible to repair professionals worldwide.
+              Our goal is to make the right equipment accessible to repair professionals.
             </p>
             <div className="border-l-2 border-[#E65C00] pl-5">
               <p className="text-sm text-[#3D3D3D] italic leading-relaxed">

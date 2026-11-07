@@ -4,8 +4,11 @@ import Link from "next/link";
 import { siteConfig, getWhatsAppLink } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Bariq Electronics",
+  title: "Privacy Policy",
   description: "How Bariq Electronics collects, uses, and protects your personal information.",
+  alternates: {
+    canonical: "https://www.bariqelectronics.com/privacy",
+  },
 };
 
 const LAST_UPDATED = "August 1, 2025";
