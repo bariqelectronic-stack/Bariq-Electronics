@@ -34,6 +34,18 @@ export function getProductSeoDescription(
   return product.shortDescription || description || guidance.metaDescription;
 }
 
+// Search-snippet text for listings whose owner copy is too long for a meta description.
+const META_DESCRIPTION_OVERRIDES: Record<string, string> = {
+  lvds: "LVDS display cable from Bariq Electronics for LCD and LED repair. Match the connector, pin count and cable length, and contact us to confirm compatibility.",
+};
+
+export function getProductMetaDescription(
+  product: Pick<Product, "slug" | "shortDescription" | "description">,
+  guidance: Pick<ProductSeoGuidance, "metaDescription">,
+): string {
+  return META_DESCRIPTION_OVERRIDES[product.slug] ?? getProductSeoDescription(product, guidance);
+}
+
 export function getProductSeoGuidance(product: GuidanceInput): ProductSeoGuidance {
   const guidance = buildGuidance(product);
   // Many listings share one name, so the SKU is the only honest differentiator when it exists.
