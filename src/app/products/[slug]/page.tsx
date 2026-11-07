@@ -246,7 +246,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <div className="w-full h-full flex flex-col items-center justify-center text-[#BDBDBD]">
                   <Package className="w-16 h-16 mb-3" />
                   <p className="text-sm">No image yet</p>
-                  <p className="text-xs text-[#9E9E9E] mt-1">Add images in admin panel</p>
                 </div>
               )}
               {product.isDemo && (
@@ -312,8 +311,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               ) : (
                 <div className="bg-[#F7F7F7] border border-[#E5E5E5] rounded-[8px] px-4 py-3">
                   <p className="text-sm text-[#6B6B6B]">
-                    Price not set — configure in{" "}
-                    <Link href="/admin/products" className="text-[#E65C00] underline">admin panel</Link>
+                    Contact us for pricing and product compatibility.
                   </p>
                 </div>
               )}
